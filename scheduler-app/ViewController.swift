@@ -14,7 +14,9 @@ class ViewController: UIViewController {
     
     var phoneNum: String = ""
 
+    @IBOutlet weak var phoneNumberField: UITextField!
     @IBOutlet weak var signUpBtn: UIButton!
+    @IBOutlet weak var passwordField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,64 @@ class ViewController: UIViewController {
 
     @IBAction func signUpBtnPress(sender: UIButton!) {
         didTapButton(UIButton)
+    }
+    @IBAction func logInBtnPress(sender: AnyObject) {
+        if let pNum = phoneNumberField.text where pNum != "", let pwd = passwordField.text where pwd != "" {
+            let tempphoneNumber = pNum.substringFromIndex((pNum).startIndex.advancedBy(1))
+            let email = "\(tempphoneNumber)@random.com"
+            print(email)
+            
+            DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { error, authData in
+                
+                if error != nil {
+                    
+                    print(error)
+                    
+//                    if error.code == STATUS_ACCOUNT_NONEXIST {
+//                        DataService.ds.REF_BASE.createUser(email, password: pwd, withValueCompletionBlock: { error, result in
+//                            
+//                            if (error != nil){
+//                                print(error)
+//                                self.showErrorAlert("Could not create account", msg: "Please try again with different field entry.")
+//                            }
+//                            else {
+//                                NSUserDefaults.standardUserDefaults().setValue(result["uid"], forKey: "uid")
+//                                
+//                                DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: {
+//                                    err, authData in
+//                                    let user = ["phone number": self.phoneNumber.text!]
+//                                    DataService.ds.createFirebaseUser(authData.uid, user: user)
+//                                })
+//                                
+//                                self.performSegueWithIdentifier("goToSyncOptions", sender: nil)
+//                            }
+//                            
+//                        })
+//                    }
+//                        
+//                    else {
+//                        self.showErrorAlert("Could not log in.", msg: "Please enter valid email / password.")
+//                    }
+//                    
+                }
+                else {
+                    self.performSegueWithIdentifier("loggedIn", sender: nil)
+                }
+            })
+            
+        }
+        else{
+            showErrorAlert("Email and password required", msg: "You must enter an email and a password.")
+        }
+
+        
+    }
+    
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated:true, completion: nil)
     }
     
     @IBAction func logOutBtnPress(sender: AnyObject) {

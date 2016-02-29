@@ -34,7 +34,11 @@ class SignUpPageController: UIViewController {
     }
     
     @IBAction func attemptLogin(sender: UIButton!) {
-        if let email = phoneNumber.text where email != "", let pwd = passwordField.text where pwd != "" {
+        let tempphoneNumber1 = phoneNumber.text
+        let tempphoneNumber = tempphoneNumber1!.substringFromIndex((phoneNumber.text)!.startIndex.advancedBy(1))
+        let email = "\(tempphoneNumber)@random.com"
+        print(email)
+        if let pwd = passwordField.text where pwd != "" {
             
             DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { error, authData in
                 
@@ -45,13 +49,19 @@ class SignUpPageController: UIViewController {
                     if error.code == STATUS_ACCOUNT_NONEXIST {
                         DataService.ds.REF_BASE.createUser(email, password: pwd, withValueCompletionBlock: { error, result in
                             
-                            if error != nil{
+                            if (error != nil){
+                                print(error)
                                 self.showErrorAlert("Could not create account", msg: "Please try again with different field entry.")
                             }
                             else {
                                 NSUserDefaults.standardUserDefaults().setValue(result["uid"], forKey: "uid")
+                            
+                                DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: {
+                                    err, authData in
+                                    let user = ["phone number": self.phoneNumber.text!]
+                                    DataService.ds.createFirebaseUser(authData.uid, user: user)
+                                })
                                 
-                                DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: nil)
                                 self.performSegueWithIdentifier("goToSyncOptions", sender: nil)
                             }
                             
