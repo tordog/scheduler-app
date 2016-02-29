@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4DE0DE76184BD72D4F8F935 /* Pods_scheduler_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA11B6D06481D0340DC47BD8 /* Pods_scheduler_app.framework */; };
 		F3328DE11C8399C100E5AFE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328DE01C8399C100E5AFE5 /* AppDelegate.swift */; };
 		F3328DE31C8399C100E5AFE5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328DE21C8399C100E5AFE5 /* ViewController.swift */; };
 		F3328DE61C8399C100E5AFE5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3328DE41C8399C100E5AFE5 /* Main.storyboard */; };
@@ -14,6 +15,7 @@
 		F3328DEB1C8399C100E5AFE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3328DE91C8399C100E5AFE5 /* LaunchScreen.storyboard */; };
 		F3328DF61C8399C100E5AFE5 /* scheduler_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328DF51C8399C100E5AFE5 /* scheduler_appTests.swift */; };
 		F3328E011C8399C100E5AFE5 /* scheduler_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328E001C8399C100E5AFE5 /* scheduler_appUITests.swift */; };
+		F3328E111C839A2400E5AFE5 /* Dataservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328E101C839A2400E5AFE5 /* Dataservice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41327A2D1D6E7DB8CC206553 /* Pods-scheduler-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scheduler-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-scheduler-app/Pods-scheduler-app.release.xcconfig"; sourceTree = "<group>"; };
+		B67E7E8979E029ED94E7BBCF /* Pods-scheduler-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scheduler-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-scheduler-app/Pods-scheduler-app.debug.xcconfig"; sourceTree = "<group>"; };
+		DA11B6D06481D0340DC47BD8 /* Pods_scheduler_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scheduler_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3328DDD1C8399C100E5AFE5 /* scheduler-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "scheduler-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3328DE01C8399C100E5AFE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3328DE21C8399C100E5AFE5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 		F3328DFC1C8399C100E5AFE5 /* scheduler-appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "scheduler-appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3328E001C8399C100E5AFE5 /* scheduler_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scheduler_appUITests.swift; sourceTree = "<group>"; };
 		F3328E021C8399C100E5AFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3328E101C839A2400E5AFE5 /* Dataservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dataservice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4DE0DE76184BD72D4F8F935 /* Pods_scheduler_app.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +81,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		60A89CF2A2FCA4CDE07248FD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DA11B6D06481D0340DC47BD8 /* Pods_scheduler_app.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		78F2F9FD10F02D31E70AE3BB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B67E7E8979E029ED94E7BBCF /* Pods-scheduler-app.debug.xcconfig */,
+				41327A2D1D6E7DB8CC206553 /* Pods-scheduler-app.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F3328DD41C8399C000E5AFE5 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +105,8 @@
 				F3328DF41C8399C100E5AFE5 /* scheduler-appTests */,
 				F3328DFF1C8399C100E5AFE5 /* scheduler-appUITests */,
 				F3328DDE1C8399C100E5AFE5 /* Products */,
+				78F2F9FD10F02D31E70AE3BB /* Pods */,
+				60A89CF2A2FCA4CDE07248FD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,6 +123,8 @@
 		F3328DDF1C8399C100E5AFE5 /* scheduler-app */ = {
 			isa = PBXGroup;
 			children = (
+				F3328E0F1C839A0900E5AFE5 /* Services */,
+				F3328E0E1C839A0400E5AFE5 /* Util */,
 				F3328DE01C8399C100E5AFE5 /* AppDelegate.swift */,
 				F3328DE21C8399C100E5AFE5 /* ViewController.swift */,
 				F3328DE41C8399C100E5AFE5 /* Main.storyboard */,
@@ -125,6 +153,21 @@
 			path = "scheduler-appUITests";
 			sourceTree = "<group>";
 		};
+		F3328E0E1C839A0400E5AFE5 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		F3328E0F1C839A0900E5AFE5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3328E101C839A2400E5AFE5 /* Dataservice.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +175,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F3328E051C8399C100E5AFE5 /* Build configuration list for PBXNativeTarget "scheduler-app" */;
 			buildPhases = (
+				C8ABFB86184D71F0B5264B35 /* Check Pods Manifest.lock */,
 				F3328DD91C8399C000E5AFE5 /* Sources */,
 				F3328DDA1C8399C000E5AFE5 /* Frameworks */,
 				F3328DDB1C8399C000E5AFE5 /* Resources */,
+				0FB23B541A65CC226B768DD8 /* Embed Pods Frameworks */,
+				749D616DFAD496FCD24ABAC8 /* Copy Pods Resources */,
+				F35C94AF1C83BDCF00D820D9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -251,6 +298,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0FB23B541A65CC226B768DD8 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-scheduler-app/Pods-scheduler-app-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		749D616DFAD496FCD24ABAC8 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-scheduler-app/Pods-scheduler-app-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8ABFB86184D71F0B5264B35 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F35C94AF1C83BDCF00D820D9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 918213c2563a17c73c8fc73e9efe21babd0ec4c0 da5408f31c0fd5a1d2ead39dc7ce4aa516192c9d0cc43342a6452c2b241690fe";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F3328DD91C8399C000E5AFE5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -258,6 +366,7 @@
 			files = (
 				F3328DE31C8399C100E5AFE5 /* ViewController.swift in Sources */,
 				F3328DE11C8399C100E5AFE5 /* AppDelegate.swift in Sources */,
+				F3328E111C839A2400E5AFE5 /* Dataservice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +506,7 @@
 		};
 		F3328E061C8399C100E5AFE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B67E7E8979E029ED94E7BBCF /* Pods-scheduler-app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "scheduler-app/Info.plist";
@@ -408,6 +518,7 @@
 		};
 		F3328E071C8399C100E5AFE5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41327A2D1D6E7DB8CC206553 /* Pods-scheduler-app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "scheduler-app/Info.plist";
@@ -484,6 +595,7 @@
 				F3328E071C8399C100E5AFE5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F3328E081C8399C100E5AFE5 /* Build configuration list for PBXNativeTarget "scheduler-appTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +604,7 @@
 				F3328E0A1C8399C100E5AFE5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F3328E0B1C8399C100E5AFE5 /* Build configuration list for PBXNativeTarget "scheduler-appUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +613,7 @@
 				F3328E0D1C8399C100E5AFE5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DigitsKit
 
 class ViewController: UIViewController {
 
@@ -20,6 +21,22 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func signUpBtnPress(sender: UIButton!) {
+        didTapButton(UIButton)
+    }
+    
+    @IBAction func logOutBtnPress(sender: AnyObject) {
+        Digits.sharedInstance().logOut()    
+    }
+    func didTapButton(sender: AnyObject) {
+        let digits = Digits.sharedInstance()
+        let configuration = DGTAuthenticationConfiguration(accountFields: .DefaultOptionMask)
+        configuration.phoneNumber = "+1"
+        digits.authenticateWithViewController(nil, configuration: configuration) { session, error in
+            // Country selector will be set to US
+            
+        }
+    }
 
 }
 

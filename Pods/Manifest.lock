@@ -1,0 +1,21 @@
+PODS:
+  - Digits (1.15.1):
+    - TwitterCore (= 1.15.1)
+  - Fabric (1.6.6)
+  - Firebase (2.5.1)
+  - TwitterCore (1.15.1):
+    - Fabric
+
+DEPENDENCIES:
+  - Digits
+  - Fabric
+  - Firebase (>= 2.5.0)
+  - TwitterCore
+
+SPEC CHECKSUMS:
+  Digits: 369c517143ab4f9f35d77628540493a2042f8cc2
+  Fabric: 1abc1e59f11fa39ede6f690ef7309d8563e3ec59
+  Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
+  TwitterCore: 12983a7464e34afbbf18881347898a9db526ac71
+
+COCOAPODS: 0.39.0
