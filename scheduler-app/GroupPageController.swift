@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import DigitsKit
+import Firebase
 
 class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -17,6 +19,15 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
         self.performSegueWithIdentifier("toCreateGroup", sender: nil)
     }
     
+//    @IBAction func logOutBtnPress(sender: AnyObject) {
+//        Digits.sharedInstance().logOut()
+//        print("logging out!")
+//        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
+//            print(NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID))
+//        }
+//    }
+    var randArray = ["Hello", "Torie", "How", "Are", "You"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,17 +37,24 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.dataSource = self
     }
     
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        print("hi")
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        print(randArray.count)
+        return randArray.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //return UITableViewCell()
-        return tableView.dequeueReusableCellWithIdentifier("GroupCell") as! GroupCell
+            print("torie")
+        let cell = tableView.dequeueReusableCellWithIdentifier("GroupCell") as! GroupCell
+        
+        cell.textLabel?.text = randArray[indexPath.row]
+        
+        return cell
     }
 
 }

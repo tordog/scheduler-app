@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var members: [String] = []
@@ -27,10 +28,19 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         //add phone number to list
         members.append((phoneNumberToAdd.text)!)
         phoneNumberToAdd.text = ""
+        
+        tableView.reloadData()
     }
     
     @IBAction func createGroupBtnPress(sender: AnyObject) {
         self.performSegueWithIdentifier("toAdminSetup", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "toAdminSetup"){
+            let svc = segue.destinationViewController as! AdminSetupVC;
+            svc.membersToPass = members
+        }
     }
     
     override func viewDidLoad() {
@@ -45,12 +55,20 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(members.count)
         return members.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //return UITableViewCell()
-        return tableView.dequeueReusableCellWithIdentifier("AddMemberCell") as! AddMemberCell
+        print("entering correctly")
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("AddMemberCell") as! AddMemberCell
+        
+        cell.textLabel?.text = members[indexPath.row]
+        
+        return cell
+        //return tableView.dequeueReusableCellWithIdentifier("AddMemberCell") as! AddMemberCell
     }
     
 }

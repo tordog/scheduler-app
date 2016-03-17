@@ -22,6 +22,18 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
+            print("Would have logged in")
+            print(NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID))
+            self.performSegueWithIdentifier("loggedIn", sender: nil)
+        }else{
+            print("Would not have logged in")
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -50,35 +62,18 @@ class ViewController: UIViewController {
                     
                     print(error)
                     
-//                    if error.code == STATUS_ACCOUNT_NONEXIST {
-//                        DataService.ds.REF_BASE.createUser(email, password: pwd, withValueCompletionBlock: { error, result in
-//                            
-//                            if (error != nil){
-//                                print(error)
-//                                self.showErrorAlert("Could not create account", msg: "Please try again with different field entry.")
-//                            }
-//                            else {
-//                                NSUserDefaults.standardUserDefaults().setValue(result["uid"], forKey: "uid")
-//                                
-//                                DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: {
-//                                    err, authData in
-//                                    let user = ["phone number": self.phoneNumber.text!]
-//                                    DataService.ds.createFirebaseUser(authData.uid, user: user)
-//                                })
-//                                
-//                                self.performSegueWithIdentifier("goToSyncOptions", sender: nil)
-//                            }
-//                            
-//                        })
-//                    }
-//                        
-//                    else {
-//                        self.showErrorAlert("Could not log in.", msg: "Please enter valid email / password.")
-//                    }
-//                    
+                    if error.code == STATUS_ACCOUNT_NONEXIST {
+                        self.showErrorAlert("Account does not exist", msg: "Account with specified phone number does not exist. Sign up with this phone number to proceed.")
+                    }
+                    else{
+                        self.showErrorAlert("Could not login", msg: "Please check your username or password.")
+                    }
+                                      
                 }
                 else {
+                    NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
                     self.performSegueWithIdentifier("loggedIn", sender: nil)
+                    
                 }
             })
             
@@ -99,6 +94,7 @@ class ViewController: UIViewController {
     
     @IBAction func logOutBtnPress(sender: AnyObject) {
         Digits.sharedInstance().logOut()
+        NSUserDefaults.standardUserDefaults().setValue(nil, forKey: KEY_UID)
     }
     
     func didTapButton(sender: AnyObject) {

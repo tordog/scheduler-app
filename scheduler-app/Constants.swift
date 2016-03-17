@@ -11,3 +11,4 @@ import UIKit
 
 //Status Codes
 let STATUS_ACCOUNT_NONEXIST = -8
+let KEY_UID = "uid"

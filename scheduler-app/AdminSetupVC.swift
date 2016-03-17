@@ -10,6 +10,8 @@ import UIKit
 
 class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var membersToPass: [String]!
+    var members: [String]!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func saveBtnPress(sender: AnyObject) {
         self.performSegueWithIdentifier("backToGroups", sender: nil)
@@ -17,7 +19,8 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        members = membersToPass
+        print(members)
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -27,12 +30,14 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return members.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //return UITableViewCell()
-        return tableView.dequeueReusableCellWithIdentifier("selectAdmin") as! listMembersSelectAdmin
+        let cell = tableView.dequeueReusableCellWithIdentifier("selectAdmin") as! listMembersSelectAdmin
+        cell.textLabel?.text = members[indexPath.row]
+        return cell
     }
 
 }
