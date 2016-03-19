@@ -58,8 +58,14 @@ class SignUpPageController: UIViewController {
                             
                                 DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: {
                                     err, authData in
+                                    //let temp = authData.uid as String
                                     let user = ["phone number": self.phoneNumber.text!]
                                     DataService.ds.createFirebaseUser(authData.uid, user: user)
+                                    //then, create a separate structure of just phone numbers
+                                    let numberRef = DataService.ds.REF_PNUMBERS.childByAppendingPath(self.phoneNumber.text)
+                                    let userInfo = ["uid": authData.uid]
+                                    numberRef.setValue(userInfo)
+                                    
                                 })
                                 
                                 self.performSegueWithIdentifier("goToSyncOptions", sender: nil)

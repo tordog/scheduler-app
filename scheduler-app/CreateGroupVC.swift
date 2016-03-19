@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Firebase
 
 
 class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var members: [String] = []
+    var members = [String: String]()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var groupName: UITextField!
@@ -22,15 +23,39 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     @IBAction func addMember(sender: AnyObject) {
-        //check that this number is in our database!
-        //retrieve the userID
-        //add userID to array
-        //add phone number to list
-        members.append((phoneNumberToAdd.text)!)
-        phoneNumberToAdd.text = ""
-        
+        //check that phone number exists in REF_PNUMBERS
+        if let phoneNum = self.phoneNumberToAdd.text {
+            let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(phoneNum)")
+            ref.observeEventType(.Value, withBlock: { snapshot in
+                if !snapshot.exists() {
+                    self.showErrorAlert("Phone number not recognized", msg: "Please ensure that the information entered is correct. The phone number entered is either incorrect, or the user is not registered with TimeSlots.")
+                } else {
+                    //get user's uid
+                    ref.observeEventType(.ChildAdded, withBlock: { snapshot in
+                        if let addUID = snapshot.value["uid"] {
+                            self.members[phoneNum]=addUID as? String
+                        }
+                        else{
+                            self.showErrorAlert("Internal error occurred", msg: "There is an error with this user's account. Please try again later.")
+                        }
+                        //print(snapshot.value)
+                    })
+                    //I should also keep an array of phone numbers + uid's to make this easier in the future. so find uid field in phone number, yeah.
+                }
+                }, withCancelBlock: { error in
+                    print(error.description)
+            })
+            
+
+        }
+        else {
+            showErrorAlert("Please enter a valid contact number", msg: "")
+        }
+        self.phoneNumberToAdd.text=""
+    
         tableView.reloadData()
     }
+    
     
     @IBAction func createGroupBtnPress(sender: AnyObject) {
         self.performSegueWithIdentifier("toAdminSetup", sender: nil)
@@ -40,12 +65,12 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         if(segue.identifier == "toAdminSetup"){
             let svc = segue.destinationViewController as! AdminSetupVC;
             svc.membersToPass = members
+            svc.nameToPass = groupName.text
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -60,15 +85,17 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //return UITableViewCell()
-        print("entering correctly")
-        
+        var keys = Array(members.keys)
         let cell = tableView.dequeueReusableCellWithIdentifier("AddMemberCell") as! AddMemberCell
-        
-        cell.textLabel?.text = members[indexPath.row]
-        
+        cell.textLabel?.text = keys[indexPath.row]
         return cell
-        //return tableView.dequeueReusableCellWithIdentifier("AddMemberCell") as! AddMemberCell
     }
-    
+
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated:true, completion: nil)
+    }
+
 }

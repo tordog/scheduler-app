@@ -401,7 +401,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="logOutBtnPress:" destination="TfT-va-Sc9" eventType="touchUpInside" id="Njp-YY-mFY"/>
+                                            <action selector="logoutBtnPress:" destination="TfT-va-Sc9" eventType="touchUpInside" id="WwZ-WU-ske"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -479,11 +479,12 @@
                         <outlet property="noGroupsText" destination="gcA-Rf-i30" id="M6M-Ea-bzT"/>
                         <outlet property="tableView" destination="5g2-rT-ybV" id="0DM-7z-AxE"/>
                         <segue destination="eOE-7P-uz3" kind="show" identifier="toCreateGroup" id="Qyy-1e-55i"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="backToSignUp" id="Ehu-T0-M3M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8gd-57-YrO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1635" y="1212"/>
+            <point key="canvasLocation" x="295" y="1224"/>
         </scene>
         <!--Create GroupVC-->
         <scene sceneID="vyk-XI-1XX">
@@ -825,5 +826,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="X67-Yh-pw6"/>
+        <segue reference="Ehu-T0-M3M"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -19,6 +19,12 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
         self.performSegueWithIdentifier("toCreateGroup", sender: nil)
     }
     
+    @IBAction func logoutBtnPress(sender: AnyObject) {
+        Digits.sharedInstance().logOut()
+        NSUserDefaults.standardUserDefaults().setValue(nil, forKey: KEY_UID)
+        self.performSegueWithIdentifier("backToSignUp", sender: nil)
+    }
+    
 //    @IBAction func logOutBtnPress(sender: AnyObject) {
 //        Digits.sharedInstance().logOut()
 //        print("logging out!")
@@ -39,7 +45,6 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        print("hi")
         return 1
     }
     
@@ -49,7 +54,6 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            print("torie")
         let cell = tableView.dequeueReusableCellWithIdentifier("GroupCell") as! GroupCell
         
         cell.textLabel?.text = randArray[indexPath.row]

@@ -27,11 +27,8 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
-            print("Would have logged in")
             print(NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID))
             self.performSegueWithIdentifier("loggedIn", sender: nil)
-        }else{
-            print("Would not have logged in")
         }
     }
 

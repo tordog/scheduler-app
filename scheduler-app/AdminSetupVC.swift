@@ -7,19 +7,39 @@
 //
 
 import UIKit
+import Firebase
 
 class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    var membersToPass: [String]!
-    var members: [String]!
+    var membersToPass = [String: String]()
+    var nameToPass: String!
+    var memberPhoneNumbers: [String] = []
+    var members = [String: String]()
     @IBOutlet weak var tableView: UITableView!
+    
     @IBAction func saveBtnPress(sender: AnyObject) {
+        //save group to Groups
+        let newGroup = DataService.ds.REF_GROUPS.childByAutoId()
+        newGroup.setValue(nameToPass)
+        //save group to user
+        let ref = Firebase(url:"https://scheduler-base.firebaseio.com/users")
+        //this is unnecessary, just loop through our members and find users/uid, then add groupuid: false to groups. (admin)
+        for member in members {
+            ref.observeEventType(.ChildAdded, withBlock: { snapshot in
+                if member == snapshot.value["phone number"] as! String {
+                    print("found member \(member)")
+                }
+            }, withCancelBlock: { error in
+                print(error.description)
+            })
+        }
+        
         self.performSegueWithIdentifier("backToGroups", sender: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         members = membersToPass
+        memberPhoneNumbers = Array(members.keys)
         print(members)
         tableView.delegate = self
         tableView.dataSource = self
@@ -36,7 +56,7 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //return UITableViewCell()
         let cell = tableView.dequeueReusableCellWithIdentifier("selectAdmin") as! listMembersSelectAdmin
-        cell.textLabel?.text = members[indexPath.row]
+        cell.textLabel?.text = memberPhoneNumbers[indexPath.row]
         return cell
     }
 
