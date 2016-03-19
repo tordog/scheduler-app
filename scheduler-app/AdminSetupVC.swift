@@ -20,17 +20,17 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         //save group to Groups
         let newGroup = DataService.ds.REF_GROUPS.childByAutoId()
         newGroup.setValue(nameToPass)
+        let groupid = newGroup.key
         //save group to user
-        let ref = Firebase(url:"https://scheduler-base.firebaseio.com/users")
+       // let ref = Firebase(url:"https://scheduler-base.firebaseio.com/users")
         //this is unnecessary, just loop through our members and find users/uid, then add groupuid: false to groups. (admin)
-        for member in members {
-            ref.observeEventType(.ChildAdded, withBlock: { snapshot in
-                if member == snapshot.value["phone number"] as! String {
-                    print("found member \(member)")
-                }
-            }, withCancelBlock: { error in
-                print(error.description)
-            })
+        for (_, uid) in members {
+            //get uid
+            let ref = Firebase(url:"https://scheduler-base.firebaseio.com/users/\(uid)/groups")
+            //TODO: check that uid exists
+            var groupInfo: Dictionary<String, Bool> = [groupid: false]
+            ref.updateChildValues(groupInfo)
+            
         }
         
         self.performSegueWithIdentifier("backToGroups", sender: nil)

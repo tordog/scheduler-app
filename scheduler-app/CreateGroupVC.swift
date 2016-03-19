@@ -25,35 +25,34 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBAction func addMember(sender: AnyObject) {
         //check that phone number exists in REF_PNUMBERS
         if let phoneNum = self.phoneNumberToAdd.text {
-            let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(phoneNum)")
+            let aString: String = phoneNum
+            let newString = aString.stringByReplacingOccurrencesOfString("+", withString: "%2B")
+            let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(newString)")
+            print("Looking for number \(phoneNum)")
             ref.observeEventType(.Value, withBlock: { snapshot in
+                print(snapshot.value)
                 if !snapshot.exists() {
                     self.showErrorAlert("Phone number not recognized", msg: "Please ensure that the information entered is correct. The phone number entered is either incorrect, or the user is not registered with TimeSlots.")
                 } else {
                     //get user's uid
-                    ref.observeEventType(.ChildAdded, withBlock: { snapshot in
-                        if let addUID = snapshot.value["uid"] {
-                            self.members[phoneNum]=addUID as? String
-                        }
-                        else{
-                            self.showErrorAlert("Internal error occurred", msg: "There is an error with this user's account. Please try again later.")
-                        }
-                        //print(snapshot.value)
-                    })
-                    //I should also keep an array of phone numbers + uid's to make this easier in the future. so find uid field in phone number, yeah.
+                    if let addUID = snapshot.value["uid"] {
+                        self.members[phoneNum]=addUID as? String
+                        self.tableView.reloadData()
+                    }
+                    else {
+                        self.showErrorAlert("Internal error occurred", msg: "There is an error with this user's account. Please try again later.")
+                    }
                 }
                 }, withCancelBlock: { error in
                     print(error.description)
             })
-            
 
         }
         else {
             showErrorAlert("Please enter a valid contact number", msg: "")
         }
         self.phoneNumberToAdd.text=""
-    
-        tableView.reloadData()
+        
     }
     
     
