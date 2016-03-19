@@ -19,11 +19,19 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     @IBAction func saveBtnPress(sender: AnyObject) {
         //save group to Groups
         let newGroup = DataService.ds.REF_GROUPS.childByAutoId()
-        newGroup.setValue(nameToPass)
+        //newGroup.setValue(nameToPass)
         let groupid = newGroup.key
-        //save group to user
-       // let ref = Firebase(url:"https://scheduler-base.firebaseio.com/users")
-        //this is unnecessary, just loop through our members and find users/uid, then add groupuid: false to groups. (admin)
+        let groupNameInfo: Dictionary<String, String> = ["groupName": nameToPass]
+        newGroup.updateChildValues(groupNameInfo)
+        //add members
+        let groupRef = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupid)/members")
+        var groupMemberInfo = Dictionary<String, Bool>()
+        for (_, uid) in members {
+            //add uid to group
+            groupMemberInfo[uid] = false
+        }
+        groupRef.updateChildValues(groupMemberInfo)
+
         for (_, uid) in members {
             //get uid
             let ref = Firebase(url:"https://scheduler-base.firebaseio.com/users/\(uid)/groups")
