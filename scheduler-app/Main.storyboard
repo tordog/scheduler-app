@@ -714,19 +714,7 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q6y-gN-tAc">
                                                     <rect key="frame" x="-16" y="0.0" width="592" height="44"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rzs-qR-vSh">
-                                                            <rect key="frame" x="269" y="12" width="54" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstItem="Rzs-qR-vSh" firstAttribute="centerY" secondItem="Q6y-gN-tAc" secondAttribute="centerY" id="JnN-7C-alf"/>
-                                                        <constraint firstItem="Rzs-qR-vSh" firstAttribute="leading" secondItem="Q6y-gN-tAc" secondAttribute="leading" constant="30" id="U5E-h3-Y1a"/>
-                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -736,9 +724,6 @@
                                                 <constraint firstItem="Q6y-gN-tAc" firstAttribute="centerX" secondItem="woO-JW-ij4" secondAttribute="centerX" id="ZKP-D2-gKO"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="name" destination="Rzs-qR-vSh" id="gUd-mC-Pzv"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

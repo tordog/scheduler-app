@@ -11,7 +11,7 @@ import UIKit
 class listMembersSelectAdmin: UITableViewCell {
     
     //@IBOutlet weak var name: UILabel!
-    @IBOutlet weak var adminImg: UIImageView!
+    //@IBOutlet weak var adminImg: UIImageView!
     
     
     override func awakeFromNib() {

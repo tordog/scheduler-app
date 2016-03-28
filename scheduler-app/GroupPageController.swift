@@ -91,5 +91,13 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
         
         return cell
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let indexPath = tableView.indexPathForSelectedRow!
+        
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        //perform segue & load data for this group's calendar!
+        print(currentCell.textLabel!.text)
+    }
 
 }
