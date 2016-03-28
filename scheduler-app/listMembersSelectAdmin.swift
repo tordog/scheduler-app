@@ -10,7 +10,7 @@ import UIKit
 
 class listMembersSelectAdmin: UITableViewCell {
     
-    @IBOutlet weak var name: UILabel!
+    //@IBOutlet weak var name: UILabel!
     @IBOutlet weak var adminImg: UIImageView!
     
     

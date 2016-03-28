@@ -101,7 +101,6 @@ class ViewController: UIViewController {
         digits.authenticateWithViewController(nil, configuration: configuration) { session, error in
             // Country selector will be set to US
             if(session != nil){
-                print("Why does this not print too?")
                 self.phoneNum = session.phoneNumber
                 self.signUpBtn.setTitle("Continue", forState: .Normal)
                 self.performSegueWithIdentifier("beginSignUp", sender: nil)

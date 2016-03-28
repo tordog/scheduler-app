@@ -32,12 +32,43 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
 //            print(NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID))
 //        }
 //    }
-    var randArray = ["Hello", "Torie", "How", "Are", "You"]
+    var randArray: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        noGroupsText.text = "No groups to show! Add a group to get started."
+        let homeRef = Firebase(url: "https://scheduler-base.firebaseio.com")
+        if homeRef.authData != nil {
+            // user authenticated
+            let currUid = homeRef.authData.uid
+            //print(homeRef.authData.uid)
+            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(currUid)/groups")
+            ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                print("MERP: \(snapshot.childrenCount)") // I got the expected number of items
+                if(snapshot.childrenCount == 0){
+                    self.noGroupsText.text = "No groups yet! Create a group to get started."
+                }
+                else {
+                    self.noGroupsText.text = ""
+                    let enumerator = snapshot.children
+                    
+                    while let rest = enumerator.nextObject() as? FDataSnapshot {
+                        //Find rest.key in groups
+                        let refGroup = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(rest.key)")
+                        refGroup.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                            if let groupName = snapshot.value["groupName"]{
+                                self.randArray.append(groupName as! String)
+                                self.tableView.reloadData()
+                            }
+                        })
+                        
+                    }
+                    
+                }
+            })
+        }
+        
+        
         
         tableView.delegate = self
         tableView.dataSource = self

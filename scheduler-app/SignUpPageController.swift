@@ -59,7 +59,7 @@ class SignUpPageController: UIViewController {
                                 DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: {
                                     err, authData in
                                     //let temp = authData.uid as String
-                                    let user = ["phone number": self.phoneNumber.text!]
+                                    let user = ["phone number": self.phoneNumber.text!, "first name": self.fName.text!, "last name": self.lName.text!]
                                     DataService.ds.createFirebaseUser(authData.uid, user: user)
                                     //then, create a separate structure of just phone numbers
                                     let numberRef = DataService.ds.REF_PNUMBERS.childByAppendingPath(self.phoneNumber.text)

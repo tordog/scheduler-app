@@ -28,9 +28,7 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             let aString: String = phoneNum
             let newString = aString.stringByReplacingOccurrencesOfString("+", withString: "%2B")
             let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(newString)")
-            print("Looking for number \(phoneNum)")
             ref.observeEventType(.Value, withBlock: { snapshot in
-                print(snapshot.value)
                 if !snapshot.exists() {
                     self.showErrorAlert("Phone number not recognized", msg: "Please ensure that the information entered is correct. The phone number entered is either incorrect, or the user is not registered with TimeSlots.")
                 } else {

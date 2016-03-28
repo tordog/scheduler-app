@@ -30,16 +30,33 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             //add uid to group
             groupMemberInfo[uid] = false
         }
-        groupRef.updateChildValues(groupMemberInfo)
+        
 
         for (_, uid) in members {
-            //get uid
             let ref = Firebase(url:"https://scheduler-base.firebaseio.com/users/\(uid)/groups")
             //TODO: check that uid exists
-            var groupInfo: Dictionary<String, Bool> = [groupid: false]
-            ref.updateChildValues(groupInfo)
+            //insert group id and admin status to user's groups
+            let groupsInfo: Dictionary<String, Bool> = [groupid: false]
+            ref.updateChildValues(groupsInfo)
             
         }
+        
+        let homeRef = Firebase(url: "https://scheduler-base.firebaseio.com")
+        if homeRef.authData != nil {
+            // user authenticated
+            let currUid = homeRef.authData.uid
+            print(homeRef.authData.uid)
+            //add current user to groups/groupuid/members
+            groupMemberInfo[currUid]=false
+            //add groupid to users/curruid/groups
+            let currentUserRef = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(currUid)/groups")
+            let groupInfo: Dictionary<String, Bool> = [groupid: false]
+            currentUserRef.updateChildValues(groupInfo)
+        } else {
+            // No user is signed in
+        }
+        
+        groupRef.updateChildValues(groupMemberInfo)
         
         self.performSegueWithIdentifier("backToGroups", sender: nil)
     }
@@ -48,7 +65,6 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         super.viewDidLoad()
         members = membersToPass
         memberPhoneNumbers = Array(members.keys)
-        print(members)
         tableView.delegate = self
         tableView.dataSource = self
     }
