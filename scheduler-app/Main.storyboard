@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cPm-lv-bsB">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -518,10 +518,10 @@
             </objects>
             <point key="canvasLocation" x="295" y="1224"/>
         </scene>
-        <!--View Controller-->
+        <!--Collection View Controller-->
         <scene sceneID="ro4-HA-AI5">
             <objects>
-                <viewController id="cPm-lv-bsB" sceneMemberID="viewController">
+                <viewController id="cPm-lv-bsB" customClass="CollectionViewController" customModule="scheduler_app" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Av-Zn-a8Z"/>
                         <viewControllerLayoutGuide type="bottom" id="jS9-fG-aqg"/>
@@ -569,9 +569,17 @@
                                     <constraint firstAttribute="height" constant="85" id="o6v-mV-eqv"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Kja-oo-Sbv">
+                                <rect key="frame" x="0.0" y="84" width="600" height="452"/>
+                                <collectionViewLayout key="collectionViewLayout" id="AeV-IY-8Lt" customClass="CustomCollectionViewLayout" customModule="scheduler_app" customModuleProvider="target"/>
+                                <cells/>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="Kja-oo-Sbv" id="foc-LQ-bvw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="emm-pe-P9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1073,6 +1081,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Ehu-T0-M3M"/>
-        <segue reference="M5B-Dj-7yM"/>
+        <segue reference="q6r-br-9iT"/>
     </inferredMetricsTieBreakers>
 </document>

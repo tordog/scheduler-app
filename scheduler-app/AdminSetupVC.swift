@@ -63,19 +63,14 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             adminStatus[uid] = false
         }
         let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(self.currentUID)/phone%20number")
-        //print("Value: \(ref.valueForKey("phone number"))")
-        
-        //print(ref.dictionaryWithValuesForKeys(["phone number"]))
         ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             if !snapshot.exists() {
                 print("Error")
             } else {
-                print(snapshot.value)
                 self.currentPhoneNum = snapshot.value as! String
                 self.members[self.currentPhoneNum] = self.currentUID
                 self.memberPhoneNumbers.append(self.currentPhoneNum)
                 self.adminStatus[self.currentUID]=true
-                print("MEMBER phone nums: \(self.memberPhoneNumbers)")
                 self.tableView.reloadData()
             }
         })
@@ -98,48 +93,46 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        let indexPath = tableView.indexPathForSelectedRow!
+        let indexPath = tableView.indexPathForSelectedRow!
         
-//        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
         
-//        let phoneNum = currentCell.textLabel!.text!
+        let phoneNum = currentCell.textLabel!.text!
         
-//        let aString: String = phoneNum
-//        let newString = aString.stringByReplacingOccurrencesOfString("+", withString: "%2B")
-//        let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(newString)")
-//        ref.observeEventType(.Value, withBlock: { snapshot in
-//            if !snapshot.exists() {
-//                print("Error, this phone number does not exist")
-//            } else {
-//                //get user's uid
-//                if let addUID = snapshot.value["uid"] {
-//                    let addUID = addUID as! String
-//                    if (self.adminStatus[addUID] == true) {
-//                        self.adminStatus[addUID] = false
-//                        let cellBGView = UIView()
-//                        cellBGView.backgroundColor = UIColor.clearColor()
-//                        currentCell.selectedBackgroundView = cellBGView
-//                        //view.backgroundColor = UIColor.clearColor()
-//                    }
-//                    else{
-//                        self.adminStatus[addUID] = true
-//                        let cellBGView = UIView()
-//                        cellBGView.backgroundColor = UIColor.lightGrayColor()
-//                        currentCell.selectedBackgroundView = cellBGView
-//                        //view.backgroundColor = UIColor.blueColor()
-//                    }
-//                    
-//                }
-//                else {
-//                    print("Internal error. UID does not exist for this phone number")
-//                }
-//            }
-//            }, withCancelBlock: { error in
-//                print(error.description)
-//        })
+        let aString: String = phoneNum
+        let newString = aString.stringByReplacingOccurrencesOfString("+", withString: "%2B")
+        let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(newString)")
+        ref.observeEventType(.Value, withBlock: { snapshot in
+            if !snapshot.exists() {
+                print("Error, this phone number does not exist")
+            } else {
+                //get user's uid
+                if let addUID = snapshot.value["uid"] {
+                    let addUID = addUID as! String
+                    if (self.adminStatus[addUID] == true) {
+                        self.adminStatus[addUID] = false
+                        let cellBGView = UIView()
+                        cellBGView.backgroundColor = UIColor.clearColor()
+                        currentCell.selectedBackgroundView = cellBGView
+                        //view.backgroundColor = UIColor.clearColor()
+                    }
+                    else{
+                        self.adminStatus[addUID] = true
+                        let cellBGView = UIView()
+                        cellBGView.backgroundColor = UIColor.lightGrayColor()
+                        currentCell.selectedBackgroundView = cellBGView
+                        //view.backgroundColor = UIColor.blueColor()
+                    }
+                    
+                }
+                else {
+                    print("Internal error. UID does not exist for this phone number")
+                }
+            }
+            }, withCancelBlock: { error in
+                print(error.description)
+        })
 
-        //set this phone number's group admin status to true.
-//        adminStatus[currentCell.textLabel!.text!] = true
         
             }
     
@@ -154,21 +147,4 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
     }
     
-    func getCurrentPhoneNum(uid: String) {
-        print("UID: \(uid)")
-        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(uid)/phone%20number")
-        print("Value: \(ref.valueForKey("phone number"))")
-        
-        //print(ref.dictionaryWithValuesForKeys(["phone number"]))
-//        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
-//            if !snapshot.exists() {
-//                print("Error")
-//            } else {
-//                print(snapshot.value)
-//                self.currentPhoneNum = snapshot.value as! String
-//            }
-//        })
-        
-    }
-
 }

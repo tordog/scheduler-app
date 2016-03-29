@@ -22,6 +22,12 @@
 		F3328E011C8399C100E5AFE5 /* scheduler_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328E001C8399C100E5AFE5 /* scheduler_appUITests.swift */; };
 		F3328E111C839A2400E5AFE5 /* Dataservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328E101C839A2400E5AFE5 /* Dataservice.swift */; };
 		F348F4CD1CA9F3A6007BE41F /* ProfileSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */; };
+		F348F4CF1CAB3548007BE41F /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4CE1CAB3548007BE41F /* CollectionViewController.swift */; };
+		F348F4D21CAB3610007BE41F /* CustomCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4D11CAB3610007BE41F /* CustomCollectionViewLayout.swift */; };
+		F348F4DE1CAB3D7E007BE41F /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4DC1CAB3D7E007BE41F /* DateCollectionViewCell.swift */; };
+		F348F4DF1CAB3D7E007BE41F /* DateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F348F4DD1CAB3D7E007BE41F /* DateCollectionViewCell.xib */; };
+		F348F4E21CAB3D9E007BE41F /* ContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4E01CAB3D9E007BE41F /* ContentCollectionViewCell.swift */; };
+		F348F4E31CAB3D9E007BE41F /* ContentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F348F4E11CAB3D9E007BE41F /* ContentCollectionViewCell.xib */; };
 		F35C94B31C83F79600D820D9 /* SignUpPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B21C83F79600D820D9 /* SignUpPageController.swift */; };
 		F35C94B61C84107D00D820D9 /* SyncOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */; };
 		F35C94B81C8428F100D820D9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B71C8428F100D820D9 /* Constants.swift */; };
@@ -69,6 +75,12 @@
 		F3328E021C8399C100E5AFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3328E101C839A2400E5AFE5 /* Dataservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dataservice.swift; sourceTree = "<group>"; };
 		F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsVC.swift; sourceTree = "<group>"; };
+		F348F4CE1CAB3548007BE41F /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		F348F4D11CAB3610007BE41F /* CustomCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewLayout.swift; sourceTree = "<group>"; };
+		F348F4DC1CAB3D7E007BE41F /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		F348F4DD1CAB3D7E007BE41F /* DateCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateCollectionViewCell.xib; sourceTree = "<group>"; };
+		F348F4E01CAB3D9E007BE41F /* ContentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentCollectionViewCell.swift; sourceTree = "<group>"; };
+		F348F4E11CAB3D9E007BE41F /* ContentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentCollectionViewCell.xib; sourceTree = "<group>"; };
 		F35C94B21C83F79600D820D9 /* SignUpPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPageController.swift; sourceTree = "<group>"; };
 		F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncOptionsController.swift; sourceTree = "<group>"; };
 		F35C94B71C8428F100D820D9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -121,6 +133,8 @@
 		F30A167F1C8D494000A7CCFD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F348F4D51CAB368F007BE41F /* Date Cell */,
+				F348F4D31CAB367C007BE41F /* Content Cell */,
 				F30A16801C8D499500A7CCFD /* AddMemberCell.swift */,
 				F30A16821C8D677200A7CCFD /* listMembersSelectAdmin.swift */,
 				F30A16861C8D70D600A7CCFD /* GroupCell.swift */,
@@ -153,6 +167,7 @@
 		F3328DDF1C8399C100E5AFE5 /* scheduler-app */ = {
 			isa = PBXGroup;
 			children = (
+				F348F4D01CAB35E8007BE41F /* Classes */,
 				F30A167F1C8D494000A7CCFD /* View */,
 				F35C94B41C840A7D00D820D9 /* Controllers */,
 				F3328E0F1C839A0900E5AFE5 /* Services */,
@@ -200,9 +215,36 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
+		F348F4D01CAB35E8007BE41F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F348F4D11CAB3610007BE41F /* CustomCollectionViewLayout.swift */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		F348F4D31CAB367C007BE41F /* Content Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F348F4E01CAB3D9E007BE41F /* ContentCollectionViewCell.swift */,
+				F348F4E11CAB3D9E007BE41F /* ContentCollectionViewCell.xib */,
+			);
+			name = "Content Cell";
+			sourceTree = "<group>";
+		};
+		F348F4D51CAB368F007BE41F /* Date Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F348F4DC1CAB3D7E007BE41F /* DateCollectionViewCell.swift */,
+				F348F4DD1CAB3D7E007BE41F /* DateCollectionViewCell.xib */,
+			);
+			name = "Date Cell";
+			sourceTree = "<group>";
+		};
 		F35C94B41C840A7D00D820D9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F348F4CE1CAB3548007BE41F /* CollectionViewController.swift */,
 				F35C94B21C83F79600D820D9 /* SignUpPageController.swift */,
 				F3328DE21C8399C100E5AFE5 /* ViewController.swift */,
 				F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */,
@@ -322,8 +364,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F348F4DF1CAB3D7E007BE41F /* DateCollectionViewCell.xib in Resources */,
 				F35C94BA1C842DA000D820D9 /* Main.storyboard in Resources */,
 				F3328DEB1C8399C100E5AFE5 /* LaunchScreen.storyboard in Resources */,
+				F348F4E31CAB3D9E007BE41F /* ContentCollectionViewCell.xib in Resources */,
 				F3328DE81C8399C100E5AFE5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,9 +455,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F348F4CD1CA9F3A6007BE41F /* ProfileSettingsVC.swift in Sources */,
+				F348F4E21CAB3D9E007BE41F /* ContentCollectionViewCell.swift in Sources */,
 				F35C94B61C84107D00D820D9 /* SyncOptionsController.swift in Sources */,
 				F35C94B31C83F79600D820D9 /* SignUpPageController.swift in Sources */,
 				F30A167E1C8D481900A7CCFD /* CreateGroupVC.swift in Sources */,
+				F348F4CF1CAB3548007BE41F /* CollectionViewController.swift in Sources */,
 				F30A16871C8D70D600A7CCFD /* GroupCell.swift in Sources */,
 				F3328DE31C8399C100E5AFE5 /* ViewController.swift in Sources */,
 				F3328DE11C8399C100E5AFE5 /* AppDelegate.swift in Sources */,
@@ -421,7 +467,9 @@
 				F35C94B81C8428F100D820D9 /* Constants.swift in Sources */,
 				F30A167A1C8CD70C00A7CCFD /* GroupPageController.swift in Sources */,
 				F30A16811C8D499500A7CCFD /* AddMemberCell.swift in Sources */,
+				F348F4DE1CAB3D7E007BE41F /* DateCollectionViewCell.swift in Sources */,
 				F30A16831C8D677200A7CCFD /* listMembersSelectAdmin.swift in Sources */,
+				F348F4D21CAB3610007BE41F /* CustomCollectionViewLayout.swift in Sources */,
 				F30A16851C8D688400A7CCFD /* AdminSetupVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
