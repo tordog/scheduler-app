@@ -40,18 +40,12 @@
                                 <color key="backgroundColor" red="0.2627450980392157" green="0.47843137254901963" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="3vL-qW-Fzl"/>
-                                    <constraint firstAttribute="width" constant="100" id="5k5-GL-8D9"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="175" id="rDB-KK-ZZy"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Sign up">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="5k5-GL-8D9"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <action selector="signUpBtnPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UFi-bf-lhp"/>
                                 </connections>
@@ -105,38 +99,26 @@
                             <constraint firstItem="zKH-B4-GbV" firstAttribute="top" secondItem="XGq-Wo-LbX" secondAttribute="bottom" constant="10" id="2Nt-pW-gTm"/>
                             <constraint firstItem="zKH-B4-GbV" firstAttribute="leading" secondItem="XGq-Wo-LbX" secondAttribute="leading" id="4cl-Uf-T8t"/>
                             <constraint firstItem="y4L-xr-PqD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7UG-kd-qaC"/>
-                            <constraint firstItem="dBe-yc-rqm" firstAttribute="leading" secondItem="d8a-Jl-NJs" secondAttribute="leading" id="BXn-Ko-8a6"/>
                             <constraint firstItem="qM2-CI-Auw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IFr-fe-s0n"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RnW-ag-315" secondAttribute="trailing" constant="25" id="KJ7-xX-lw6"/>
                             <constraint firstItem="XGq-Wo-LbX" firstAttribute="leading" secondItem="d8a-Jl-NJs" secondAttribute="leading" id="M5B-fH-FrP"/>
                             <constraint firstItem="RnW-ag-315" firstAttribute="top" secondItem="qM2-CI-Auw" secondAttribute="bottom" constant="25" id="PhR-Nz-AUR"/>
-                            <constraint firstItem="d8a-Jl-NJs" firstAttribute="leading" secondItem="y4L-xr-PqD" secondAttribute="leading" id="QCr-jB-tda"/>
                             <constraint firstItem="y4L-xr-PqD" firstAttribute="top" secondItem="qM2-CI-Auw" secondAttribute="bottom" constant="140" id="Zbl-1y-a15"/>
                             <constraint firstItem="qM2-CI-Auw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bOq-co-A7P"/>
                             <constraint firstItem="XGq-Wo-LbX" firstAttribute="top" secondItem="d8a-Jl-NJs" secondAttribute="bottom" constant="15" id="jRb-mC-o8k"/>
                             <constraint firstItem="d8a-Jl-NJs" firstAttribute="top" secondItem="y4L-xr-PqD" secondAttribute="bottom" constant="50" id="jUB-KF-UoG"/>
                             <constraint firstItem="dBe-yc-rqm" firstAttribute="leading" secondItem="zKH-B4-GbV" secondAttribute="leading" id="p3A-Qn-RB1"/>
-                            <constraint firstItem="dBe-yc-rqm" firstAttribute="leading" secondItem="d8a-Jl-NJs" secondAttribute="leading" id="qX2-Sx-8zx"/>
                             <constraint firstItem="dBe-yc-rqm" firstAttribute="top" secondItem="zKH-B4-GbV" secondAttribute="bottom" constant="15" id="sNu-yZ-CV7"/>
                             <constraint firstAttribute="trailing" secondItem="qM2-CI-Auw" secondAttribute="trailing" id="sTs-91-jrS"/>
-                            <constraint firstItem="dBe-yc-rqm" firstAttribute="top" secondItem="d8a-Jl-NJs" secondAttribute="bottom" constant="8" id="tr9-8d-Gbv"/>
                             <constraint firstItem="d8a-Jl-NJs" firstAttribute="centerX" secondItem="y4L-xr-PqD" secondAttribute="centerX" id="vOE-o6-lzC"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="QCr-jB-tda"/>
-                                <exclude reference="BXn-Ko-8a6"/>
-                                <exclude reference="qX2-Sx-8zx"/>
-                                <exclude reference="tr9-8d-Gbv"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="passwordField" destination="zKH-B4-GbV" id="6tF-eP-myW"/>
                         <outlet property="phoneNumberField" destination="XGq-Wo-LbX" id="Nu5-d6-oqT"/>
                         <outlet property="signUpBtn" destination="y4L-xr-PqD" id="lly-zI-PRB"/>
-                        <segue destination="CjI-v5-Lj7" kind="show" identifier="beginSignUp" id="AAH-p0-bNw"/>
-                        <segue destination="TfT-va-Sc9" kind="show" identifier="loggedIn" id="8Jc-f3-lf0"/>
+                        <segue destination="CjI-v5-Lj7" kind="presentation" identifier="beginSignUp" id="AAH-p0-bNw"/>
+                        <segue destination="TfT-va-Sc9" kind="presentation" identifier="loggedIn" id="8Jc-f3-lf0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -168,7 +150,7 @@
                                         </state>
                                         <connections>
                                             <action selector="backToLaunchBtnPress:" destination="CjI-v5-Lj7" eventType="touchUpInside" id="1Og-EI-n99"/>
-                                            <segue destination="BYZ-38-t0r" kind="show" identifier="backToLaunch" id="REu-PL-06J"/>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" identifier="backToLaunch" id="REu-PL-06J"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Team Scheduler" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9cf-to-dmZ">
@@ -245,20 +227,11 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="NF6-qc-fnC"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="NF6-qc-fnC"/>
-                                    </mask>
-                                </variation>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bj2-LN-wDm" firstAttribute="top" secondItem="cHv-Hk-oyQ" secondAttribute="top" id="L19-2W-vnA"/>
-                            <constraint firstItem="ZWQ-mc-dbJ" firstAttribute="centerY" secondItem="cHv-Hk-oyQ" secondAttribute="centerY" id="Lef-MW-RuZ"/>
                             <constraint firstItem="ZWQ-mc-dbJ" firstAttribute="top" secondItem="0nV-by-Z9U" secondAttribute="bottom" constant="40" id="Msm-ls-mUc"/>
                             <constraint firstItem="0nV-by-Z9U" firstAttribute="centerX" secondItem="cHv-Hk-oyQ" secondAttribute="centerX" id="N2s-TS-dRL"/>
                             <constraint firstItem="ZWQ-mc-dbJ" firstAttribute="centerX" secondItem="cHv-Hk-oyQ" secondAttribute="centerX" id="NAJ-HK-jEG"/>
@@ -267,16 +240,7 @@
                             <constraint firstItem="bj2-LN-wDm" firstAttribute="leading" secondItem="cHv-Hk-oyQ" secondAttribute="leading" id="UhP-Qd-1cs"/>
                             <constraint firstItem="B56-0s-isQ" firstAttribute="top" secondItem="diI-eY-57q" secondAttribute="bottom" constant="25" id="aab-Nw-7sc"/>
                             <constraint firstItem="0nV-by-Z9U" firstAttribute="top" secondItem="bj2-LN-wDm" secondAttribute="bottom" constant="25" id="khM-6m-gvh"/>
-                            <constraint firstItem="ZWQ-mc-dbJ" firstAttribute="centerX" secondItem="cHv-Hk-oyQ" secondAttribute="centerX" id="neq-Gd-tes"/>
-                            <constraint firstItem="ZWQ-mc-dbJ" firstAttribute="leading" secondItem="cHv-Hk-oyQ" secondAttribute="leadingMargin" constant="120" id="nib-3C-vRz"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Lef-MW-RuZ"/>
-                                <exclude reference="neq-Gd-tes"/>
-                                <exclude reference="nib-3C-vRz"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="pbx-Nz-aYB"/>
                     <connections>
@@ -285,8 +249,8 @@
                         <outlet property="lName" destination="diI-eY-57q" id="vXx-Ac-lGb"/>
                         <outlet property="passwordField" destination="DgH-5S-i08" id="0Cs-sY-hYF"/>
                         <outlet property="phoneNumber" destination="4o9-Hd-FUR" id="53B-za-LiJ"/>
-                        <segue destination="TfT-va-Sc9" kind="show" identifier="loggedIn" id="9zr-gn-Tcy"/>
-                        <segue destination="KCG-tJ-q0m" kind="show" identifier="goToSyncOptions" id="KiJ-4a-9Jt"/>
+                        <segue destination="TfT-va-Sc9" kind="presentation" identifier="loggedIn" id="9zr-gn-Tcy"/>
+                        <segue destination="KCG-tJ-q0m" kind="presentation" identifier="goToSyncOptions" id="KiJ-4a-9Jt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaR-oT-e5V" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -340,7 +304,7 @@
                                 </state>
                                 <connections>
                                     <action selector="continueBtnPress:" destination="KCG-tJ-q0m" eventType="touchUpInside" id="DcA-g6-8HI"/>
-                                    <segue destination="TfT-va-Sc9" kind="show" identifier="toHome" id="5OI-Hg-Nrq"/>
+                                    <segue destination="TfT-va-Sc9" kind="presentation" identifier="toHome" id="5OI-Hg-Nrq"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -389,15 +353,9 @@
                                 <color key="backgroundColor" red="0.32616468479999999" green="0.57447485359999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="2pM-jt-SHM"/>
-                                    <constraint firstItem="5hM-Bb-3re" firstAttribute="leading" secondItem="k0I-yd-NoD" secondAttribute="leadingMargin" id="EoY-4D-1sM"/>
                                     <constraint firstItem="5hM-Bb-3re" firstAttribute="leading" secondItem="k0I-yd-NoD" secondAttribute="leading" constant="27" id="Xtn-rH-dJh"/>
                                     <constraint firstItem="5hM-Bb-3re" firstAttribute="centerY" secondItem="k0I-yd-NoD" secondAttribute="centerY" id="jXB-iw-lta"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="EoY-4D-1sM"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcA-Rf-i30">
                                 <rect key="frame" x="279" y="290" width="42" height="21"/>
@@ -468,50 +426,30 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="doF-t8-gsg" firstAttribute="leading" secondItem="HqA-NL-mju" secondAttribute="leading" id="3k7-hx-vqJ"/>
-                            <constraint firstAttribute="trailing" secondItem="doF-t8-gsg" secondAttribute="trailing" id="7uL-If-smh"/>
                             <constraint firstItem="5g2-rT-ybV" firstAttribute="top" secondItem="doF-t8-gsg" secondAttribute="bottom" id="9qR-19-cYC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="k0I-yd-NoD" secondAttribute="trailing" id="A6B-qN-BR0"/>
-                            <constraint firstItem="5g2-rT-ybV" firstAttribute="top" secondItem="doF-t8-gsg" secondAttribute="bottom" id="CxM-M6-ubd"/>
-                            <constraint firstItem="5g2-rT-ybV" firstAttribute="top" secondItem="g61-wX-REu" secondAttribute="bottom" id="LLo-6W-CsQ"/>
                             <constraint firstItem="doF-t8-gsg" firstAttribute="top" secondItem="HqA-NL-mju" secondAttribute="topMargin" id="O0N-CX-8lr"/>
                             <constraint firstItem="gcA-Rf-i30" firstAttribute="centerX" secondItem="HqA-NL-mju" secondAttribute="centerX" id="SQv-T8-wFk"/>
-                            <constraint firstAttribute="trailing" secondItem="5g2-rT-ybV" secondAttribute="trailing" id="SUz-MG-wDC"/>
-                            <constraint firstItem="5g2-rT-ybV" firstAttribute="leading" secondItem="HqA-NL-mju" secondAttribute="leading" id="Ue2-se-LlZ"/>
                             <constraint firstItem="k0I-yd-NoD" firstAttribute="leading" secondItem="HqA-NL-mju" secondAttribute="leadingMargin" id="W2Q-FD-ERE"/>
                             <constraint firstAttribute="trailing" secondItem="k0I-yd-NoD" secondAttribute="trailing" id="WaC-JZ-xNU"/>
-                            <constraint firstItem="oQo-rj-tHJ" firstAttribute="top" secondItem="k0I-yd-NoD" secondAttribute="bottom" id="ac7-5t-3mV"/>
                             <constraint firstAttribute="bottom" secondItem="k0I-yd-NoD" secondAttribute="bottom" id="deR-Na-V00"/>
                             <constraint firstAttribute="trailing" secondItem="doF-t8-gsg" secondAttribute="trailing" id="dwn-wu-Dto"/>
                             <constraint firstItem="k0I-yd-NoD" firstAttribute="leading" secondItem="HqA-NL-mju" secondAttribute="leading" id="eUo-dK-7uc"/>
                             <constraint firstAttribute="trailing" secondItem="5g2-rT-ybV" secondAttribute="trailing" id="g80-No-GuL"/>
-                            <constraint firstAttribute="bottom" secondItem="5g2-rT-ybV" secondAttribute="bottom" id="ldK-KM-dFL"/>
                             <constraint firstItem="gcA-Rf-i30" firstAttribute="centerY" secondItem="HqA-NL-mju" secondAttribute="centerY" id="vVl-IO-tCH"/>
                             <constraint firstItem="5g2-rT-ybV" firstAttribute="leading" secondItem="HqA-NL-mju" secondAttribute="leading" id="wc8-aC-q29"/>
                             <constraint firstItem="5g2-rT-ybV" firstAttribute="bottom" secondItem="HqA-NL-mju" secondAttribute="bottomMargin" constant="-100" id="xp9-QM-OmT"/>
-                            <constraint firstItem="5g2-rT-ybV" firstAttribute="top" secondItem="g61-wX-REu" secondAttribute="bottom" id="yNu-eT-lwp"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="7uL-If-smh"/>
-                                <exclude reference="CxM-M6-ubd"/>
-                                <exclude reference="LLo-6W-CsQ"/>
-                                <exclude reference="SUz-MG-wDC"/>
-                                <exclude reference="Ue2-se-LlZ"/>
-                                <exclude reference="ldK-KM-dFL"/>
-                                <exclude reference="yNu-eT-lwp"/>
-                                <exclude reference="ac7-5t-3mV"/>
-                            </mask>
-                        </variation>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="noGroupsText" destination="gcA-Rf-i30" id="M6M-Ea-bzT"/>
                         <outlet property="tableView" destination="5g2-rT-ybV" id="0DM-7z-AxE"/>
-                        <segue destination="eOE-7P-uz3" kind="show" identifier="toCreateGroup" id="Qyy-1e-55i"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="backToSignUp" id="Ehu-T0-M3M"/>
-                        <segue destination="sOE-MZ-iiT" kind="show" identifier="toProfileSettings" id="Bud-fB-BUx"/>
-                        <segue destination="cPm-lv-bsB" kind="show" identifier="toGroupCalendar" id="jZH-wt-N2g"/>
+                        <segue destination="eOE-7P-uz3" kind="presentation" identifier="toCreateGroup" id="Qyy-1e-55i"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="backToSignUp" id="Ehu-T0-M3M"/>
+                        <segue destination="sOE-MZ-iiT" kind="presentation" identifier="toProfileSettings" id="Bud-fB-BUx"/>
+                        <segue destination="cPm-lv-bsB" kind="presentation" identifier="toGroupCalendar" id="jZH-wt-N2g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8gd-57-YrO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -569,16 +507,27 @@
                                     <constraint firstAttribute="height" constant="85" id="o6v-mV-eqv"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Kja-oo-Sbv">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" directionalLockEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Kja-oo-Sbv">
                                 <rect key="frame" x="0.0" y="84" width="600" height="452"/>
                                 <collectionViewLayout key="collectionViewLayout" id="AeV-IY-8Lt" customClass="CustomCollectionViewLayout" customModule="scheduler_app" customModuleProvider="target"/>
                                 <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="cPm-lv-bsB" id="QGv-sB-Jft"/>
+                                    <outlet property="delegate" destination="cPm-lv-bsB" id="fv4-li-9UW"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Kja-oo-Sbv" firstAttribute="top" secondItem="o41-T0-BDN" secondAttribute="bottom" id="DBm-Gz-Y0d"/>
+                            <constraint firstItem="Kja-oo-Sbv" firstAttribute="leading" secondItem="cbZ-uG-Ath" secondAttribute="leading" id="IMV-iq-4Y4"/>
+                            <constraint firstAttribute="trailing" secondItem="Kja-oo-Sbv" secondAttribute="trailing" id="X14-8I-ssd"/>
+                            <constraint firstItem="jS9-fG-aqg" firstAttribute="top" secondItem="Kja-oo-Sbv" secondAttribute="bottom" id="v00-2Y-pVt"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Kja-oo-Sbv" id="foc-LQ-bvw"/>
+                        <outlet property="view" destination="cbZ-uG-Ath" id="PJo-7W-jai"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="emm-pe-P9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -768,12 +717,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <segue destination="TfT-va-Sc9" kind="show" identifier="backToHome" id="M5B-Dj-7yM"/>
+                        <segue destination="TfT-va-Sc9" kind="presentation" identifier="backToHome" id="M5B-Dj-7yM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7c-5C-NaH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986" y="1915"/>
+            <point key="canvasLocation" x="986" y="1914.9999999999998"/>
         </scene>
         <!--Create GroupVC-->
         <scene sceneID="vyk-XI-1XX">
@@ -799,27 +748,15 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t1r-UI-mCe">
                                         <rect key="frame" x="107" y="0.0" width="150" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="6kT-jk-ffE"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="VAD-ur-23C"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="6kT-jk-ffE"/>
-                                            </mask>
-                                        </variation>
                                     </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="t1r-UI-mCe" firstAttribute="leading" secondItem="bhb-Yw-qJ6" secondAttribute="trailing" constant="20" id="Goa-kV-1wq"/>
-                                    <constraint firstItem="bhb-Yw-qJ6" firstAttribute="leading" secondItem="GS2-Ou-v7p" secondAttribute="leading" constant="20" id="XLw-kn-HLS"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="XLw-kn-HLS"/>
-                                    </mask>
-                                </variation>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="58" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2UB-ww-hod">
                                 <rect key="frame" x="20" y="292" width="560" height="173"/>
@@ -848,17 +785,9 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="n20-7c-fOu" firstAttribute="centerX" secondItem="d9k-Yj-FPT" secondAttribute="centerX" id="2A5-b5-fXm"/>
                                                 <constraint firstItem="n20-7c-fOu" firstAttribute="centerY" secondItem="d9k-Yj-FPT" secondAttribute="centerY" id="NaT-mK-0jw"/>
-                                                <constraint firstItem="n20-7c-fOu" firstAttribute="centerY" secondItem="d9k-Yj-FPT" secondAttribute="centerY" id="OBe-Cw-aXa"/>
                                                 <constraint firstItem="n20-7c-fOu" firstAttribute="centerX" secondItem="d9k-Yj-FPT" secondAttribute="centerX" id="wj9-wa-6Ac"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="2A5-b5-fXm"/>
-                                                    <exclude reference="OBe-Cw-aXa"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="removeBtn" destination="NJk-CM-gGF" id="XV8-5o-qad"/>
@@ -870,11 +799,11 @@
                                 <rect key="frame" x="60" y="226" width="480" height="44"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" misplaced="YES" placeholder="search phone numbers..." translatesAutoresizingMaskIntoConstraints="NO" id="0zn-dc-kQu">
-                                        <rect key="frame" x="0.0" y="0.0" width="368" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="198" height="44"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XDa-vb-OWy">
-                                        <rect key="frame" x="378" y="0.0" width="102" height="44"/>
+                                        <rect key="frame" x="208" y="0.0" width="272" height="44"/>
                                         <state key="normal" title="Add"/>
                                         <connections>
                                             <action selector="addMember:" destination="eOE-7P-uz3" eventType="touchUpInside" id="zGC-eq-yOq"/>
@@ -922,14 +851,8 @@
                                     <constraint firstItem="mgj-OG-NgF" firstAttribute="leading" secondItem="hGR-Ud-KXh" secondAttribute="leading" constant="30" id="LBm-VO-fM6"/>
                                     <constraint firstItem="GXF-Pm-CLs" firstAttribute="centerY" secondItem="hGR-Ud-KXh" secondAttribute="centerY" id="lik-3D-7zh"/>
                                     <constraint firstItem="mgj-OG-NgF" firstAttribute="centerY" secondItem="hGR-Ud-KXh" secondAttribute="centerY" id="sVV-3N-uCV"/>
-                                    <constraint firstAttribute="trailing" secondItem="mgj-OG-NgF" secondAttribute="trailing" constant="25" id="wIO-ZK-fpS"/>
                                     <constraint firstAttribute="height" constant="85" id="whT-sq-4hR"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="wIO-ZK-fpS"/>
-                                    </mask>
-                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -939,7 +862,6 @@
                             <constraint firstItem="GS2-Ou-v7p" firstAttribute="top" secondItem="hGR-Ud-KXh" secondAttribute="bottom" constant="50" id="9yH-eu-m8Q"/>
                             <constraint firstItem="VtA-iY-I7Y" firstAttribute="leading" secondItem="TEZ-Dh-iFr" secondAttribute="leadingMargin" constant="40" id="BzE-2u-6pd"/>
                             <constraint firstItem="2UB-ww-hod" firstAttribute="trailing" secondItem="TEZ-Dh-iFr" secondAttribute="trailingMargin" id="Cik-3a-27c"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="2UB-ww-hod" secondAttribute="bottom" id="HSr-jQ-fuv"/>
                             <constraint firstItem="hGR-Ud-KXh" firstAttribute="top" secondItem="TEZ-Dh-iFr" secondAttribute="top" id="KI6-kK-pUz"/>
                             <constraint firstItem="Duu-1H-0Xi" firstAttribute="top" relation="lessThanOrEqual" secondItem="2UB-ww-hod" secondAttribute="bottom" constant="30" id="NyH-se-pwp"/>
                             <constraint firstItem="Duu-1H-0Xi" firstAttribute="centerX" secondItem="TEZ-Dh-iFr" secondAttribute="centerX" id="Rrd-SF-duh"/>
@@ -953,18 +875,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="VtA-iY-I7Y" secondAttribute="trailing" constant="40" id="i2l-gf-wSz"/>
                             <constraint firstAttribute="bottomMargin" secondItem="2UB-ww-hod" secondAttribute="bottom" constant="100" id="l4V-Hz-u5T"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="HSr-jQ-fuv"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="groupName" destination="t1r-UI-mCe" id="EjA-hx-oFq"/>
                         <outlet property="phoneNumberToAdd" destination="0zn-dc-kQu" id="GGR-eB-efU"/>
                         <outlet property="tableView" destination="2UB-ww-hod" id="w5J-9u-s2l"/>
-                        <segue destination="TfT-va-Sc9" kind="show" identifier="cancelGroupCreate" id="X67-Yh-pw6"/>
-                        <segue destination="Huv-Sy-JW5" kind="show" identifier="toAdminSetup" id="qtO-bd-hBH"/>
+                        <segue destination="TfT-va-Sc9" kind="presentation" identifier="cancelGroupCreate" id="X67-Yh-pw6"/>
+                        <segue destination="Huv-Sy-JW5" kind="presentation" identifier="toAdminSetup" id="qtO-bd-hBH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vkk-JU-RoG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1049,26 +966,16 @@
                             <constraint firstItem="xOU-CX-aoV" firstAttribute="leading" secondItem="f4j-TX-NKo" secondAttribute="leading" id="CRu-Ab-Ahr"/>
                             <constraint firstItem="t7n-Bj-S7r" firstAttribute="top" secondItem="G1k-kC-hq9" secondAttribute="bottom" constant="50" id="Een-nr-A0V"/>
                             <constraint firstItem="pgi-mx-Qi8" firstAttribute="top" secondItem="xOU-CX-aoV" secondAttribute="bottom" constant="15" id="FlW-fg-NsS"/>
-                            <constraint firstItem="pgi-mx-Qi8" firstAttribute="top" secondItem="xOU-CX-aoV" secondAttribute="bottom" id="Lxv-tY-K0J"/>
                             <constraint firstItem="pgi-mx-Qi8" firstAttribute="trailing" secondItem="f4j-TX-NKo" secondAttribute="trailingMargin" id="XME-8g-exm"/>
                             <constraint firstItem="pgi-mx-Qi8" firstAttribute="leading" secondItem="f4j-TX-NKo" secondAttribute="leadingMargin" id="Z1V-ok-2rz"/>
-                            <constraint firstItem="pgi-mx-Qi8" firstAttribute="leading" secondItem="f4j-TX-NKo" secondAttribute="leadingMargin" constant="5" id="cHJ-UW-Nq5"/>
                             <constraint firstItem="pgi-mx-Qi8" firstAttribute="centerX" secondItem="f4j-TX-NKo" secondAttribute="centerX" id="vRA-Po-NzS"/>
                             <constraint firstAttribute="trailing" secondItem="xOU-CX-aoV" secondAttribute="trailing" id="w2Y-Ay-y0o"/>
                             <constraint firstItem="G1k-kC-hq9" firstAttribute="centerX" secondItem="f4j-TX-NKo" secondAttribute="centerX" id="ydv-He-N5I"/>
-                            <constraint firstItem="pgi-mx-Qi8" firstAttribute="trailing" secondItem="f4j-TX-NKo" secondAttribute="trailingMargin" constant="5" id="zsm-Fs-ETt"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Lxv-tY-K0J"/>
-                                <exclude reference="cHJ-UW-Nq5"/>
-                                <exclude reference="zsm-Fs-ETt"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="pgi-mx-Qi8" id="DXD-Av-Ne4"/>
-                        <segue destination="TfT-va-Sc9" kind="show" identifier="backToGroups" id="q6r-br-9iT"/>
+                        <segue destination="TfT-va-Sc9" kind="presentation" identifier="backToGroups" id="q6r-br-9iT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lgl-a4-tPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1080,7 +987,7 @@
         <image name="ProfileIcon" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ehu-T0-M3M"/>
+        <segue reference="REu-PL-06J"/>
         <segue reference="q6r-br-9iT"/>
     </inferredMetricsTieBreakers>
 </document>
