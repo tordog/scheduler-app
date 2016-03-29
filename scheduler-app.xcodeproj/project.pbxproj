@@ -21,6 +21,7 @@
 		F3328DF61C8399C100E5AFE5 /* scheduler_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328DF51C8399C100E5AFE5 /* scheduler_appTests.swift */; };
 		F3328E011C8399C100E5AFE5 /* scheduler_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328E001C8399C100E5AFE5 /* scheduler_appUITests.swift */; };
 		F3328E111C839A2400E5AFE5 /* Dataservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328E101C839A2400E5AFE5 /* Dataservice.swift */; };
+		F348F4CD1CA9F3A6007BE41F /* ProfileSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */; };
 		F35C94B31C83F79600D820D9 /* SignUpPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B21C83F79600D820D9 /* SignUpPageController.swift */; };
 		F35C94B61C84107D00D820D9 /* SyncOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */; };
 		F35C94B81C8428F100D820D9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B71C8428F100D820D9 /* Constants.swift */; };
@@ -67,6 +68,7 @@
 		F3328E001C8399C100E5AFE5 /* scheduler_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scheduler_appUITests.swift; sourceTree = "<group>"; };
 		F3328E021C8399C100E5AFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3328E101C839A2400E5AFE5 /* Dataservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dataservice.swift; sourceTree = "<group>"; };
+		F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsVC.swift; sourceTree = "<group>"; };
 		F35C94B21C83F79600D820D9 /* SignUpPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPageController.swift; sourceTree = "<group>"; };
 		F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncOptionsController.swift; sourceTree = "<group>"; };
 		F35C94B71C8428F100D820D9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				F30A16791C8CD70C00A7CCFD /* GroupPageController.swift */,
 				F30A167D1C8D481900A7CCFD /* CreateGroupVC.swift */,
 				F30A16841C8D688400A7CCFD /* AdminSetupVC.swift */,
+				F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F348F4CD1CA9F3A6007BE41F /* ProfileSettingsVC.swift in Sources */,
 				F35C94B61C84107D00D820D9 /* SyncOptionsController.swift in Sources */,
 				F35C94B31C83F79600D820D9 /* SignUpPageController.swift in Sources */,
 				F30A167E1C8D481900A7CCFD /* CreateGroupVC.swift in Sources */,

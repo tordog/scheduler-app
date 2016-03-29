@@ -15,6 +15,10 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noGroupsText: UILabel!
     
+    @IBAction func profileSettingsBtnPress(sender: AnyObject) {
+        self.performSegueWithIdentifier("toProfileSettings", sender: nil)
+    }
+    
     @IBAction func addBtnPress(sender: AnyObject) {
         self.performSegueWithIdentifier("toCreateGroup", sender: nil)
     }
