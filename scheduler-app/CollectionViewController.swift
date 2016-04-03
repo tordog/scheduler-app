@@ -11,15 +11,39 @@ import UIKit
 class CollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     let dateCellIdentifier = "DateCellIdentifier"
     let contentCellIdentifier = "ContentCellIdentifier"
+    var dates: [String] = []
+    var numSections: Int = 0
+    
+    let events = ["hi", "lol", "event!"]
+    
+    //we'll search firebase, get the # of entries, and make the table using that number. For now, let's make the table the # of events.
     
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let startTime = 1
-    let endTime = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.collectionView.backgroundColor = UIColor.whiteColor()
+        //self.view.backgroundColor = UIColor.whiteColor()
+        var date = NSDate()
+        var formatter = NSDateFormatter();
+        formatter.dateFormat = "yyyy-MM-dd";
+        
+        for (var i=0; i<14; i++){
+            let dateStr = formatter.stringFromDate(date); //string to add to DB
+            let nextDay = date.dateByAddingTimeInterval(1*60*60*24);
+            let calendar = NSCalendar.currentCalendar()
+            let components = calendar.components([.Day , .Month , .Year], fromDate: date) //can be tomorrow's date, etc.
+            let year =  components.year
+            let month = components.month
+            let day = components.day
+            dates.append("\(month)/\(day)")
+            date=nextDay
+        }
+        
+        numSections = events.count + 1 //plus 1 for initial row
+
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -32,13 +56,20 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     // MARK - UICollectionViewDataSource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 50
+        return numSections
     }
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return 15
     }
+    
+//    func collectionView(collectionView: UICollectionView,
+//        layout collectionViewLayout: UICollectionViewLayout,
+//        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+//            let size = CGSize(width: 300, height: 100)
+//            return size
+//    }
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -49,14 +80,14 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 dateCell.backgroundColor = UIColor.whiteColor()
                 dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
                 dateCell.dateLabel.textColor = UIColor.blackColor()
-                dateCell.dateLabel.text = "Time"
-                
+                dateCell.dateLabel.text = ""
+
                 return dateCell
             } else {
                 let contentCell : ContentCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(contentCellIdentifier, forIndexPath: indexPath) as! ContentCollectionViewCell
                 contentCell.contentLabel.font = UIFont.systemFontOfSize(13)
                 contentCell.contentLabel.textColor = UIColor.blackColor()
-                contentCell.contentLabel.text = "03/29"
+                contentCell.contentLabel.text = dates[indexPath.row - 1]
                 
                 if indexPath.section % 2 != 0 {
                     contentCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
@@ -69,9 +100,11 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         } else {
             if indexPath.row == 0 {
                 let dateCell : DateCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(dateCellIdentifier, forIndexPath: indexPath) as! DateCollectionViewCell
+                //dateCell.frame.size.width = 300
+                //dateCell.frame.size.height = 300
                 dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
                 dateCell.dateLabel.textColor = UIColor.blackColor()
-                dateCell.dateLabel.text = "\(indexPath.section - 1):00"
+                dateCell.dateLabel.text = ""
                 if indexPath.section % 2 != 0 {
                     dateCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
                 } else {
@@ -83,7 +116,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 let contentCell : ContentCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(contentCellIdentifier, forIndexPath: indexPath) as! ContentCollectionViewCell
                 contentCell.contentLabel.font = UIFont.systemFontOfSize(13)
                 contentCell.contentLabel.textColor = UIColor.blackColor()
-                contentCell.contentLabel.text = ""
+                contentCell.contentLabel.text = "Event"
                 if indexPath.section % 2 != 0 {
                     contentCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
                 } else {
