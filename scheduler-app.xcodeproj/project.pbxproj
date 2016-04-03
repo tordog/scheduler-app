@@ -29,6 +29,7 @@
 		F348F4E21CAB3D9E007BE41F /* ContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4E01CAB3D9E007BE41F /* ContentCollectionViewCell.swift */; };
 		F348F4E31CAB3D9E007BE41F /* ContentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F348F4E11CAB3D9E007BE41F /* ContentCollectionViewCell.xib */; };
 		F348F4E51CB0FAA6007BE41F /* AddEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4E41CB0FAA6007BE41F /* AddEventVC.swift */; };
+		F348F4E71CB1A1A3007BE41F /* EventDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4E61CB1A1A3007BE41F /* EventDetailsVC.swift */; };
 		F35C94B31C83F79600D820D9 /* SignUpPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B21C83F79600D820D9 /* SignUpPageController.swift */; };
 		F35C94B61C84107D00D820D9 /* SyncOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */; };
 		F35C94B81C8428F100D820D9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B71C8428F100D820D9 /* Constants.swift */; };
@@ -83,6 +84,7 @@
 		F348F4E01CAB3D9E007BE41F /* ContentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		F348F4E11CAB3D9E007BE41F /* ContentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentCollectionViewCell.xib; sourceTree = "<group>"; };
 		F348F4E41CB0FAA6007BE41F /* AddEventVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEventVC.swift; sourceTree = "<group>"; };
+		F348F4E61CB1A1A3007BE41F /* EventDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailsVC.swift; sourceTree = "<group>"; };
 		F35C94B21C83F79600D820D9 /* SignUpPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPageController.swift; sourceTree = "<group>"; };
 		F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncOptionsController.swift; sourceTree = "<group>"; };
 		F35C94B71C8428F100D820D9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				F30A16841C8D688400A7CCFD /* AdminSetupVC.swift */,
 				F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */,
 				F348F4E41CB0FAA6007BE41F /* AddEventVC.swift */,
+				F348F4E61CB1A1A3007BE41F /* EventDetailsVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				F35C94B31C83F79600D820D9 /* SignUpPageController.swift in Sources */,
 				F30A167E1C8D481900A7CCFD /* CreateGroupVC.swift in Sources */,
 				F348F4E51CB0FAA6007BE41F /* AddEventVC.swift in Sources */,
+				F348F4E71CB1A1A3007BE41F /* EventDetailsVC.swift in Sources */,
 				F348F4CF1CAB3548007BE41F /* CollectionViewController.swift in Sources */,
 				F30A16871C8D70D600A7CCFD /* GroupCell.swift in Sources */,
 				F3328DE31C8399C100E5AFE5 /* ViewController.swift in Sources */,

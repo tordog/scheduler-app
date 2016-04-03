@@ -76,6 +76,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         cell!.layer.backgroundColor = UIColor.lightGrayColor().CGColor
         print("HI")
+        self.performSegueWithIdentifier("toEventDetails", sender: nil)
     }
     
     
