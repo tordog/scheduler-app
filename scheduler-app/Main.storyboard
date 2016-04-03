@@ -468,30 +468,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o41-T0-BDN">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o41-T0-BDN">
                                 <rect key="frame" x="-8" y="0.0" width="616" height="84"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="GroupName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVJ-mV-IgA">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="GroupName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVJ-mV-IgA">
                                         <rect key="frame" x="259" y="31" width="195" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U54-lQ-NBh">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U54-lQ-NBh">
                                         <rect key="frame" x="532" y="31" width="46" height="30"/>
                                         <state key="normal" title="Add">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="addBtnPress:" destination="TfT-va-Sc9" eventType="touchUpInside" id="j1W-xz-h64"/>
+                                            <action selector="addEvent:" destination="cPm-lv-bsB" eventType="touchUpInside" id="FqG-HM-Ymv"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggT-Zk-bNB">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggT-Zk-bNB">
                                         <rect key="frame" x="36" y="27" width="46" height="30"/>
                                         <state key="normal" title="Back">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
+                                            <action selector="backBtnPress:" destination="cPm-lv-bsB" eventType="touchUpInside" id="Zry-fj-hVk"/>
                                             <action selector="logoutBtnPress:" destination="TfT-va-Sc9" eventType="touchUpInside" id="FnZ-rg-VvY"/>
                                         </connections>
                                     </button>
@@ -507,7 +509,7 @@
                                     <constraint firstAttribute="height" constant="85" id="o6v-mV-eqv"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" directionalLockEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Kja-oo-Sbv">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" directionalLockEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Kja-oo-Sbv">
                                 <rect key="frame" x="0.0" y="84" width="600" height="452"/>
                                 <collectionViewLayout key="collectionViewLayout" id="AeV-IY-8Lt" customClass="CustomCollectionViewLayout" customModule="scheduler_app" customModuleProvider="target"/>
                                 <cells/>
@@ -520,19 +522,93 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Kja-oo-Sbv" firstAttribute="top" secondItem="o41-T0-BDN" secondAttribute="bottom" id="DBm-Gz-Y0d"/>
+                            <constraint firstItem="o41-T0-BDN" firstAttribute="top" secondItem="cbZ-uG-Ath" secondAttribute="top" id="Eae-5f-NbP"/>
                             <constraint firstItem="Kja-oo-Sbv" firstAttribute="leading" secondItem="cbZ-uG-Ath" secondAttribute="leading" id="IMV-iq-4Y4"/>
+                            <constraint firstItem="o41-T0-BDN" firstAttribute="leading" secondItem="cbZ-uG-Ath" secondAttribute="leading" id="MkS-YK-hNY"/>
                             <constraint firstAttribute="trailing" secondItem="Kja-oo-Sbv" secondAttribute="trailing" id="X14-8I-ssd"/>
+                            <constraint firstAttribute="trailing" secondItem="o41-T0-BDN" secondAttribute="trailing" id="pw1-Kf-foJ"/>
                             <constraint firstItem="jS9-fG-aqg" firstAttribute="top" secondItem="Kja-oo-Sbv" secondAttribute="bottom" id="v00-2Y-pVt"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Kja-oo-Sbv" id="foc-LQ-bvw"/>
                         <outlet property="view" destination="cbZ-uG-Ath" id="PJo-7W-jai"/>
+                        <segue destination="YDH-Wr-3rQ" kind="show" identifier="addEvent" id="lVK-3v-rao"/>
+                        <segue destination="TfT-va-Sc9" kind="show" identifier="backToGroups" id="Vpj-TM-RpD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="emm-pe-P9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="218" y="2049"/>
+            <point key="canvasLocation" x="147" y="2593"/>
+        </scene>
+        <!--Add EventVC-->
+        <scene sceneID="Ib3-0r-eGi">
+            <objects>
+                <viewController id="YDH-Wr-3rQ" customClass="AddEventVC" customModule="scheduler_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="J2O-rJ-8A1"/>
+                        <viewControllerLayoutGuide type="bottom" id="DhK-7J-sHv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RYI-L7-Uji">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dhq-BV-15n">
+                                <rect key="frame" x="-16" y="0.0" width="616" height="84"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Add an Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Cz-gN-zs4">
+                                        <rect key="frame" x="259" y="31" width="195" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F73-TC-Dx5">
+                                        <rect key="frame" x="36" y="27" width="46" height="30"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelBtnPress:" destination="YDH-Wr-3rQ" eventType="touchUpInside" id="6KR-43-fqP"/>
+                                            <action selector="logoutBtnPress:" destination="TfT-va-Sc9" eventType="touchUpInside" id="crx-sm-LWv"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ue-l5-lvz">
+                                        <rect key="frame" x="547" y="27" width="46" height="30"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveBtnPress:" destination="YDH-Wr-3rQ" eventType="touchUpInside" id="XGu-f3-OWO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.32616468479999999" green="0.57447485359999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="4Cz-gN-zs4" firstAttribute="centerY" secondItem="dhq-BV-15n" secondAttribute="centerY" id="3KG-7C-n0V"/>
+                                    <constraint firstItem="7Ue-l5-lvz" firstAttribute="centerY" secondItem="dhq-BV-15n" secondAttribute="centerY" id="Ku5-wp-lov"/>
+                                    <constraint firstItem="F73-TC-Dx5" firstAttribute="centerY" secondItem="dhq-BV-15n" secondAttribute="centerY" id="MpP-b1-Mbu"/>
+                                    <constraint firstAttribute="trailing" secondItem="7Ue-l5-lvz" secondAttribute="trailing" constant="25" id="OQT-6x-Han"/>
+                                    <constraint firstItem="F73-TC-Dx5" firstAttribute="leading" secondItem="dhq-BV-15n" secondAttribute="leading" constant="25" id="dA6-Qz-dHv"/>
+                                    <constraint firstItem="4Cz-gN-zs4" firstAttribute="centerX" secondItem="dhq-BV-15n" secondAttribute="centerX" id="jXR-s0-r4i"/>
+                                    <constraint firstAttribute="height" constant="85" id="qSj-2K-oSJ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dhq-BV-15n" secondAttribute="trailing" id="N7X-Pz-UAy"/>
+                            <constraint firstItem="dhq-BV-15n" firstAttribute="leading" secondItem="RYI-L7-Uji" secondAttribute="leading" id="Vad-yd-Mga"/>
+                            <constraint firstItem="dhq-BV-15n" firstAttribute="top" secondItem="RYI-L7-Uji" secondAttribute="top" id="aCP-5u-Kav"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelBtnPress" destination="F73-TC-Dx5" id="Ebw-rE-9xR"/>
+                        <segue destination="cPm-lv-bsB" kind="show" identifier="backToCalendar" id="bWM-nk-CSg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w3w-Sk-r5e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="804" y="2586"/>
         </scene>
         <!--Profile SettingsVC-->
         <scene sceneID="CaM-J4-1Te">
@@ -988,6 +1064,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="REu-PL-06J"/>
-        <segue reference="q6r-br-9iT"/>
+        <segue reference="Vpj-TM-RpD"/>
+        <segue reference="bWM-nk-CSg"/>
     </inferredMetricsTieBreakers>
 </document>
