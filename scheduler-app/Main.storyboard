@@ -593,16 +593,161 @@
                                     <constraint firstAttribute="height" constant="85" id="qSj-2K-oSJ"/>
                                 </constraints>
                             </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fQN-0t-ZuI">
+                                <rect key="frame" x="9" y="88" width="600" height="677"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="P84-ua-0sW">
+                                        <rect key="frame" x="30" y="0.0" width="540" height="752"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bdd-eB-rQ8">
+                                                <rect key="frame" x="0.0" y="0.0" width="540" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERy-DI-gCL">
+                                                        <rect key="frame" x="0.0" y="0.0" width="81" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mea-D0-JXn">
+                                                        <rect key="frame" x="86" y="0.0" width="455" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Hca-4o-wMh">
+                                                <rect key="frame" x="0.0" y="50" width="540" height="100"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSv-cX-s4t">
+                                                        <rect key="frame" x="0.0" y="0.0" width="88" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="This is the event description." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nn4-nX-bVA">
+                                                        <rect key="frame" x="93" y="0.0" width="447" height="100"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="100" id="3dp-9K-djM"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    </textView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="xSv-cX-s4t" firstAttribute="top" secondItem="Hca-4o-wMh" secondAttribute="top" constant="10" id="O7l-H4-Yr0"/>
+                                                    <constraint firstItem="xSv-cX-s4t" firstAttribute="top" secondItem="Hca-4o-wMh" secondAttribute="top" constant="10" id="u9m-C3-83E"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="O7l-H4-Yr0"/>
+                                                        <exclude reference="u9m-C3-83E"/>
+                                                    </mask>
+                                                </variation>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhB-SR-XGe">
+                                                <rect key="frame" x="0.0" y="170" width="85" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="eaT-fi-5lG">
+                                                <rect key="frame" x="0.0" y="211" width="320" height="216"/>
+                                                <date key="date" timeIntervalSinceReferenceDate="481397075.221816">
+                                                    <!--2016-04-03 17:24:35 +0000-->
+                                                </date>
+                                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                                                    <!--1970-01-01 11:00:00 +0000-->
+                                                </date>
+                                                <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
+                                                    <!--2037-12-31 11:00:00 +0000-->
+                                                </date>
+                                            </datePicker>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event End" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVC-Bl-dKq">
+                                                <rect key="frame" x="0.0" y="447" width="77" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="9KG-Vq-j1J">
+                                                <rect key="frame" x="0.0" y="487" width="320" height="216"/>
+                                                <date key="date" timeIntervalSinceReferenceDate="481397111.518969">
+                                                    <!--2016-04-03 17:25:11 +0000-->
+                                                </date>
+                                            </datePicker>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="qSW-T7-Z0B">
+                                                <rect key="frame" x="0.0" y="723" width="192" height="29"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of slots:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gu1-O9-KfQ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="76" height="29"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXj-Le-7gz">
+                                                        <rect key="frame" x="82" y="0.0" width="11" height="29"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="VRd-gY-vGR">
+                                                        <rect key="frame" x="98" y="0.0" width="94" height="29"/>
+                                                        <connections>
+                                                            <action selector="stepperAction:" destination="YDH-Wr-3rQ" eventType="valueChanged" id="3zo-dd-Ynk"/>
+                                                        </connections>
+                                                    </stepper>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="bdd-eB-rQ8" secondAttribute="trailing" id="2QM-GT-3gH"/>
+                                            <constraint firstItem="Hca-4o-wMh" firstAttribute="leading" secondItem="P84-ua-0sW" secondAttribute="leading" id="Zd0-fZ-kQy"/>
+                                            <constraint firstItem="bdd-eB-rQ8" firstAttribute="leading" secondItem="P84-ua-0sW" secondAttribute="leading" id="eXq-YP-wtj"/>
+                                            <constraint firstAttribute="trailing" secondItem="Hca-4o-wMh" secondAttribute="trailing" id="hMB-EN-DlC"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="P84-ua-0sW" secondAttribute="bottom" constant="20" id="Hdk-ao-AuB"/>
+                                    <constraint firstItem="P84-ua-0sW" firstAttribute="leading" secondItem="fQN-0t-ZuI" secondAttribute="leading" id="M00-hZ-0jd"/>
+                                    <constraint firstAttribute="trailing" secondItem="P84-ua-0sW" secondAttribute="trailing" id="NrJ-3Z-Tzf"/>
+                                    <constraint firstItem="P84-ua-0sW" firstAttribute="centerX" secondItem="fQN-0t-ZuI" secondAttribute="centerX" id="QL7-8k-5YX"/>
+                                    <constraint firstItem="P84-ua-0sW" firstAttribute="top" secondItem="fQN-0t-ZuI" secondAttribute="top" constant="20" id="SWm-qC-XDk"/>
+                                    <constraint firstItem="P84-ua-0sW" firstAttribute="top" secondItem="fQN-0t-ZuI" secondAttribute="top" id="UB5-QS-38u"/>
+                                    <constraint firstAttribute="bottom" secondItem="P84-ua-0sW" secondAttribute="bottom" constant="-314" id="eqp-Ve-jPr"/>
+                                    <constraint firstAttribute="trailing" secondItem="P84-ua-0sW" secondAttribute="trailing" constant="-150" id="qA9-5m-lTX"/>
+                                    <constraint firstItem="P84-ua-0sW" firstAttribute="leading" secondItem="fQN-0t-ZuI" secondAttribute="leading" constant="-150" id="sTo-fv-htd"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="M00-hZ-0jd"/>
+                                        <exclude reference="NrJ-3Z-Tzf"/>
+                                        <exclude reference="UB5-QS-38u"/>
+                                        <exclude reference="eqp-Ve-jPr"/>
+                                        <exclude reference="qA9-5m-lTX"/>
+                                        <exclude reference="sTo-fv-htd"/>
+                                    </mask>
+                                </variation>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="fQN-0t-ZuI" firstAttribute="top" secondItem="dhq-BV-15n" secondAttribute="bottom" id="9FK-et-V2d"/>
+                            <constraint firstItem="fQN-0t-ZuI" firstAttribute="leading" secondItem="RYI-L7-Uji" secondAttribute="leading" id="B0y-v1-D7q"/>
+                            <constraint firstItem="DhK-7J-sHv" firstAttribute="top" secondItem="fQN-0t-ZuI" secondAttribute="bottom" id="Joz-W0-6O5"/>
                             <constraint firstAttribute="trailing" secondItem="dhq-BV-15n" secondAttribute="trailing" id="N7X-Pz-UAy"/>
                             <constraint firstItem="dhq-BV-15n" firstAttribute="leading" secondItem="RYI-L7-Uji" secondAttribute="leading" id="Vad-yd-Mga"/>
                             <constraint firstItem="dhq-BV-15n" firstAttribute="top" secondItem="RYI-L7-Uji" secondAttribute="top" id="aCP-5u-Kav"/>
+                            <constraint firstAttribute="trailing" secondItem="fQN-0t-ZuI" secondAttribute="trailing" id="c9I-Xk-sAY"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="cancelBtnPress" destination="F73-TC-Dx5" id="Ebw-rE-9xR"/>
+                        <outlet property="eventDescription" destination="nn4-nX-bVA" id="TbR-p3-wfq"/>
+                        <outlet property="eventEnd" destination="9KG-Vq-j1J" id="0Jn-lM-3lB"/>
+                        <outlet property="eventStart" destination="eaT-fi-5lG" id="bHU-Uy-N76"/>
+                        <outlet property="eventTitle" destination="Mea-D0-JXn" id="dq5-Tp-JOs"/>
+                        <outlet property="numSlots" destination="gXj-Le-7gz" id="WEJ-MM-dPH"/>
+                        <outlet property="stepper" destination="VRd-gY-vGR" id="krS-IJ-icO"/>
                         <segue destination="cPm-lv-bsB" kind="show" identifier="backToCalendar" id="bWM-nk-CSg"/>
                     </connections>
                 </viewController>
