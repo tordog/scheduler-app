@@ -15,6 +15,9 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noGroupsText: UILabel!
     
+    var groupIDHash = [String: String]()
+    var groupID: String = ""
+    
     @IBAction func profileSettingsBtnPress(sender: AnyObject) {
         self.performSegueWithIdentifier("toProfileSettings", sender: nil)
     }
@@ -29,13 +32,6 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
         self.performSegueWithIdentifier("backToSignUp", sender: nil)
     }
     
-//    @IBAction func logOutBtnPress(sender: AnyObject) {
-//        Digits.sharedInstance().logOut()
-//        print("logging out!")
-//        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
-//            print(NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID))
-//        }
-//    }
     var randArray: [String] = []
     
     override func viewDidLoad() {
@@ -48,7 +44,6 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
             //print(homeRef.authData.uid)
             let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(currUid)/groups")
             ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                print("MERP: \(snapshot.childrenCount)") // I got the expected number of items
                 if(snapshot.childrenCount == 0){
                     self.noGroupsText.text = "No groups yet! Create a group to get started."
                 }
@@ -62,6 +57,7 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
                         refGroup.observeSingleEventOfType(.Value, withBlock: { snapshot in
                             if let groupName = snapshot.value["groupName"]{
                                 self.randArray.append(groupName as! String)
+                                self.groupIDHash[groupName as! String] = rest.key
                                 self.tableView.reloadData()
                             }
                         })
@@ -77,6 +73,19 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "toGroupCalendar"){
+            let svc = segue.destinationViewController as! CollectionViewController;
+            svc.groupIDToPass = groupID
+            print(groupID)
+        }
+
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
+    }
+
     
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -100,7 +109,12 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
         let indexPath = tableView.indexPathForSelectedRow!
         
         let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        if let groupName = currentCell.textLabel!.text {
+            groupID = groupIDHash[groupName]!
+        }
+        //groupID = groupIDHash[currentCell.textLabel!.text]
         //perform segue & load data for this group's calendar!
+        self.performSegueWithIdentifier("toGroupCalendar", sender: nil)
         print(currentCell.textLabel!.text)
     }
 

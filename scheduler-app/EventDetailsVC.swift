@@ -9,10 +9,13 @@
 import UIKit
 
 class EventDetailsVC: UIViewController {
+    
+    var eventIDToPass: String = ""
+    var eventID: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        eventID = eventIDToPass
         // Do any additional setup after loading the view.
     }
     @IBOutlet weak var eventTitle: UILabel!

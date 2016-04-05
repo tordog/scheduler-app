@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Firebase
 
 class CollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     let dateCellIdentifier = "DateCellIdentifier"
     let contentCellIdentifier = "ContentCellIdentifier"
     var dates: [String] = []
     var numSections: Int = 0
+    var groupIDToPass: String = ""
+    var groupID: String = ""
     
     let events = ["hi", "lol", "event!"]
     
@@ -31,23 +34,10 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        groupID = groupIDToPass
+        print("GroupID received: \(groupID)")
         self.collectionView.backgroundColor = UIColor.whiteColor()
         //self.view.backgroundColor = UIColor.whiteColor()
-        var date = NSDate()
-        var formatter = NSDateFormatter();
-        formatter.dateFormat = "yyyy-MM-dd";
-        
-        for (var i=0; i<14; i++){
-            let dateStr = formatter.stringFromDate(date); //string to add to DB
-            let nextDay = date.dateByAddingTimeInterval(1*60*60*24);
-            let calendar = NSCalendar.currentCalendar()
-            let components = calendar.components([.Day , .Month , .Year], fromDate: date) //can be tomorrow's date, etc.
-            let year =  components.year
-            let month = components.month
-            let day = components.day
-            dates.append("\(month)/\(day)")
-            date=nextDay
-        }
         
         numSections = events.count + 1 //plus 1 for initial row
 
@@ -57,6 +47,20 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         
         self.collectionView .registerNib(UINib(nibName: "DateCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: dateCellIdentifier)
         self.collectionView .registerNib(UINib(nibName: "ContentCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: contentCellIdentifier)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "toEventDetails"){
+            //let svc = segue.destinationViewController as! EventDetailsVC;
+            //svc.eventIDToPass = eventID
+        }
+        else if(segue.identifier == "addEvent"){
+            let svc = segue.destinationViewController as! AddEventVC;
+            svc.groupIDToPass = groupID
+        }
+        
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
     
     
@@ -75,12 +79,51 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         cell!.layer.backgroundColor = UIColor.lightGrayColor().CGColor
-        print("HI")
         self.performSegueWithIdentifier("toEventDetails", sender: nil)
     }
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        var date = NSDate()
+        var formatter = NSDateFormatter();
+        formatter.dateFormat = "yyyy-MM-dd";
+        
+        //for the 14 days, loop through
+        for (var i=0; i<14; i++){
+            if indexPath.section == i+1 {
+                let dateStr = formatter.stringFromDate(date); //string to add to DB
+                print("Today's date: \(dateStr)") //I think we can compare this string to the things in our DB
+                //so /groups/groupid/dateStr
+                let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupID)/\(dateStr)/events")
+                ref.queryOrderedByChild("startTime24").observeEventType(.ChildAdded, withBlock: { snapshot in
+                    if let title = snapshot.value["title"] as? String {
+                        print("Title: \(title)")
+                    }
+                    if let startDate = snapshot.value["startDate"] as? String {
+                        //print(startDate)
+                    }
+                    if let startTime = snapshot.value["startTime"] as? String {
+                        if let endTime = snapshot.value["endTime"] as? String {
+                            print("From \(startTime) to \(endTime)")
+                        }
+                    }
+                    
+                    if let time = snapshot.value["startTime24"] as? Double {
+                        //print("Start time: \(time)")
+                    }
+                })
+
+            }
+            let nextDay = date.dateByAddingTimeInterval(1*60*60*24);
+            let calendar = NSCalendar.currentCalendar()
+            let components = calendar.components([.Day , .Month , .Year], fromDate: date) //can be tomorrow's date, etc.
+            let year =  components.year
+            let month = components.month
+            let day = components.day
+            dates.append("\(month)/\(day)")
+            date=nextDay
+            
+        }
         
         if indexPath.section == 0 {
             if indexPath.row == 0 {
