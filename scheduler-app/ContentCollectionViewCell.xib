@@ -61,6 +61,7 @@
             </variation>
             <connections>
                 <outlet property="contentLabel" destination="KuQ-6Y-pwl" id="BsK-kq-L6Z"/>
+                <outlet property="numSlotsLabel" destination="qJu-sH-k25" id="b39-1z-wVh"/>
                 <outlet property="timeLabel" destination="aPD-P1-WVY" id="D20-cq-dBA"/>
             </connections>
             <point key="canvasLocation" x="360.5" y="313.5"/>

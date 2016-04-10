@@ -85,9 +85,9 @@ class AddEventVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         groupID = groupIDToPass
+        print(groupID)
         let today = NSDate()
         let endDate = today.dateByAddingTimeInterval(14*60*60*24);
-        //WHY DOESN'T THIS WORK
         eventStart.minimumDate = today
         eventStart.maximumDate = endDate
         eventEnd.minimumDate = today

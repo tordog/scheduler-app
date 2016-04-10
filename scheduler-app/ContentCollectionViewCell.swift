@@ -11,6 +11,7 @@ import UIKit
 class ContentCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var numSlotsLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
