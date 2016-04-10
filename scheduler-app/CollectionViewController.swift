@@ -16,6 +16,8 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     var numSections: Int = 0
     var groupIDToPass: String = ""
     var groupID: String = ""
+    var dateToPass = ""
+    var eventIDToPass = ""
     
     let events = ["hi", "lol", "event!"]
     
@@ -91,7 +93,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                     if let eventid = snapshot.value["eventID"] as? String {
                         eventID = eventid
                     }
-                    self.sampleData[dateStrDict[startDate]!][count] = [eventID, title, desc, timeStr, numSlots]
+                    self.sampleData[dateStrDict[startDate]!][count] = [eventID, title, desc, timeStr, numSlots, startDate]
                     count++
                     self.collectionView!.reloadData()
                     print(self.sampleData)
@@ -123,8 +125,11 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "toEventDetails"){
-            //let svc = segue.destinationViewController as! EventDetailsVC;
-            //svc.eventIDToPass = eventID
+            let svc = segue.destinationViewController as! EventDetailsVC;
+            svc.eventIDToPass = eventIDToPass
+            svc.dateToPass = dateToPass
+            svc.groupIDToPass = groupID
+            
         }
         else if(segue.identifier == "addEvent"){
             let svc = segue.destinationViewController as! AddEventVC;
@@ -151,6 +156,10 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         cell!.layer.backgroundColor = UIColor.lightGrayColor().CGColor
+        
+        eventIDToPass = sampleData[indexPath.row - 1][indexPath.section - 1][0]
+        dateToPass = sampleData[indexPath.row - 1][indexPath.section - 1][5]
+        
         self.performSegueWithIdentifier("toEventDetails", sender: nil)
     }
     
