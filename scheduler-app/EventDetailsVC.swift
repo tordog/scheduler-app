@@ -51,6 +51,7 @@ class EventDetailsVC: UIViewController {
     @IBOutlet weak var eventDescription: UILabel!
 
     @IBAction func backBtnpress(sender: AnyObject) {
+        //accept position, which means we need even more nested things. but to easily display, it should be associated with user id.
         self.performSegueWithIdentifier("backToCalendar", sender: nil)
     }
     override func didReceiveMemoryWarning() {
@@ -72,6 +73,36 @@ class EventDetailsVC: UIViewController {
     
 
     @IBAction func confirmBtnPress(sender: AnyObject) {
+        
+        let homeRef = Firebase(url: "https://scheduler-base.firebaseio.com")
+        var userID = ""
+        if homeRef.authData != nil {
+            // user authenticated
+            userID = homeRef.authData.uid
+            print(userID)
+        } else {
+            // No user is signed in
+        }
+        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(groupID)/events")
+        //add eventID: true
+        var infoToAdd = [eventID: true]
+        ref.updateChildValues(infoToAdd)
+        
+        //update Num Slots!
+        let ref2 = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupID)/\(date)/events/\(eventID)")
+        ref2.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            if let numSlots = snapshot.value["numSlots"] {
+                let str = numSlots as! String
+                print(str)
+                
+                let newNum = Int(str)! - 1
+                print(newNum)
+                let numToStr = String(newNum)
+                print(numToStr)
+                ref2.childByAppendingPath("numSlots").setValue(numToStr)
+            }
+        })
+
         self.performSegueWithIdentifier("backToCalendar", sender: nil)
     }
     /*
