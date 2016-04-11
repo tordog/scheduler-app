@@ -83,10 +83,6 @@ class EventDetailsVC: UIViewController {
         } else {
             // No user is signed in
         }
-        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(groupID)/events")
-        //add eventID: true
-        var infoToAdd = [eventID: true]
-        ref.updateChildValues(infoToAdd)
         
         //update Num Slots!
         let ref2 = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupID)/\(date)/events/\(eventID)")
@@ -94,16 +90,46 @@ class EventDetailsVC: UIViewController {
             if let numSlots = snapshot.value["numSlots"] {
                 let str = numSlots as! String
                 print(str)
-                
                 let newNum = Int(str)! - 1
                 print(newNum)
-                let numToStr = String(newNum)
-                print(numToStr)
-                ref2.childByAppendingPath("numSlots").setValue(numToStr)
+                if newNum < 0 {
+                    self.showErrorAlert("No slots available", msg: "All the slots for this event are already filled!")
+                }
+                else {
+                    
+                    
+                    let ref3 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events/\(self.eventID)")
+                    ref3.observeEventType(.Value, withBlock: { snapshot in
+                        if snapshot.value is NSNull {
+                            print("This path was null! So user has not yet signed up.")
+                            let numToStr = String(newNum)
+                            ref2.childByAppendingPath("numSlots").setValue(numToStr)
+                            
+                            let ref4 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events")
+                            //add eventID: true
+                            var infoToAdd = [self.eventID: true]
+                            ref4.updateChildValues(infoToAdd)
+                            self.performSegueWithIdentifier("backToCalendar", sender: nil)
+                        } else {
+                            print("This path exists")
+                            print(snapshot.value)
+                            self.showErrorAlert("Alert", msg: "You have already signed up for this time slot!")
+                        }
+                    })
+                    
+                    
+                }
             }
         })
 
-        self.performSegueWithIdentifier("backToCalendar", sender: nil)
+        
+    }
+    
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated:true, completion: nil)
     }
     /*
     // MARK: - Navigation

@@ -227,12 +227,13 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
                 dateCell.dateLabel.textColor = UIColor.blackColor()
                 dateCell.dateLabel.text = dates[indexPath.row - 1]
-
+               // dateCell.backgroundColor = UIColor.whiteColor()
                 if indexPath.section % 2 != 0 {
                     dateCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
                 } else {
                     dateCell.backgroundColor = UIColor.whiteColor()
                 }
+
 
                 return dateCell
             }
@@ -242,11 +243,12 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
                 dateCell.dateLabel.textColor = UIColor.blackColor()
                 dateCell.dateLabel.text = ""
-                if indexPath.section % 2 != 0 {
-                    dateCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
-                } else {
-                    dateCell.backgroundColor = UIColor.whiteColor()
-                }
+                dateCell.backgroundColor = UIColor.whiteColor()
+//                if indexPath.section % 2 != 0 {
+//                    dateCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
+//                } else {
+//                    dateCell.backgroundColor = UIColor.whiteColor()
+//                }
                 
                 return dateCell
             }
@@ -258,7 +260,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 contentCell.contentLabel.text = sampleData[indexPath.row - 1][indexPath.section - 1][1]
                 contentCell.timeLabel.text = sampleData[indexPath.row - 1][indexPath.section - 1][3]
                 contentCell.numSlotsLabel.text = sampleData[indexPath.row - 1][indexPath.section - 1][4]
-                if indexPath.section % 2 != 0 {
+                if indexPath.row % 2 != 0 {
                     contentCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
                 } else {
                     contentCell.backgroundColor = UIColor.whiteColor()
