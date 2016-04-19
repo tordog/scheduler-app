@@ -17,13 +17,13 @@ class AddEventVC: UIViewController {
     @IBAction func saveBtnPress(sender: AnyObject) {
         //do a bunch of checks -- is everything non-empty? 
         if(eventTitle.text == ""){
-            print("Pls enter a title")
+            showErrorAlert("Event Title required", msg: "Please enter an event title")
         }
         else if(eventDescription.text == ""){
-            print("Enter description")
+            showErrorAlert("Event description required", msg: "Please enter an event description")
         }
         else if eventStart.date.compare(eventEnd.date) == NSComparisonResult.OrderedDescending {
-            print("Error, start date is after end date")
+            showErrorAlert("Error", msg: "Event Start occurs after Event End")
         }
         else {
             let dateFormatter = NSDateFormatter()
@@ -107,6 +107,13 @@ class AddEventVC: UIViewController {
 
     @IBAction func cancelBtnPress(sender: AnyObject) {
         self.performSegueWithIdentifier("backToCalendar", sender: nil)
+    }
+    
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated:true, completion: nil)
     }
     
 
