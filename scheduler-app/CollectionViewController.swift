@@ -18,12 +18,9 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     var groupID: String = ""
     var dateToPass = ""
     var eventIDToPass = ""
-    
-    let events = ["hi", "lol", "event!"]
-    
+    var statusToPass = ""
+
     var sampleData: [[[String]]] = []
-    
-    //var sampleData = Dictionary<Int, [[String]]>()
     
     //we'll search firebase, get the # of entries, and make the table using that number. For now, let's make the table the # of events.
     
@@ -36,21 +33,30 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var headerTitle: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         groupID = groupIDToPass
-        print(groupID)
         self.collectionView.backgroundColor = UIColor.whiteColor()
         
         var dateStrDict = Dictionary<String, Int>()
         
-        numSections = events.count + 1 //plus 1 for initial row
+        numSections = 10 //events.count + 1 //plus 1 for initial row
         
             var date = NSDate()
             var formatter = NSDateFormatter();
             formatter.dateFormat = "yyyy-MM-dd";
+        
+            let ref0 = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupID)")
+            ref0.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                if !snapshot.exists() {
+                    print("Error")
+                } else {
+                    self.headerTitle.text = snapshot.value["groupName"] as? String
+                }
+            })
    
             for (var i=0; i<15; i++){
                 
@@ -59,7 +65,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 //add dateStr to sampleData
                 sampleData.append([])
                 for (var j = 0; j<numSections; j++){
-                    sampleData[i].append(["", "", "", "", ""])
+                    sampleData[i].append(["", "", "", "", "", "", ""])
                 }
                 //Firebase Call here
                 let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupID)/\(dateStr)/events")
@@ -72,6 +78,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                     var eventID = ""
                     var numSlots = ""
                     var datestring = ""
+                    var signupBool = ""
                     if let stitle = snapshot.value["title"] as? String {
                         title = stitle
                     }
@@ -83,22 +90,39 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                             timeStr = "\(startTime) to \(endTime)"
                         }
                     }
+                    if let eventid = snapshot.value["eventID"] as? String {
+                        eventID = eventid
+                    }
                     if let nSlots = snapshot.value["numSlots"] as? String {
                         numSlots = "\(nSlots) slots available"
                     }
                     if let description = snapshot.value["description"] as? String {
                         desc = description
                     }
+                    if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
+                        let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID)
+                        
+                        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(self.groupID)/\(dateStr)/events/\(eventID)/signups/\(uid!)")
+                        ref.observeEventType(.Value, withBlock: { snapshot in
+                            if snapshot.value is NSNull {
+                                signupBool = "false"
+                            }
+                            else {
+                                signupBool = "true"
+                            }
+                            self.sampleData[dateStrDict[startDate]!][count] = [eventID, title, desc, timeStr, numSlots, startDate, signupBool]
+                            count++
+                            self.collectionView!.reloadData()
+                        })
 
-                    if let eventid = snapshot.value["eventID"] as? String {
-                        eventID = eventid
                     }
-                    self.sampleData[dateStrDict[startDate]!][count] = [eventID, title, desc, timeStr, numSlots, startDate]
-                    count++
-                    self.collectionView!.reloadData()
-                    print(self.sampleData)
+//                    self.sampleData[dateStrDict[startDate]!][count] = [eventID, title, desc, timeStr, numSlots, startDate, signupBool]
+//                    count++
+//                    self.collectionView!.reloadData()
+                    //print(self.sampleData)
                     
                 })
+                
             
 
                 let nextDay = date.dateByAddingTimeInterval(1*60*60*24);
@@ -111,9 +135,43 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 date=nextDay
                 
             }
+
+        /* If other plan doesn't work...
         
-        
-//        sampleData = ["Day 1": [["eventID1", "title1", "description1", "time1"], ["eventID2", "title2", "description2", "time2"]], "Day 2": [["eventID", "title", "description", "time"]]]
+        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
+            let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID)
+            print("https://scheduler-base.firebaseio.com/signups/\(uid!)/\(self.groupID)/events")
+            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(uid!)/\(self.groupID)/events")
+            ref.observeEventType(.ChildAdded, withBlock: { snapshot in
+                if snapshot.value is NSNull {
+                    print("snapshot doesn't exist; so none there?")
+                }
+                else {
+                    print("snapshot exists. eventID: \(snapshot.key)")
+                    //look for snapshot.key in sampleData? 
+                    var found = false
+                    for (var i=0; i<self.sampleData.count; i++){
+                        for (var j=0; j<self.sampleData[i].count; j++){
+                            if self.sampleData[i][j][0] == snapshot.key {
+                                self.sampleData[i][j][4] = "You are signed up for this slot"
+                                found = true
+                                break
+                            }
+                        }
+                        if (found == true) {
+                            break
+                        }
+                    }
+                }
+                //print(snapshot.key)
+                self.collectionView!.reloadData()
+                
+                }, withCancelBlock: { error in
+                    print(error.description)
+            })
+            
+        }
+        */
 
         
         collectionView.delegate = self
@@ -129,6 +187,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
             svc.eventIDToPass = eventIDToPass
             svc.dateToPass = dateToPass
             svc.groupIDToPass = groupID
+            svc.statusToPass = statusToPass
             
         }
         else if(segue.identifier == "addEvent"){
@@ -155,12 +214,23 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     //on cell click
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        cell!.layer.backgroundColor = UIColor.lightGrayColor().CGColor
         
-        eventIDToPass = sampleData[indexPath.row - 1][indexPath.section - 1][0]
-        dateToPass = sampleData[indexPath.row - 1][indexPath.section - 1][5]
+        if(indexPath.section == 0) {
+            //date cell; not clickable; do nothing
+        }
+        else if sampleData[indexPath.row][indexPath.section - 1][0] == "" {
+            //Cell not clickable; do nothing
+        }
+        else{
         
-        self.performSegueWithIdentifier("toEventDetails", sender: nil)
+            cell!.layer.backgroundColor = UIColor.lightGrayColor().CGColor
+            
+            eventIDToPass = sampleData[indexPath.row][indexPath.section - 1][0]
+            dateToPass = sampleData[indexPath.row][indexPath.section - 1][5]
+            statusToPass = sampleData[indexPath.row][indexPath.section - 1][6]
+            
+            self.performSegueWithIdentifier("toEventDetails", sender: nil)
+        }
     }
     
     
@@ -169,160 +239,75 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd";
         
-        //for the 14 days, loop through
-//        for (var i=0; i<14; i++){
-//            if indexPath.section == i+1 {
-//                let dateStr = formatter.stringFromDate(date); //string to add to DB
-//                print("Today's date: \(dateStr)") //I think we can compare this string to the things in our DB
-//                //so /groups/groupid/dateStr
-//                var count = 1
-//                let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupID)/\(dateStr)/events")
-//                ref.queryOrderedByChild("startTime24").observeEventType(.ChildAdded, withBlock: { snapshot in
-//                    if indexPath.row == count {
-//                        if let title = snapshot.value["title"] as? String {
-//                            print("Title: \(title)")
-//                        }
-//                        if let startDate = snapshot.value["startDate"] as? String {
-//                            //print(startDate)
-//                        }
-//                        if let startTime = snapshot.value["startTime"] as? String {
-//                            if let endTime = snapshot.value["endTime"] as? String {
-//                                print("From \(startTime) to \(endTime)")
-//                            }
-//                        }
-//                        
-//                        if let time = snapshot.value["startTime24"] as? Double {
-//                            //print("Start time: \(time)")
-//                        }
-//                    }
-//                    count += 1
-//                })
-//
-//            }
-//            let nextDay = date.dateByAddingTimeInterval(1*60*60*24);
-//            let calendar = NSCalendar.currentCalendar()
-//            let components = calendar.components([.Day , .Month , .Year], fromDate: date) //can be tomorrow's date, etc.
-//            let year =  components.year
-//            let month = components.month
-//            let day = components.day
-//            dates.append("\(month)/\(day)")
-//            date=nextDay
-//            
-//        }
-        
         // loop through each cell:
         //for cell in self.collectionView!.visibleCells() as [UICollectionViewCell] {  }
         
         if indexPath.section == 0 {
-            if indexPath.row == 0 {
-                let dateCell : DateCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(dateCellIdentifier, forIndexPath: indexPath) as! DateCollectionViewCell
-                dateCell.backgroundColor = UIColor.whiteColor()
-                dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
-                dateCell.dateLabel.textColor = UIColor.blackColor()
-                dateCell.dateLabel.text = ""
-
-                return dateCell
+            let dateCell : DateCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(dateCellIdentifier, forIndexPath: indexPath) as! DateCollectionViewCell
+            dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
+            dateCell.dateLabel.textColor = UIColor.blackColor()
+            dateCell.dateLabel.text = dates[indexPath.row]
+           // dateCell.backgroundColor = UIColor.whiteColor()
+            if indexPath.row % 2 != 0 {
+                dateCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
             } else {
-                let dateCell : DateCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(dateCellIdentifier, forIndexPath: indexPath) as! DateCollectionViewCell
-                dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
-                dateCell.dateLabel.textColor = UIColor.blackColor()
-                dateCell.dateLabel.text = dates[indexPath.row - 1]
-               // dateCell.backgroundColor = UIColor.whiteColor()
-                if indexPath.section % 2 != 0 {
-                    dateCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
-                } else {
-                    dateCell.backgroundColor = UIColor.whiteColor()
-                }
-
-
-                return dateCell
-            }
-        } else {
-            if indexPath.row == 0 {
-                let dateCell : DateCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(dateCellIdentifier, forIndexPath: indexPath) as! DateCollectionViewCell
-                dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
-                dateCell.dateLabel.textColor = UIColor.blackColor()
-                dateCell.dateLabel.text = ""
                 dateCell.backgroundColor = UIColor.whiteColor()
-//                if indexPath.section % 2 != 0 {
-//                    dateCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
-//                } else {
-//                    dateCell.backgroundColor = UIColor.whiteColor()
-//                }
-                
-                return dateCell
+            }
+
+            return dateCell
+            
+        } else {
+
+
+            let contentCell : ContentCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(contentCellIdentifier, forIndexPath: indexPath) as! ContentCollectionViewCell
+            contentCell.contentLabel.font = UIFont.systemFontOfSize(13)
+            contentCell.contentLabel.textColor = UIColor.blackColor()
+            contentCell.contentLabel.text = sampleData[indexPath.row][indexPath.section - 1][1]
+            contentCell.timeLabel.text = sampleData[indexPath.row][indexPath.section - 1][3]
+            contentCell.numSlotsLabel.textColor = UIColor.blackColor()
+            if(sampleData[indexPath.row][indexPath.section - 1][6] == "true"){
+                contentCell.numSlotsLabel.text = "You are signed up"
+                contentCell.numSlotsLabel.textColor = UIColor.redColor()
+                //contentCell.backgroundColor = UIColor(red: 0.5, green: 0.8, blue: 0.5, alpha: 0.55)
+                contentCell.backgroundColor = UIColor(red: 0.8, green: 0.5, blue: 0.5, alpha: 0.55)
+
             }
             else {
-
-                let contentCell : ContentCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(contentCellIdentifier, forIndexPath: indexPath) as! ContentCollectionViewCell
-                contentCell.contentLabel.font = UIFont.systemFontOfSize(13)
-                contentCell.contentLabel.textColor = UIColor.blackColor()
-                contentCell.contentLabel.text = sampleData[indexPath.row - 1][indexPath.section - 1][1]
-                contentCell.timeLabel.text = sampleData[indexPath.row - 1][indexPath.section - 1][3]
-                contentCell.numSlotsLabel.text = sampleData[indexPath.row - 1][indexPath.section - 1][4]
+                contentCell.numSlotsLabel.text = sampleData[indexPath.row][indexPath.section - 1][4]
                 if indexPath.row % 2 != 0 {
-                    contentCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
+                    if (sampleData[indexPath.row][indexPath.section - 1][0] != "") {
+                        if indexPath.section % 2 != 0 {
+                            contentCell.backgroundColor = UIColor(red: 0.21, green: 0.65, blue: 0.9, alpha: 0.35)
+                        }
+                        else {
+                            contentCell.backgroundColor = UIColor(red: 0.21, green: 0.65, blue: 0.9, alpha: 0.25)
+                        }
+                    }
+                    else{
+                        contentCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
+                    }
                 } else {
-                    contentCell.backgroundColor = UIColor.whiteColor()
+                    if (sampleData[indexPath.row][indexPath.section - 1][0] != "") {
+                        if indexPath.section % 2 != 0 {
+                            contentCell.backgroundColor = UIColor(red: 0.21, green: 0.65, blue: 0.9, alpha: 0.2)
+                        }
+                        else{
+                            contentCell.backgroundColor = UIColor(red: 0.21, green: 0.65, blue: 0.9, alpha: 0.1)
+                        }
+                    }
+                    else{
+                        contentCell.backgroundColor = UIColor.whiteColor()
+                    }
                 }
-                
-                return contentCell
+            }
+            
+            
+            return contentCell
                 
    
-            }
+            
         }
         
-        
-//        if indexPath.section == 0 {
-//            if indexPath.row == 0 {
-//                let dateCell : DateCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(dateCellIdentifier, forIndexPath: indexPath) as! DateCollectionViewCell
-//                dateCell.backgroundColor = UIColor.whiteColor()
-//                dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
-//                dateCell.dateLabel.textColor = UIColor.blackColor()
-//                dateCell.dateLabel.text = ""
-//
-//                return dateCell
-//            } else {
-//                let dateCell : DateCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(dateCellIdentifier, forIndexPath: indexPath) as! DateCollectionViewCell
-//                dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
-//                dateCell.dateLabel.textColor = UIColor.blackColor()
-//                dateCell.dateLabel.text = dates[indexPath.row - 1]
-//                
-//                if indexPath.section % 2 != 0 {
-//                    dateCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
-//                } else {
-//                    dateCell.backgroundColor = UIColor.whiteColor()
-//                }
-//                
-//                return dateCell
-//            }
-//        } else {
-//            if indexPath.row == 0 {
-//                let dateCell : DateCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(dateCellIdentifier, forIndexPath: indexPath) as! DateCollectionViewCell
-//                dateCell.dateLabel.font = UIFont.systemFontOfSize(13)
-//                dateCell.dateLabel.textColor = UIColor.blackColor()
-//                dateCell.dateLabel.text = ""
-//                if indexPath.section % 2 != 0 {
-//                    dateCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
-//                } else {
-//                    dateCell.backgroundColor = UIColor.whiteColor()
-//                }
-//                
-//                return dateCell
-//            } else {
-//                let contentCell : ContentCollectionViewCell = collectionView .dequeueReusableCellWithReuseIdentifier(contentCellIdentifier, forIndexPath: indexPath) as! ContentCollectionViewCell
-//                contentCell.contentLabel.font = UIFont.systemFontOfSize(13)
-//                contentCell.contentLabel.textColor = UIColor.blackColor()
-//                contentCell.contentLabel.text = "Event"
-//                if indexPath.section % 2 != 0 {
-//                    contentCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
-//                } else {
-//                    contentCell.backgroundColor = UIColor.whiteColor()
-//                }
-//                
-//                return contentCell
-//            }
-//        }
    }
 
 }

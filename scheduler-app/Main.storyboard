@@ -532,6 +532,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Kja-oo-Sbv" id="foc-LQ-bvw"/>
+                        <outlet property="headerTitle" destination="uVJ-mV-IgA" id="utK-VB-2EI"/>
                         <outlet property="view" destination="cbZ-uG-Ath" id="PJo-7W-jai"/>
                         <segue destination="YDH-Wr-3rQ" kind="show" identifier="addEvent" id="lVK-3v-rao"/>
                         <segue destination="TfT-va-Sc9" kind="show" identifier="backToGroups" id="Vpj-TM-RpD"/>
@@ -664,6 +665,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="btnOutlet" destination="XL5-iD-coG" id="rRY-Of-Kpq"/>
                         <outlet property="eventDescription" destination="xqd-Gh-8gU" id="rZy-aw-Ro3"/>
                         <outlet property="eventTitle" destination="A4d-QE-Xks" id="6BO-X1-rzw"/>
                         <outlet property="numSlots" destination="Nul-XC-mLu" id="2gz-Bt-ayX"/>
@@ -1343,7 +1345,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="REu-PL-06J"/>
-        <segue reference="bWM-nk-CSg"/>
+        <segue reference="Vlv-Qq-qbb"/>
         <segue reference="Vpj-TM-RpD"/>
     </inferredMetricsTieBreakers>
 </document>

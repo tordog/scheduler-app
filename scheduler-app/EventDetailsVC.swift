@@ -11,18 +11,28 @@ import Firebase
 
 class EventDetailsVC: UIViewController {
     
+    @IBOutlet weak var btnOutlet: UIButton!
+    
     var eventIDToPass: String = ""
     var eventID: String = ""
     var dateToPass: String = ""
     var groupIDToPass: String = ""
     var groupID: String = ""
     var date: String = ""
+    var statusToPass: String = ""
+    var status: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         eventID = eventIDToPass
         groupID = groupIDToPass
         date = dateToPass
+        status = statusToPass
+        print(status)
+        if(status == "true"){
+            btnOutlet.setTitle("Cancel", forState: UIControlState.Normal)
+            btnOutlet.backgroundColor = UIColor(red: 0.9, green: 0.2, blue: 0.2, alpha: 1.0)
+        }
         //get Firebase ref
         let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupID)/\(date)/events/\(eventID)")
         ref.observeEventType(.Value, withBlock: { snapshot in
@@ -90,37 +100,62 @@ class EventDetailsVC: UIViewController {
             if let numSlots = snapshot.value["numSlots"] {
                 let str = numSlots as! String
                 print(str)
-                let newNum = Int(str)! - 1
-                print(newNum)
+                var newNum = Int(str)!
+                if(self.status == "false"){
+                    newNum = newNum - 1
+                }
+                else {
+                    newNum = newNum + 1
+                }
                 if newNum < 0 {
                     self.showErrorAlert("No slots available", msg: "All the slots for this event are already filled!")
                 }
                 else {
+                    let numToStr = String(newNum)
+                    ref2.childByAppendingPath("numSlots").setValue(numToStr)
                     
                     
-                    let ref3 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events/\(self.eventID)")
-                    ref3.observeEventType(.Value, withBlock: { snapshot in
-                        if snapshot.value is NSNull {
-                            print("This path was null! So user has not yet signed up.")
-                            let numToStr = String(newNum)
-                            ref2.childByAppendingPath("numSlots").setValue(numToStr)
-                            
-                            let ref4 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events")
-                            //add eventID: true
-                            var infoToAdd = [self.eventID: true]
-                            ref4.updateChildValues(infoToAdd)
-                            self.performSegueWithIdentifier("backToCalendar", sender: nil)
-                        } else {
-                            print("This path exists")
-                            print(snapshot.value)
-                            self.showErrorAlert("Alert", msg: "You have already signed up for this time slot!")
-                        }
-                    })
+                    if(self.status == "false"){
+                        print("ENTERING AS FALSE")
+                    
+                        let ref3 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events/\(self.eventID)")
+                        ref3.observeEventType(.Value, withBlock: { snapshot in
+                        
+                            if snapshot.value is NSNull {
+                                var updateSignUps = ref2.childByAppendingPath("signups")
+                                updateSignUps.updateChildValues([userID: true])
+                                
+                                
+                                let ref4 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events")
+                                //add eventID: true
+                                var infoToAdd = [self.eventID: true]
+                                ref4.updateChildValues(infoToAdd)
+                                self.performSegueWithIdentifier("backToCalendar", sender: nil)
+                            } else {
+                                print("This path exists")
+                                print(snapshot.value)
+                                self.showErrorAlert("Alert", msg: "You have already signed up for this time slot!")
+                            }
+                        
+                        })
+                    }
+                    else {
+                        print("DELETING?!")
+                        let ref3 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events/\(self.eventID)")
+                        //DELETE ROW!!!!
+                        ref3.removeAllObservers()
+                        ref3.removeValue()
+                        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(self.groupID)/\(self.date)/events/\(self.eventID)/signups/\(userID)")
+                        ref.removeAllObservers()
+                        ref.removeValue()
+                        self.performSegueWithIdentifier("backToCalendar", sender: nil)
+                    }
                     
                     
                 }
             }
         })
+
 
         
     }

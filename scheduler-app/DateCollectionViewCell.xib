@@ -13,7 +13,7 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="101" height="45"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHR-1p-5C1" userLabel="Date Label">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHR-1p-5C1" userLabel="Date Label">
                         <rect key="frame" x="29" y="12" width="42" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="Iv4-KL-t8B"/>
@@ -33,9 +33,11 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstItem="RHR-1p-5C1" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="8FI-iX-Ysw"/>
                 <constraint firstItem="RHR-1p-5C1" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="PoL-HZ-X6n"/>
                 <constraint firstAttribute="bottom" secondItem="RHR-1p-5C1" secondAttribute="bottom" id="UKZ-WP-GuT"/>
                 <constraint firstItem="RHR-1p-5C1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="WdT-hN-dOE"/>
+                <constraint firstItem="RHR-1p-5C1" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Y1s-cw-GNf"/>
                 <constraint firstAttribute="trailing" secondItem="RHR-1p-5C1" secondAttribute="trailing" id="pMW-OA-xoY"/>
                 <constraint firstItem="RHR-1p-5C1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="qDh-qr-KfC"/>
                 <constraint firstItem="RHR-1p-5C1" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="xmL-ZY-QF9"/>
@@ -43,7 +45,11 @@
             <size key="customSize" width="101" height="45"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="PoL-HZ-X6n"/>
                     <exclude reference="UKZ-WP-GuT"/>
+                    <exclude reference="WdT-hN-dOE"/>
+                    <exclude reference="pMW-OA-xoY"/>
+                    <exclude reference="qDh-qr-KfC"/>
                     <exclude reference="xmL-ZY-QF9"/>
                 </mask>
             </variation>
