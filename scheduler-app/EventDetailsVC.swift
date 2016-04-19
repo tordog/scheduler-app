@@ -21,6 +21,8 @@ class EventDetailsVC: UIViewController {
     var date: String = ""
     var statusToPass: String = ""
     var status: String = ""
+    var numSectionsToPass: Int = 0
+    var nSec: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,7 @@ class EventDetailsVC: UIViewController {
         groupID = groupIDToPass
         date = dateToPass
         status = statusToPass
+        nSec = numSectionsToPass
         print(status)
         if(status == "true"){
             btnOutlet.setTitle("Cancel", forState: UIControlState.Normal)
@@ -73,6 +76,7 @@ class EventDetailsVC: UIViewController {
         if(segue.identifier == "backToCalendar"){
             let svc = segue.destinationViewController as! CollectionViewController;
             svc.groupIDToPass = groupID
+            svc.numSectionsToPass = nSec
             
         }
 

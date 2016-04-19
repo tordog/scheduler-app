@@ -19,6 +19,8 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     var dateToPass = ""
     var eventIDToPass = ""
     var statusToPass = ""
+    var numSectionsToPass: Int = 0
+    var nSec: Int = 0
 
     var sampleData: [[[String]]] = []
     
@@ -39,6 +41,8 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         groupID = groupIDToPass
+        nSec = numSectionsToPass
+        print("Sections passed: \(nSec)")
         self.collectionView.backgroundColor = UIColor.whiteColor()
         
         var dateStrDict = Dictionary<String, Int>()
@@ -64,7 +68,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 dateStrDict[dateStr] = i
                 //add dateStr to sampleData
                 sampleData.append([])
-                for (var j = 0; j<numSections; j++){
+                for (var j = 0; j<nSec; j++){
                     sampleData[i].append(["", "", "", "", "", "", ""])
                 }
                 //Firebase Call here
@@ -116,10 +120,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                         })
 
                     }
-//                    self.sampleData[dateStrDict[startDate]!][count] = [eventID, title, desc, timeStr, numSlots, startDate, signupBool]
-//                    count++
-//                    self.collectionView!.reloadData()
-                    //print(self.sampleData)
+                    ref.removeAllObservers()
                     
                 })
                 
@@ -188,11 +189,13 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
             svc.dateToPass = dateToPass
             svc.groupIDToPass = groupID
             svc.statusToPass = statusToPass
+            svc.numSectionsToPass = nSec
             
         }
         else if(segue.identifier == "addEvent"){
             let svc = segue.destinationViewController as! AddEventVC;
             svc.groupIDToPass = groupID
+            svc.numSectionsToPass = nSec
         }
         
         // Get the new view controller using segue.destinationViewController.
@@ -203,7 +206,8 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     // MARK - UICollectionViewDataSource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return numSections
+        
+        return nSec + 1
     }
     
     

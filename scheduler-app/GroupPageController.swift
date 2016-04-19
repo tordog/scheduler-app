@@ -17,6 +17,7 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var groupIDHash = [String: String]()
     var groupID: String = ""
+    var maxCount = 0
     
     @IBAction func profileSettingsBtnPress(sender: AnyObject) {
         self.performSegueWithIdentifier("toProfileSettings", sender: nil)
@@ -79,7 +80,8 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
         if(segue.identifier == "toGroupCalendar"){
             let svc = segue.destinationViewController as! CollectionViewController;
             svc.groupIDToPass = groupID
-            print(groupID)
+            svc.numSectionsToPass = self.maxCount
+            print("passing \(self.maxCount)")
         }
 
     // Get the new view controller using segue.destinationViewController.
@@ -112,10 +114,22 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
         if let groupName = currentCell.textLabel!.text {
             groupID = groupIDHash[groupName]!
         }
-        //groupID = groupIDHash[currentCell.textLabel!.text]
+        
+        let ref = Firebase(url:"https://scheduler-base.firebaseio.com/groups/\(groupID)")
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            if let x = snapshot.value["highestNum"] {
+                self.maxCount = x as! Int
+                self.performSegueWithIdentifier("toGroupCalendar", sender: nil)
+            }
+            else {
+                self.maxCount = 20
+                self.performSegueWithIdentifier("toGroupCalendar", sender: nil)
+            }
+        })
+      
         //perform segue & load data for this group's calendar!
-        self.performSegueWithIdentifier("toGroupCalendar", sender: nil)
-        print(currentCell.textLabel!.text)
+        //self.performSegueWithIdentifier("toGroupCalendar", sender: nil)
+        //print(currentCell.textLabel!.text)
     }
 
 }

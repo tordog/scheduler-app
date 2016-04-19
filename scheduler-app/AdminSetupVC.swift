@@ -26,7 +26,7 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         //save group to Groups
         let newGroup = DataService.ds.REF_GROUPS.childByAutoId()
         let groupid = newGroup.key
-        let groupNameInfo: Dictionary<String, String> = ["groupName": nameToPass]
+        let groupNameInfo: Dictionary<String, AnyObject> = ["groupName": nameToPass, "highestNum": 0]
         newGroup.updateChildValues(groupNameInfo)
         //add members
         let groupRef = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupid)/members")

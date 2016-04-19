@@ -13,6 +13,8 @@ class AddEventVC: UIViewController {
     
     var groupIDToPass: String = ""
     var groupID: String = ""
+    var numSectionsToPass: Int = 0
+    var nSec: Int = 0
 
     @IBAction func saveBtnPress(sender: AnyObject) {
         //do a bunch of checks -- is everything non-empty? 
@@ -52,18 +54,50 @@ class AddEventVC: UIViewController {
             event.updateChildValues(eventInfo)
             event.updateChildValues(moreInfo)
             
-            //extract start date & end date & format into proper string (for Firebase use)
-            //extract start time & end time (make sure start time < end time if start date == end date
+            var numChildren: Int = 0
+            
+            print("HELLO WTF")
+            
+            ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                numChildren = Int(snapshot.childrenCount)
+                print("HELLO WTF1")
+                
+                let ref0 = Firebase(url:"https://scheduler-base.firebaseio.com/groups/\(self.groupID)")
+                let numRef = ref0.childByAppendingPath("numChildren")
+                numRef.setValue(numChildren)
+                
+               
+                
+                let ref1 = Firebase(url:"https://scheduler-base.firebaseio.com/groups/\(self.groupID)")
+                ref1.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                    
+                    if let k = snapshot.value["highestNum"] {
+                       
+                        if (Int(k as! NSNumber) <= numChildren){
+                        
+                            let numRef = ref1.childByAppendingPath("highestNum")
+                            numRef.setValue(numChildren)
+                            self.nSec = numChildren
+                            self.performSegueWithIdentifier("backToCalendar", sender: nil)
+                        }
+                        else{
+                            
+                            self.performSegueWithIdentifier("backToCalendar", sender: nil)
+                        }
+                    }
+                    else {
+                       
+                        self.performSegueWithIdentifier("backToCalendar", sender: nil)
+                    }
+                    
+                    
+                })
+             
+            })
+            
+            
             
         }
-        
-        
-        //save everything to firebase!
-        //under GroupID which I haven't passed yet. ugh no you have to CREATE IT YOU ID
-        //should be under groups/groupID/events/date..
-        //title, startTime, endTime, description, numSlots
-        
-        self.performSegueWithIdentifier("backToCalendar", sender: nil)
     }
     
     @IBOutlet weak var eventTitle: UITextField!
@@ -85,7 +119,7 @@ class AddEventVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         groupID = groupIDToPass
-        print(groupID)
+        nSec = numSectionsToPass
         let today = NSDate()
         let endDate = today.dateByAddingTimeInterval(14*60*60*24);
         eventStart.minimumDate = today
@@ -99,6 +133,7 @@ class AddEventVC: UIViewController {
         if(segue.identifier == "backToCalendar"){
             let svc = segue.destinationViewController as! CollectionViewController;
             svc.groupIDToPass = groupID
+            svc.numSectionsToPass = nSec
         }
         
         // Get the new view controller using segue.destinationViewController.
