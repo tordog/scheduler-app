@@ -38,6 +38,7 @@
 		F36670291CC7371900A0E64A /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36670281CC7371900A0E64A /* GTMOAuth2ViewTouch.xib */; };
 		F366702B1CC7372D00A0E64A /* GTLCalendar_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = F366702A1CC7372D00A0E64A /* GTLCalendar_Sources.m */; };
 		F36670401CC73A3400A0E64A /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36670391CC739D300A0E64A /* GTL.framework */; };
+		F36670421CC7EBF400A0E64A /* EventKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36670411CC7EBF400A0E64A /* EventKitController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +135,7 @@
 		F366702C1CC7374800A0E64A /* GTLCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTLCalendar.h; path = "google-api-objectivec-client/Source/Services/Calendar/Generated/GTLCalendar.h"; sourceTree = SOURCE_ROOT; };
 		F366702D1CC7376900A0E64A /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F366702E1CC739D300A0E64A /* GTLCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTLCore.xcodeproj; path = "google-api-objectivec-client/Source/GTLCore.xcodeproj"; sourceTree = "<group>"; };
+		F36670411CC7EBF400A0E64A /* EventKitController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventKitController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +312,7 @@
 				F348F4E41CB0FAA6007BE41F /* AddEventVC.swift */,
 				F348F4E61CB1A1A3007BE41F /* EventDetailsVC.swift */,
 				F36670051CC7313800A0E64A /* GoogleController.swift */,
+				F36670411CC7EBF400A0E64A /* EventKitController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				F35C94B61C84107D00D820D9 /* SyncOptionsController.swift in Sources */,
 				F35C94B31C83F79600D820D9 /* SignUpPageController.swift in Sources */,
 				F30A167E1C8D481900A7CCFD /* CreateGroupVC.swift in Sources */,
+				F36670421CC7EBF400A0E64A /* EventKitController.swift in Sources */,
 				F348F4E51CB0FAA6007BE41F /* AddEventVC.swift in Sources */,
 				F348F4E71CB1A1A3007BE41F /* EventDetailsVC.swift in Sources */,
 				F348F4CF1CAB3548007BE41F /* CollectionViewController.swift in Sources */,

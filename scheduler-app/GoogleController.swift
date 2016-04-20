@@ -15,7 +15,8 @@ class GoogleController: UIViewController {
     
     // If modifying these scopes, delete your previously saved credentials by
     // resetting the iOS simulator or uninstall the app.
-    private let scopes = [kGTLAuthScopeCalendarReadonly]
+    //private let scopes = [kGTLAuthScopeCalendarReadonly]
+    private let scopes = [kGTLAuthScopeCalendar]
     
     private let service = GTLServiceCalendar()
     let output = UITextView()
