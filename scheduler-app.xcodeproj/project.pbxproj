@@ -34,6 +34,10 @@
 		F35C94B61C84107D00D820D9 /* SyncOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */; };
 		F35C94B81C8428F100D820D9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B71C8428F100D820D9 /* Constants.swift */; };
 		F35C94BA1C842DA000D820D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F35C94B91C842DA000D820D9 /* Main.storyboard */; };
+		F36670061CC7313800A0E64A /* GoogleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36670051CC7313800A0E64A /* GoogleController.swift */; };
+		F36670291CC7371900A0E64A /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36670281CC7371900A0E64A /* GTMOAuth2ViewTouch.xib */; };
+		F366702B1CC7372D00A0E64A /* GTLCalendar_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = F366702A1CC7372D00A0E64A /* GTLCalendar_Sources.m */; };
+		F36670401CC73A3400A0E64A /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36670391CC739D300A0E64A /* GTL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,41 @@
 			proxyType = 1;
 			remoteGlobalIDString = F3328DDC1C8399C000E5AFE5;
 			remoteInfo = "scheduler-app";
+		};
+		F36670361CC739D300A0E64A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F366702E1CC739D300A0E64A /* GTLCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F38F6A60B66E91D00B24B81;
+			remoteInfo = GTLOSXCore;
+		};
+		F36670381CC739D300A0E64A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F366702E1CC739D300A0E64A /* GTLCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4469DB41C40229D00BCFAA1;
+			remoteInfo = GTLiOSCore;
+		};
+		F366703A1CC739D300A0E64A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F366702E1CC739D300A0E64A /* GTLCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4368F721B8233BF00E17643;
+			remoteInfo = GTLiOSUnitTests;
+		};
+		F366703C1CC739D300A0E64A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F366702E1CC739D300A0E64A /* GTLCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F12027D11A4CA2F00BEB470;
+			remoteInfo = GTLOSXUnitTests;
+		};
+		F366703E1CC739D300A0E64A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F366702E1CC739D300A0E64A /* GTLCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
+			remoteInfo = OSXDevTool;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -89,6 +128,12 @@
 		F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncOptionsController.swift; sourceTree = "<group>"; };
 		F35C94B71C8428F100D820D9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F35C94B91C842DA000D820D9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F36670051CC7313800A0E64A /* GoogleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleController.swift; sourceTree = "<group>"; };
+		F36670281CC7371900A0E64A /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "google-api-objectivec-client/Deps/gtm-oauth2/Source/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = SOURCE_ROOT; };
+		F366702A1CC7372D00A0E64A /* GTLCalendar_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLCalendar_Sources.m; path = "google-api-objectivec-client/Source/Services/Calendar/Generated/GTLCalendar_Sources.m"; sourceTree = SOURCE_ROOT; };
+		F366702C1CC7374800A0E64A /* GTLCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GTLCalendar.h; path = "google-api-objectivec-client/Source/Services/Calendar/Generated/GTLCalendar.h"; sourceTree = SOURCE_ROOT; };
+		F366702D1CC7376900A0E64A /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		F366702E1CC739D300A0E64A /* GTLCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTLCore.xcodeproj; path = "google-api-objectivec-client/Source/GTLCore.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F36670401CC73A3400A0E64A /* GTL.framework in Frameworks */,
 				C4DE0DE76184BD72D4F8F935 /* Pods_scheduler_app.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +195,7 @@
 		F3328DD41C8399C000E5AFE5 = {
 			isa = PBXGroup;
 			children = (
+				F366702E1CC739D300A0E64A /* GTLCore.xcodeproj */,
 				F3328DDF1C8399C100E5AFE5 /* scheduler-app */,
 				F3328DF41C8399C100E5AFE5 /* scheduler-appTests */,
 				F3328DFF1C8399C100E5AFE5 /* scheduler-appUITests */,
@@ -171,6 +218,9 @@
 		F3328DDF1C8399C100E5AFE5 /* scheduler-app */ = {
 			isa = PBXGroup;
 			children = (
+				F366702A1CC7372D00A0E64A /* GTLCalendar_Sources.m */,
+				F36670281CC7371900A0E64A /* GTMOAuth2ViewTouch.xib */,
+				F366702C1CC7374800A0E64A /* GTLCalendar.h */,
 				F348F4D01CAB35E8007BE41F /* Classes */,
 				F30A167F1C8D494000A7CCFD /* View */,
 				F35C94B41C840A7D00D820D9 /* Controllers */,
@@ -181,6 +231,7 @@
 				F3328DE71C8399C100E5AFE5 /* Assets.xcassets */,
 				F3328DE91C8399C100E5AFE5 /* LaunchScreen.storyboard */,
 				F3328DEC1C8399C100E5AFE5 /* Info.plist */,
+				F366702D1CC7376900A0E64A /* Bridging-Header.h */,
 			);
 			path = "scheduler-app";
 			sourceTree = "<group>";
@@ -258,8 +309,21 @@
 				F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */,
 				F348F4E41CB0FAA6007BE41F /* AddEventVC.swift */,
 				F348F4E61CB1A1A3007BE41F /* EventDetailsVC.swift */,
+				F36670051CC7313800A0E64A /* GoogleController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		F366702F1CC739D300A0E64A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F36670371CC739D300A0E64A /* GTL.framework */,
+				F36670391CC739D300A0E64A /* GTL.framework */,
+				F366703B1CC739D300A0E64A /* GTLiOSUnitTests.xctest */,
+				F366703D1CC739D300A0E64A /* GTLUnitTests.xctest */,
+				F366703F1CC739D300A0E64A /* OSXDevTool */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,6 +420,12 @@
 			mainGroup = F3328DD41C8399C000E5AFE5;
 			productRefGroup = F3328DDE1C8399C100E5AFE5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F366702F1CC739D300A0E64A /* Products */;
+					ProjectRef = F366702E1CC739D300A0E64A /* GTLCore.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F3328DDC1C8399C000E5AFE5 /* scheduler-app */,
@@ -365,11 +435,50 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		F36670371CC739D300A0E64A /* GTL.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GTL.framework;
+			remoteRef = F36670361CC739D300A0E64A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F36670391CC739D300A0E64A /* GTL.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GTL.framework;
+			remoteRef = F36670381CC739D300A0E64A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F366703B1CC739D300A0E64A /* GTLiOSUnitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GTLiOSUnitTests.xctest;
+			remoteRef = F366703A1CC739D300A0E64A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F366703D1CC739D300A0E64A /* GTLUnitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GTLUnitTests.xctest;
+			remoteRef = F366703C1CC739D300A0E64A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F366703F1CC739D300A0E64A /* OSXDevTool */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = OSXDevTool;
+			remoteRef = F366703E1CC739D300A0E64A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		F3328DDB1C8399C000E5AFE5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F36670291CC7371900A0E64A /* GTMOAuth2ViewTouch.xib in Resources */,
 				F348F4DF1CAB3D7E007BE41F /* DateCollectionViewCell.xib in Resources */,
 				F35C94BA1C842DA000D820D9 /* Main.storyboard in Resources */,
 				F3328DEB1C8399C100E5AFE5 /* LaunchScreen.storyboard in Resources */,
@@ -470,10 +579,12 @@
 				F348F4CF1CAB3548007BE41F /* CollectionViewController.swift in Sources */,
 				F30A16871C8D70D600A7CCFD /* GroupCell.swift in Sources */,
 				F3328DE31C8399C100E5AFE5 /* ViewController.swift in Sources */,
+				F366702B1CC7372D00A0E64A /* GTLCalendar_Sources.m in Sources */,
 				F3328DE11C8399C100E5AFE5 /* AppDelegate.swift in Sources */,
 				F3328E111C839A2400E5AFE5 /* Dataservice.swift in Sources */,
 				F35C94B81C8428F100D820D9 /* Constants.swift in Sources */,
 				F30A167A1C8CD70C00A7CCFD /* GroupPageController.swift in Sources */,
+				F36670061CC7313800A0E64A /* GoogleController.swift in Sources */,
 				F30A16811C8D499500A7CCFD /* AddMemberCell.swift in Sources */,
 				F348F4DE1CAB3D7E007BE41F /* DateCollectionViewCell.swift in Sources */,
 				F30A16831C8D677200A7CCFD /* listMembersSelectAdmin.swift in Sources */,
@@ -613,10 +724,12 @@
 			baseConfigurationReference = B67E7E8979E029ED94E7BBCF /* Pods-scheduler-app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "GTL_BUILT_AS_FRAMEWORK=1";
 				INFOPLIST_FILE = "scheduler-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Victoria.scheduler-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "scheduler-app/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -625,10 +738,12 @@
 			baseConfigurationReference = 41327A2D1D6E7DB8CC206553 /* Pods-scheduler-app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "GTL_BUILT_AS_FRAMEWORK=1";
 				INFOPLIST_FILE = "scheduler-app/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Victoria.scheduler-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "scheduler-app/Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -4,29 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Firebase.xcscheme</key>
+		<key>QuickstartApp.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<false/>
 			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
-		<key>Pods-scheduler-app.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2ED6E5D3D07FE5AC4612521F42E230A1</key>
+		<key>F3666FBF1CC7240800A0E64A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B7AC9326D819482593FE118E915409D7</key>
+		<key>F3666FD31CC7240800A0E64A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F3666FDE1CC7240800A0E64A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
