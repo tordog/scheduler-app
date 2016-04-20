@@ -27,7 +27,32 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     //we'll search firebase, get the # of entries, and make the table using that number. For now, let's make the table the # of events.
     
     @IBAction func addEvent(sender: AnyObject) {
-        self.performSegueWithIdentifier("addEvent", sender: nil)
+        //check that person is administrator
+        
+        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
+            let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID)
+            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(uid!)/groups/\(groupID)")
+            ref.observeEventType(.Value, withBlock: { snapshot in
+                print(snapshot.value)
+                if let adminStatus = snapshot.value {
+                    if(adminStatus as! NSObject == true){
+                        self.performSegueWithIdentifier("addEvent", sender: nil)
+                    }
+                    else{
+                        self.showErrorAlert("Admin Only", msg: "You must be a Group Administrator to add an event")
+                    }
+                }
+                else {
+                    self.showErrorAlert("Error", msg: "Please log out and log back in.")
+                }
+            })
+        }
+        else {
+            showErrorAlert("You are no logged in!", msg: "Please log out and log back in.")
+        }
+        
+        
+        
     }
     
     @IBAction func backBtnPress(sender: AnyObject) {
@@ -313,6 +338,12 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         }
         
    }
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated:true, completion: nil)
+    }
 
 }
 
