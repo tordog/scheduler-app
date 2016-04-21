@@ -25,19 +25,16 @@ class SignUpPageController: UIViewController {
     
     @IBAction func backToLaunchBtnPress(sender: AnyObject) {
         // logout
-        Digits.sharedInstance().logOut()
+        //Digits.sharedInstance().logOut()
         self.performSegueWithIdentifier("backToLaunch", sender: nil)
         
     }
-    @IBAction func createAcctBtnPress(sender: AnyObject) {
-        self.performSegueWithIdentifier("goToSyncOptions", sender: nil)
-    }
     
-    @IBAction func attemptLogin(sender: UIButton!) {
+    @IBAction func createAcctBtnPress(sender: AnyObject) {
+    
         let tempphoneNumber1 = phoneNumber.text
         let tempphoneNumber = tempphoneNumber1!.substringFromIndex((phoneNumber.text)!.startIndex.advancedBy(1))
         let email = "\(tempphoneNumber)@random.com"
-        print(email)
         if let pwd = passwordField.text where pwd != "" {
             
             DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { error, authData in
@@ -80,6 +77,7 @@ class SignUpPageController: UIViewController {
                     
                 }
                 else {
+                    NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: KEY_UID)
                     self.performSegueWithIdentifier("loggedIn", sender: nil)
                 }
             })

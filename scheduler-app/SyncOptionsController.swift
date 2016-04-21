@@ -21,12 +21,9 @@ class SyncOptionsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let homeRef = Firebase(url: "https://scheduler-base.firebaseio.com")
-        if homeRef.authData != nil {
-            // user authenticated
-            userID = homeRef.authData.uid
-        } else {
-            // No user is signed in
+        
+        if(NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil){
+            userID = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
         }
     }
     
@@ -53,25 +50,16 @@ class SyncOptionsController: UIViewController {
     @IBAction func continueBtnPress(sender: AnyObject) {
         //set users/userID/iCal: true
         let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(userID)/calendars")
+        let iCalRef = ref.childByAppendingPath("iCal")
         
         if(iCalSwitch.on){
-            let iCalRef = ref.childByAppendingPath("iCal")
             iCalRef.setValue(true)
+        }
+        else {
+            iCalRef.setValue(false)
         }
         
         self.performSegueWithIdentifier("processSyncs", sender: nil)
-        
-//TO CHECK IF IT's T/F..
-//        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
-//            if let iCal = snapshot.value["iCal"] as? Bool {
-//                if(iCal == true){
-//                    print("iCal Btn is True")
-//                }
-//                else {
-//                    print("iCal btn is false")
-//                }
-//            }
-//        })
         
         
         //self.performSegueWithIdentifier("toHome", sender: nil)

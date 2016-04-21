@@ -8,17 +8,40 @@
 
 import UIKit
 import EventKit
+import Firebase
 
 //EventKit tutorial source: https://github.com/andrewcbancroft/EventTracker/blob/ask-for-permission/EventTracker/ViewController.swift
 
 class EventKitController: UIViewController {
     
     let eventStore = EKEventStore()
-
-    override func viewWillAppear(animated: Bool) {
-        checkCalendarAuthorizationStatus()
+    var userID: String = ""
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if(NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil) {
+            userID = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+        }
+        
     }
 
+    override func viewWillAppear(animated: Bool) {
+            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(userID)/calendars")
+            ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                if let iCal = snapshot.value["iCal"] as? Bool {
+                    if(iCal == true){
+                        print("iCal Btn is True")
+                        self.checkCalendarAuthorizationStatus()
+                    }
+                }
+            })
+        
+    }
+
+    @IBAction func continueBtnPress(sender: AnyObject) {
+        self.performSegueWithIdentifier("toHome", sender: nil)
+    }
+    
     func checkCalendarAuthorizationStatus() {
         let status = EKEventStore.authorizationStatusForEntityType(EKEntityType.Event)
         
@@ -28,16 +51,9 @@ class EventKitController: UIViewController {
             requestAccessToCalendar()
         case EKAuthorizationStatus.Authorized:
             print("Already authorized")
-            self.performSegueWithIdentifier("toHome", sender: nil)
-            //insertEvent(eventStore)
-            // Things are in line with being able to show the calendars in the table view
-            //loadCalendars()
-            //refreshTableView()
+
         case EKAuthorizationStatus.Restricted, EKAuthorizationStatus.Denied:
-            // We need to help them give us permission
-            //needPermissionView.fadeIn()
             self.showErrorAlert("Access denied", msg: "TimeSlots cannot sync to iCal without access to your calendar")
-            self.performSegueWithIdentifier("toHome", sender: nil)
         }
         
     }
@@ -48,17 +64,10 @@ class EventKitController: UIViewController {
             
             if accessGranted == true {
                 print("Access granted")
-                self.performSegueWithIdentifier("toHome", sender: nil)
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    self.loadCalendars()
-//                    self.refreshTableView()
-//                })
+
             } else {
                 self.showErrorAlert("Access denied", msg: "TimeSlots cannot sync to iCal without access to your calendar")
-                self.performSegueWithIdentifier("toHome", sender: nil)
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    self.needPermissionView.fadeIn()
-//                })
+
             }
         })
     }

@@ -21,8 +21,8 @@
 		F3328DF61C8399C100E5AFE5 /* scheduler_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328DF51C8399C100E5AFE5 /* scheduler_appTests.swift */; };
 		F3328E011C8399C100E5AFE5 /* scheduler_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328E001C8399C100E5AFE5 /* scheduler_appUITests.swift */; };
 		F3328E111C839A2400E5AFE5 /* Dataservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328E101C839A2400E5AFE5 /* Dataservice.swift */; };
-		F3387E831CC9705A0080FF09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3387E821CC9705A0080FF09 /* Main.storyboard */; };
 		F3387E871CC970E00080FF09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3387E861CC970E00080FF09 /* Main.storyboard */; };
+		F3387E891CC983E80080FF09 /* DigitsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3387E881CC983E80080FF09 /* DigitsVC.swift */; };
 		F348F4CD1CA9F3A6007BE41F /* ProfileSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */; };
 		F348F4CF1CAB3548007BE41F /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4CE1CAB3548007BE41F /* CollectionViewController.swift */; };
 		F348F4D21CAB3610007BE41F /* CustomCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4D11CAB3610007BE41F /* CustomCollectionViewLayout.swift */; };
@@ -117,8 +117,8 @@
 		F3328E001C8399C100E5AFE5 /* scheduler_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scheduler_appUITests.swift; sourceTree = "<group>"; };
 		F3328E021C8399C100E5AFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3328E101C839A2400E5AFE5 /* Dataservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dataservice.swift; sourceTree = "<group>"; };
-		F3387E821CC9705A0080FF09 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F3387E861CC970E00080FF09 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F3387E881CC983E80080FF09 /* DigitsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitsVC.swift; sourceTree = "<group>"; };
 		F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsVC.swift; sourceTree = "<group>"; };
 		F348F4CE1CAB3548007BE41F /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		F348F4D11CAB3610007BE41F /* CustomCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -261,7 +261,6 @@
 		F3328E0E1C839A0400E5AFE5 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				F3387E821CC9705A0080FF09 /* Main.storyboard */,
 				F35C94B71C8428F100D820D9 /* Constants.swift */,
 			);
 			name = Util;
@@ -316,6 +315,7 @@
 				F348F4E61CB1A1A3007BE41F /* EventDetailsVC.swift */,
 				F36670051CC7313800A0E64A /* GoogleController.swift */,
 				F36670411CC7EBF400A0E64A /* EventKitController.swift */,
+				F3387E881CC983E80080FF09 /* DigitsVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -488,7 +488,6 @@
 				F36670291CC7371900A0E64A /* GTMOAuth2ViewTouch.xib in Resources */,
 				F348F4DF1CAB3D7E007BE41F /* DateCollectionViewCell.xib in Resources */,
 				F3328DEB1C8399C100E5AFE5 /* LaunchScreen.storyboard in Resources */,
-				F3387E831CC9705A0080FF09 /* Main.storyboard in Resources */,
 				F348F4E31CAB3D9E007BE41F /* ContentCollectionViewCell.xib in Resources */,
 				F3328DE81C8399C100E5AFE5 /* Assets.xcassets in Resources */,
 			);
@@ -578,6 +577,7 @@
 			files = (
 				F348F4CD1CA9F3A6007BE41F /* ProfileSettingsVC.swift in Sources */,
 				F348F4E21CAB3D9E007BE41F /* ContentCollectionViewCell.swift in Sources */,
+				F3387E891CC983E80080FF09 /* DigitsVC.swift in Sources */,
 				F35C94B61C84107D00D820D9 /* SyncOptionsController.swift in Sources */,
 				F35C94B31C83F79600D820D9 /* SignUpPageController.swift in Sources */,
 				F30A167E1C8D481900A7CCFD /* CreateGroupVC.swift in Sources */,
