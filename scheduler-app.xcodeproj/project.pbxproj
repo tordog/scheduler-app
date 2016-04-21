@@ -21,6 +21,8 @@
 		F3328DF61C8399C100E5AFE5 /* scheduler_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328DF51C8399C100E5AFE5 /* scheduler_appTests.swift */; };
 		F3328E011C8399C100E5AFE5 /* scheduler_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328E001C8399C100E5AFE5 /* scheduler_appUITests.swift */; };
 		F3328E111C839A2400E5AFE5 /* Dataservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328E101C839A2400E5AFE5 /* Dataservice.swift */; };
+		F3387E831CC9705A0080FF09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3387E821CC9705A0080FF09 /* Main.storyboard */; };
+		F3387E871CC970E00080FF09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3387E861CC970E00080FF09 /* Main.storyboard */; };
 		F348F4CD1CA9F3A6007BE41F /* ProfileSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */; };
 		F348F4CF1CAB3548007BE41F /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4CE1CAB3548007BE41F /* CollectionViewController.swift */; };
 		F348F4D21CAB3610007BE41F /* CustomCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F348F4D11CAB3610007BE41F /* CustomCollectionViewLayout.swift */; };
@@ -33,7 +35,6 @@
 		F35C94B31C83F79600D820D9 /* SignUpPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B21C83F79600D820D9 /* SignUpPageController.swift */; };
 		F35C94B61C84107D00D820D9 /* SyncOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */; };
 		F35C94B81C8428F100D820D9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35C94B71C8428F100D820D9 /* Constants.swift */; };
-		F35C94BA1C842DA000D820D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F35C94B91C842DA000D820D9 /* Main.storyboard */; };
 		F36670061CC7313800A0E64A /* GoogleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36670051CC7313800A0E64A /* GoogleController.swift */; };
 		F36670291CC7371900A0E64A /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36670281CC7371900A0E64A /* GTMOAuth2ViewTouch.xib */; };
 		F366702B1CC7372D00A0E64A /* GTLCalendar_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = F366702A1CC7372D00A0E64A /* GTLCalendar_Sources.m */; };
@@ -116,6 +117,8 @@
 		F3328E001C8399C100E5AFE5 /* scheduler_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scheduler_appUITests.swift; sourceTree = "<group>"; };
 		F3328E021C8399C100E5AFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3328E101C839A2400E5AFE5 /* Dataservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dataservice.swift; sourceTree = "<group>"; };
+		F3387E821CC9705A0080FF09 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F3387E861CC970E00080FF09 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F348F4CC1CA9F3A6007BE41F /* ProfileSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsVC.swift; sourceTree = "<group>"; };
 		F348F4CE1CAB3548007BE41F /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		F348F4D11CAB3610007BE41F /* CustomCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -128,7 +131,6 @@
 		F35C94B21C83F79600D820D9 /* SignUpPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPageController.swift; sourceTree = "<group>"; };
 		F35C94B51C84107D00D820D9 /* SyncOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncOptionsController.swift; sourceTree = "<group>"; };
 		F35C94B71C8428F100D820D9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		F35C94B91C842DA000D820D9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F36670051CC7313800A0E64A /* GoogleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleController.swift; sourceTree = "<group>"; };
 		F36670281CC7371900A0E64A /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "google-api-objectivec-client/Deps/gtm-oauth2/Source/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = SOURCE_ROOT; };
 		F366702A1CC7372D00A0E64A /* GTLCalendar_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLCalendar_Sources.m; path = "google-api-objectivec-client/Source/Services/Calendar/Generated/GTLCalendar_Sources.m"; sourceTree = SOURCE_ROOT; };
@@ -229,9 +231,9 @@
 				F3328E0F1C839A0900E5AFE5 /* Services */,
 				F3328E0E1C839A0400E5AFE5 /* Util */,
 				F3328DE01C8399C100E5AFE5 /* AppDelegate.swift */,
-				F35C94B91C842DA000D820D9 /* Main.storyboard */,
 				F3328DE71C8399C100E5AFE5 /* Assets.xcassets */,
 				F3328DE91C8399C100E5AFE5 /* LaunchScreen.storyboard */,
+				F3387E861CC970E00080FF09 /* Main.storyboard */,
 				F3328DEC1C8399C100E5AFE5 /* Info.plist */,
 				F366702D1CC7376900A0E64A /* Bridging-Header.h */,
 			);
@@ -259,6 +261,7 @@
 		F3328E0E1C839A0400E5AFE5 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				F3387E821CC9705A0080FF09 /* Main.storyboard */,
 				F35C94B71C8428F100D820D9 /* Constants.swift */,
 			);
 			name = Util;
@@ -481,10 +484,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3387E871CC970E00080FF09 /* Main.storyboard in Resources */,
 				F36670291CC7371900A0E64A /* GTMOAuth2ViewTouch.xib in Resources */,
 				F348F4DF1CAB3D7E007BE41F /* DateCollectionViewCell.xib in Resources */,
-				F35C94BA1C842DA000D820D9 /* Main.storyboard in Resources */,
 				F3328DEB1C8399C100E5AFE5 /* LaunchScreen.storyboard in Resources */,
+				F3387E831CC9705A0080FF09 /* Main.storyboard in Resources */,
 				F348F4E31CAB3D9E007BE41F /* ContentCollectionViewCell.xib in Resources */,
 				F3328DE81C8399C100E5AFE5 /* Assets.xcassets in Resources */,
 			);

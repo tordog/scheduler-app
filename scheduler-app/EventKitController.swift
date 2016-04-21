@@ -28,15 +28,18 @@ class EventKitController: UIViewController {
             requestAccessToCalendar()
         case EKAuthorizationStatus.Authorized:
             print("Already authorized")
-            insertEvent(eventStore)
+            self.performSegueWithIdentifier("toHome", sender: nil)
+            //insertEvent(eventStore)
             // Things are in line with being able to show the calendars in the table view
             //loadCalendars()
             //refreshTableView()
         case EKAuthorizationStatus.Restricted, EKAuthorizationStatus.Denied:
             // We need to help them give us permission
             //needPermissionView.fadeIn()
-            print("Access denied. TimeSlots cannot sync to iCal without access to your calendar")
+            self.showErrorAlert("Access denied", msg: "TimeSlots cannot sync to iCal without access to your calendar")
+            self.performSegueWithIdentifier("toHome", sender: nil)
         }
+        
     }
     
     func requestAccessToCalendar() {
@@ -45,12 +48,14 @@ class EventKitController: UIViewController {
             
             if accessGranted == true {
                 print("Access granted")
+                self.performSegueWithIdentifier("toHome", sender: nil)
 //                dispatch_async(dispatch_get_main_queue(), {
 //                    self.loadCalendars()
 //                    self.refreshTableView()
 //                })
             } else {
-                print("Access denied. TimeSlots cannot sync to iCal without access to your calendar")
+                self.showErrorAlert("Access denied", msg: "TimeSlots cannot sync to iCal without access to your calendar")
+                self.performSegueWithIdentifier("toHome", sender: nil)
 //                dispatch_async(dispatch_get_main_queue(), {
 //                    self.needPermissionView.fadeIn()
 //                })
@@ -93,6 +98,12 @@ class EventKitController: UIViewController {
             print("An error occurred")
         }
         
+    }
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated:true, completion: nil)
     }
     
 }
