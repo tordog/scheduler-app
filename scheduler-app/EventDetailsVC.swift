@@ -66,25 +66,52 @@ class EventDetailsVC: UIViewController {
                 self.eDescription = desc as! String
             }
             let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
+            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a z"
+            //dateFormatter.timeZone = NSTimeZone(name: "UTC")
+            let timeZone = NSTimeZone.localTimeZone().abbreviation
+            
+//            let formatter = NSDateFormatter()
+//            formatter.dateFormat = "yyyy-MM-dd hh:mm:ss z"
+//            //formatter.timeZone = NSTimeZone(abbreviation: "UTC");
+//            
+//            let formatter2 = NSDateFormatter()
+//            formatter2.dateFormat = "yyyy-MM-dd hh:mm a"
+//            formatter2.timeZone = NSTimeZone.localTimeZone()
             
             if let startDate = snapshot.value["startDate"] {
-                let dateConcat = ("\(startDate!) \(self.sTime)")
+                let dateConcat = ("\(startDate!) \(self.sTime) \(timeZone!)")
+                print("String given: \(dateConcat)")
                 //self.eventStart = dateFormatter.dateFromString(dateConcat)!
                 let date = dateFormatter.dateFromString(dateConcat)!
-                dateFormatter.timeZone = NSTimeZone.localTimeZone()
-                let timeStamp = dateFormatter.stringFromDate(date)
-                self.eventStart = dateFormatter.dateFromString(timeStamp)!
-                print(self.eventStart)
+                print("Date outputted: \(date)")
+                
+                self.eventStart = date
+                
+//                
+//                
+//                let timeStamp = formatter.stringFromDate(date)
+//                print("To UTC string: \(timeStamp)")
+//                
+//                
+//                //convert this UTC time string to local time zone.
+//                let date2 = formatter2.dateFromString(timeStamp)
+//                print("To Local Date: \(date2)")
+//                
+//                self.eventStart = date2!
+              
+                
+                
+                
+                
+                
+               // print(self.eventStart)
+
             }
+
             if let endDate = snapshot.value["endDate"] {
-                let dateConcat = ("\(endDate!) \(self.edTime)")
+                let dateConcat = ("\(endDate!) \(self.edTime) \(timeZone!)")
                 let date = dateFormatter.dateFromString(dateConcat)!
-                dateFormatter.timeZone = NSTimeZone.localTimeZone()
-                let timeStamp = dateFormatter.stringFromDate(date)
-                self.eventEnd = dateFormatter.dateFromString(timeStamp)!
-                print(self.eventEnd)
-                //self.eventEnd = dateFormatter.dateFromString(dateConcat)!
+                self.eventEnd = date
                 
             }
             }, withCancelBlock: { error in

@@ -139,7 +139,8 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                             let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID)
                             
                             let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(self.groupID)/\(dateStr)/events/\(eventID)/signups/\(uid!)")
-                            ref.observeEventType(.Value, withBlock: { snapshot in
+                            var h: UInt = 0
+                            h = ref.observeEventType(.Value, withBlock: { snapshot in
                                 if snapshot.value is NSNull {
                                     signupBool = "false"
                                 }
@@ -149,6 +150,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                                 self.sampleData[dateStrDict[startDate]!][count] = [eventID, title, desc, timeStr, numSlots, startDate, signupBool]
                                 count++
                                 self.collectionView!.reloadData()
+                                ref.removeObserverWithHandle(h)
                             })
                           
 
@@ -156,11 +158,13 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                         
                         if(n==0){
                             print("removing...")
+                            count=0
                             ref.removeObserverWithHandle(handle)
                         }
                     })
                     if(n==0){
                         print("removing.")
+                        count=0
                         ref.removeObserverWithHandle(handle)
                     }
                     
