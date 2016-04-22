@@ -67,13 +67,24 @@ class EventDetailsVC: UIViewController {
             }
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
+            
             if let startDate = snapshot.value["startDate"] {
                 let dateConcat = ("\(startDate!) \(self.sTime)")
-                self.eventStart = dateFormatter.dateFromString(dateConcat)!
+                //self.eventStart = dateFormatter.dateFromString(dateConcat)!
+                let date = dateFormatter.dateFromString(dateConcat)!
+                dateFormatter.timeZone = NSTimeZone.localTimeZone()
+                let timeStamp = dateFormatter.stringFromDate(date)
+                self.eventStart = dateFormatter.dateFromString(timeStamp)!
+                print(self.eventStart)
             }
             if let endDate = snapshot.value["endDate"] {
                 let dateConcat = ("\(endDate!) \(self.edTime)")
-                self.eventEnd = dateFormatter.dateFromString(dateConcat)!
+                let date = dateFormatter.dateFromString(dateConcat)!
+                dateFormatter.timeZone = NSTimeZone.localTimeZone()
+                let timeStamp = dateFormatter.stringFromDate(date)
+                self.eventEnd = dateFormatter.dateFromString(timeStamp)!
+                print(self.eventEnd)
+                //self.eventEnd = dateFormatter.dateFromString(dateConcat)!
                 
             }
             }, withCancelBlock: { error in
@@ -146,20 +157,29 @@ class EventDetailsVC: UIViewController {
                     
                     if(self.status == "false"){
                         
-                        if(self.checkCalendarAuthorizationStatus()) {
-                            // Create Event
-    
-                            var event = EKEvent(eventStore: self.eventStore)
-                            
-                            event.title = self.eTitle
-                            event.startDate = self.eventStart
-                            event.endDate = self.eventEnd
-                            //get default calendar: http://stackoverflow.com/questions/28379603/how-to-add-an-event-in-the-device-calendar-using-swift
-                            event.calendar = self.eventStore.defaultCalendarForNewEvents
-                            
-                            self.insertEvent(self.eventStore, event: event)
-   
-                        }
+                        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(userID)/calendars")
+                        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                            if let iCal = snapshot.value["iCal"] as? Bool {
+                                if(iCal == true){
+                                    if(self.checkCalendarAuthorizationStatus()) {
+                                        // Create Event
+                                        
+                                        var event = EKEvent(eventStore: self.eventStore)
+                                        
+                                        event.title = self.eTitle
+                                        event.startDate = self.eventStart
+                                        event.endDate = self.eventEnd
+                                        //get default calendar: http://stackoverflow.com/questions/28379603/how-to-add-an-event-in-the-device-calendar-using-swift
+                                        event.calendar = self.eventStore.defaultCalendarForNewEvents
+                                        
+                                        self.insertEvent(self.eventStore, event: event)
+                                        
+                                    }
+                                    
+                                }
+                            }
+                        })
+                        
                     
                         let ref3 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events/\(self.eventID)")
                         ref3.observeEventType(.Value, withBlock: { snapshot in
@@ -182,26 +202,43 @@ class EventDetailsVC: UIViewController {
                     }
                     else {
                         
-//                        var startDate=NSDate().dateByAddingTimeInterval(-60*60*24)
-//                        var endDate=NSDate().dateByAddingTimeInterval(60*60*24*3)
-//                        var predicate2 = eventStore.predicateForEventsWithStartDate(startDate, endDate: endDate, calendars: nil)
-//                        
-//                        println("startDate:\(startDate) endDate:\(endDate)")
-//                        var eV = eventStore.eventsMatchingPredicate(predicate2) as [EKEvent]!
-//                        
-//                        if eV != nil {
-//                            for i in eV {
-//                                println("Title  \(i.title)" )
-//                                println("stareDate: \(i.startDate)" )
-//                                println("endDate: \(i.endDate)" )
-//                                
-//                                if i.title == "Test Title" {
-//                                    println("YES" )
-//                                    // Uncomment if you want to delete
-//                                    //eventStore.removeEvent(i, span: EKSpanThisEvent, error: nil)
-//                                }
-//                            }
-//                        }
+                        //delete from iCal source: https://gist.github.com/mchirico/d072c4e38bda61040f91
+                        
+                        let refCal = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(userID)/calendars")
+                        refCal.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                            if let iCal = snapshot.value["iCal"] as? Bool {
+                                if(iCal == true){
+                                    if(self.checkCalendarAuthorizationStatus()) {
+                                        let predicate2 = self.eventStore.predicateForEventsWithStartDate(self.eventStart, endDate: self.eventEnd, calendars: nil)
+                                        let eV = self.eventStore.eventsMatchingPredicate(predicate2) as [EKEvent]!
+                                        print("Finding events with eventStart: \(self.eventStart) & eventEnd: \(self.eventEnd)")
+                                        if eV != nil {
+                                            print("eV doesn't equal nil")
+                                            print(eV)
+                                            for i in eV {
+                                                print("Title  \(i.title)" )
+                                                print("stareDate: \(i.startDate)" )
+                                                print("endDate: \(i.endDate)" )
+                
+                                                if i.title == self.eTitle {
+                                                    print("YES" )
+                                                    // Uncomment if you want to delete
+                                                    do {
+                                                        try self.eventStore.removeEvent(i, span: .ThisEvent)
+                                                    } catch let specError as NSError {
+                                                        print("A specific error occurred: \(specError)")
+                                                    } catch {
+                                                        print("An error occurred")
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                        })
+                    
                         
                         let ref3 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events/\(self.eventID)")
                         //DELETE ROW!!!!

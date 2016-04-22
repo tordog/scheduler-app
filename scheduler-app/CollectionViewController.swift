@@ -86,6 +86,8 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                     self.headerTitle.text = snapshot.value["groupName"] as? String
                 }
             })
+        
+        
    
             for (var i=0; i<15; i++){
                 
@@ -93,67 +95,80 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 dateStrDict[dateStr] = i
                 //add dateStr to sampleData
                 sampleData.append([])
-                for (var j = 0; j<nSec; j++){
+                for (var j = 0; j<nSec+1; j++){
                     sampleData[i].append(["", "", "", "", "", "", ""])
                 }
                 //Firebase Call here
                 let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupID)/\(dateStr)/events")
                 var count = 0
                 var handle: UInt = 0
-                handle = ref.queryOrderedByChild("startTime24").observeEventType(.ChildAdded, withBlock: { snapshot in
-                    var title = ""
-                    var startDate = ""
-                    var timeStr = ""
-                    var desc = ""
-                    var eventID = ""
-                    var numSlots = ""
-                    var datestring = ""
-                    var signupBool = ""
-                    if let stitle = snapshot.value["title"] as? String {
-                        title = stitle
-                    }
-                    if let sDate = snapshot.value["startDate"] as? String {
-                        startDate = sDate
-                    }
-                    if let startTime = snapshot.value["startTime"] as? String {
-                        if let endTime = snapshot.value["endTime"] as? String {
-                            timeStr = "\(startTime) to \(endTime)"
-                        }
-                    }
-                    if let eventid = snapshot.value["eventID"] as? String {
-                        eventID = eventid
-                    }
-                    if let nSlots = snapshot.value["numSlots"] as? String {
-                        numSlots = "\(nSlots) slots available"
-                    }
-                    if let description = snapshot.value["description"] as? String {
-                        desc = description
-                    }
-                    if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
-                        let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID)
-                        
-                        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(self.groupID)/\(dateStr)/events/\(eventID)/signups/\(uid!)")
-                        ref.observeEventType(.Value, withBlock: { snapshot in
-                            if snapshot.value is NSNull {
-                                signupBool = "false"
-                            }
-                            else {
-                                signupBool = "true"
-                            }
-                            self.sampleData[dateStrDict[startDate]!][count] = [eventID, title, desc, timeStr, numSlots, startDate, signupBool]
-                            count++
-                            self.collectionView!.reloadData()
-                        })
-                      
+                ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                    var n = snapshot.childrenCount
 
+                    handle = ref.queryOrderedByChild("startTime24").observeEventType(.ChildAdded, withBlock: { snapshot in
+                        n-=1
+                        var title = ""
+                        var startDate = ""
+                        var timeStr = ""
+                        var desc = ""
+                        var eventID = ""
+                        var numSlots = ""
+                        var datestring = ""
+                        var signupBool = ""
+                        if let stitle = snapshot.value["title"] as? String {
+                            title = stitle
+                        }
+                        if let sDate = snapshot.value["startDate"] as? String {
+                            startDate = sDate
+                        }
+                        if let startTime = snapshot.value["startTime"] as? String {
+                            if let endTime = snapshot.value["endTime"] as? String {
+                                timeStr = "\(startTime) to \(endTime)"
+                            }
+                        }
+                        if let eventid = snapshot.value["eventID"] as? String {
+                            eventID = eventid
+                        }
+                        if let nSlots = snapshot.value["numSlots"] as? String {
+                            numSlots = "\(nSlots) slots available"
+                        }
+                        if let description = snapshot.value["description"] as? String {
+                            desc = description
+                        }
+                        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
+                            let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID)
+                            
+                            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(self.groupID)/\(dateStr)/events/\(eventID)/signups/\(uid!)")
+                            ref.observeEventType(.Value, withBlock: { snapshot in
+                                if snapshot.value is NSNull {
+                                    signupBool = "false"
+                                }
+                                else {
+                                    signupBool = "true"
+                                }
+                                self.sampleData[dateStrDict[startDate]!][count] = [eventID, title, desc, timeStr, numSlots, startDate, signupBool]
+                                count++
+                                self.collectionView!.reloadData()
+                            })
+                          
+
+                        }
+                        
+                        if(n==0){
+                            print("removing...")
+                            ref.removeObserverWithHandle(handle)
+                        }
+                    })
+                    if(n==0){
+                        print("removing.")
+                        ref.removeObserverWithHandle(handle)
                     }
-                   
-                   ref.removeObserverWithHandle(handle)
+                    
                 })
                 
                 
-                print(sampleData[0][0])
                 
+                        
             
 
                 let nextDay = date.dateByAddingTimeInterval(1*60*60*24);
