@@ -17,6 +17,7 @@ class AddEventVC: UIViewController {
     var nSec: Int = 0
 
     @IBAction func saveBtnPress(sender: AnyObject) {
+        print("Save Button Pressed.")
         //do a bunch of checks -- is everything non-empty? 
         if(eventTitle.text == ""){
             showErrorAlert("Event Title required", msg: "Please enter an event title")
@@ -28,6 +29,7 @@ class AddEventVC: UIViewController {
             showErrorAlert("Error", msg: "Event Start occurs after Event End")
         }
         else {
+            print("Valid entries, connecting to Firebase")
             let dateFormatter = NSDateFormatter()
             let timeFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "YYYY-MM-dd"
@@ -45,6 +47,7 @@ class AddEventVC: UIViewController {
             let modDate24 = date24.stringByReplacingOccurrencesOfString(":", withString: ".")
             let date24ToDouble = Double(modDate24)
             
+            print("Firebase being called....")
             //add this information to Firebase!
             let ref = Firebase(url:"https://scheduler-base.firebaseio.com/groups/\(groupID)/\(startDate)/events")
             let event = ref.childByAutoId()
@@ -54,28 +57,39 @@ class AddEventVC: UIViewController {
             event.updateChildValues(eventInfo)
             event.updateChildValues(moreInfo)
             
+            print("Continuing....")
+            
             var numChildren: Int = 0
             
-            print("HELLO WTF")
             
             ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                print("Entered final snapshot")
                 numChildren = Int(snapshot.childrenCount)
-                print("HELLO WTF1")
                 
+               
                 let ref0 = Firebase(url:"https://scheduler-base.firebaseio.com/groups/\(self.groupID)")
                 let numRef = ref0.childByAppendingPath("numChildren")
                 numRef.setValue(numChildren)
                 
-               
+                print("Set value for numChildren")
                 
-                let ref1 = Firebase(url:"https://scheduler-base.firebaseio.com/groups/\(self.groupID)")
-                ref1.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            
+                ref0.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                    print("ONE more...")
+                    
+                    print(snapshot)
+                    
+                    print("HI!")
                     
                     if let k = snapshot.value["highestNum"] {
+                        
+                        print("K IS \(k as! NSNumber)")
+                        print("NUM CHILDREN IS \(numChildren)")
                        
                         if (Int(k as! NSNumber) <= numChildren){
                         
-                            let numRef = ref1.childByAppendingPath("highestNum")
+                            print("Entered here correctly")
+                            let numRef = ref0.childByAppendingPath("highestNum")
                             numRef.setValue(numChildren)
                             self.nSec = numChildren
                             self.performSegueWithIdentifier("backToCalendar", sender: nil)
@@ -90,10 +104,14 @@ class AddEventVC: UIViewController {
                         self.performSegueWithIdentifier("backToCalendar", sender: nil)
                     }
                     
+                    print("DOWN HERE!")
+                    
                     
                 })
              
             })
+            
+            print("Hey,,,")
             
             
             

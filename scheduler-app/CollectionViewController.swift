@@ -99,7 +99,8 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 //Firebase Call here
                 let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupID)/\(dateStr)/events")
                 var count = 0
-                ref.queryOrderedByChild("startTime24").observeEventType(.ChildAdded, withBlock: { snapshot in
+                var handle: UInt = 0
+                handle = ref.queryOrderedByChild("startTime24").observeEventType(.ChildAdded, withBlock: { snapshot in
                     var title = ""
                     var startDate = ""
                     var timeStr = ""
@@ -143,11 +144,15 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                             count++
                             self.collectionView!.reloadData()
                         })
+                      
 
                     }
-                    ref.removeAllObservers()
-                    
+                   
+                   ref.removeObserverWithHandle(handle)
                 })
+                
+                
+                print(sampleData[0][0])
                 
             
 
