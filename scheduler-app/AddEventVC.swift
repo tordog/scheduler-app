@@ -17,13 +17,15 @@ class AddEventVC: UIViewController {
     var nSec: Int = 0
 
     @IBAction func saveBtnPress(sender: AnyObject) {
-        print("Save Button Pressed.")
-        //do a bunch of checks -- is everything non-empty? 
+        //do a bunch of checks -- is everything non-empty?
         if(eventTitle.text == ""){
             showErrorAlert("Event Title required", msg: "Please enter an event title")
         }
         else if(eventDescription.text == ""){
             showErrorAlert("Event description required", msg: "Please enter an event description")
+        }
+        else if(location.text == ""){
+            showErrorAlert("Event location required", msg: "Please enter an event location")
         }
         else if eventStart.date.compare(eventEnd.date) == NSComparisonResult.OrderedDescending {
             showErrorAlert("Error", msg: "Event Start occurs after Event End")
@@ -52,18 +54,15 @@ class AddEventVC: UIViewController {
             let ref = Firebase(url:"https://scheduler-base.firebaseio.com/groups/\(groupID)/\(startDate)/events")
             let event = ref.childByAutoId()
             let eventID = event.key
-            let eventInfo: Dictionary<String, String> = ["title": eventTitle.text!, "description": eventDescription.text, "startDate": startDate, "endDate": endDate, "numSlots": numSlots.text!, "eventID": eventID, "startTime": startTime, "endTime": endTime]
+            let eventInfo: Dictionary<String, String> = ["title": eventTitle.text!, "description": eventDescription.text, "startDate": startDate, "endDate": endDate, "numSlots": numSlots.text!, "eventID": eventID, "startTime": startTime, "endTime": endTime, "location": location.text!]
             let moreInfo: Dictionary<String, Double> = ["startTime24": date24ToDouble!]
             event.updateChildValues(eventInfo)
             event.updateChildValues(moreInfo)
-            
-            print("Continuing....")
             
             var numChildren: Int = 0
             
             
             ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                print("Entered final snapshot")
                 numChildren = Int(snapshot.childrenCount)
                 
                
@@ -71,24 +70,18 @@ class AddEventVC: UIViewController {
                 let numRef = ref0.childByAppendingPath("numChildren")
                 numRef.setValue(numChildren)
                 
-                print("Set value for numChildren")
                 
             
                 ref0.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                    print("ONE more...")
                     
                     print(snapshot)
                     
                     print("HI!")
                     
                     if let k = snapshot.value["highestNum"] {
-                        
-                        print("K IS \(k as! NSNumber)")
-                        print("NUM CHILDREN IS \(numChildren)")
                        
                         if (Int(k as! NSNumber) <= numChildren){
                         
-                            print("Entered here correctly")
                             let numRef = ref0.childByAppendingPath("highestNum")
                             numRef.setValue(numChildren)
                             self.nSec = numChildren
@@ -104,15 +97,12 @@ class AddEventVC: UIViewController {
                         self.performSegueWithIdentifier("backToCalendar", sender: nil)
                     }
                     
-                    print("DOWN HERE!")
                     
                     
                 })
              
             })
-            
-            print("Hey,,,")
-            
+        
             
             
         }
@@ -133,6 +123,9 @@ class AddEventVC: UIViewController {
     @IBAction func stepperAction(sender: AnyObject) {
         numSlots.text = "\(Int(stepper.value))"
     }
+    
+    @IBOutlet weak var location: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

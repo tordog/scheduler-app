@@ -749,7 +749,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GLM-o7-6c7">
-                                <rect key="frame" x="66" y="125" width="145" height="192"/>
+                                <rect key="frame" x="66" y="125" width="145" height="222"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4d-QE-Xks">
                                         <rect key="frame" x="0.0" y="0.0" width="34" height="21"/>
@@ -763,8 +763,14 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DeN-hy-edf">
+                                        <rect key="frame" x="0.0" y="61" width="66" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="20q-PJ-LhP">
-                                        <rect key="frame" x="0.0" y="61" width="145" height="21"/>
+                                        <rect key="frame" x="0.0" y="92" width="145" height="21"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slots Remaining:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eG0-UZ-Nqa">
                                                 <rect key="frame" x="0.0" y="0.0" width="127" height="21"/>
@@ -781,7 +787,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqd-Gh-8gU">
-                                        <rect key="frame" x="0.0" y="92" width="88" height="100"/>
+                                        <rect key="frame" x="0.0" y="122" width="88" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="JLJ-63-ywi"/>
                                         </constraints>
@@ -831,6 +837,7 @@
                         <outlet property="btnOutlet" destination="XL5-iD-coG" id="rRY-Of-Kpq"/>
                         <outlet property="eventDescription" destination="xqd-Gh-8gU" id="rZy-aw-Ro3"/>
                         <outlet property="eventTitle" destination="A4d-QE-Xks" id="6BO-X1-rzw"/>
+                        <outlet property="location" destination="DeN-hy-edf" id="qSY-ZY-E94"/>
                         <outlet property="numSlots" destination="Nul-XC-mLu" id="2gz-Bt-ayX"/>
                         <outlet property="whenLabel" destination="FDG-Ea-8YN" id="H3Z-5i-osf"/>
                         <segue destination="cPm-lv-bsB" kind="show" identifier="backToCalendar" id="Vlv-Qq-qbb"/>
@@ -896,7 +903,7 @@
                                 <rect key="frame" x="9" y="88" width="600" height="677"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="P84-ua-0sW">
-                                        <rect key="frame" x="30" y="0.0" width="540" height="752"/>
+                                        <rect key="frame" x="30" y="0.0" width="540" height="802"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bdd-eB-rQ8">
                                                 <rect key="frame" x="0.0" y="0.0" width="540" height="30"/>
@@ -944,14 +951,30 @@
                                                     </mask>
                                                 </variation>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="I2n-Hn-YRo">
+                                                <rect key="frame" x="0.0" y="170" width="540" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Q3-Lk-v8i">
+                                                        <rect key="frame" x="0.0" y="0.0" width="66" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8u-cC-oIC">
+                                                        <rect key="frame" x="71" y="0.0" width="470" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhB-SR-XGe">
-                                                <rect key="frame" x="0.0" y="170" width="85" height="21"/>
+                                                <rect key="frame" x="0.0" y="220" width="85" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="eaT-fi-5lG">
-                                                <rect key="frame" x="0.0" y="211" width="320" height="216"/>
+                                                <rect key="frame" x="0.0" y="261" width="320" height="216"/>
                                                 <date key="date" timeIntervalSinceReferenceDate="481397075.221816">
                                                     <!--2016-04-03 17:24:35 +0000-->
                                                 </date>
@@ -963,19 +986,19 @@
                                                 </date>
                                             </datePicker>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event End" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVC-Bl-dKq">
-                                                <rect key="frame" x="0.0" y="447" width="77" height="21"/>
+                                                <rect key="frame" x="0.0" y="497" width="77" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="9KG-Vq-j1J">
-                                                <rect key="frame" x="0.0" y="487" width="320" height="216"/>
+                                                <rect key="frame" x="0.0" y="537" width="320" height="216"/>
                                                 <date key="date" timeIntervalSinceReferenceDate="481397111.518969">
                                                     <!--2016-04-03 17:25:11 +0000-->
                                                 </date>
                                             </datePicker>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="qSW-T7-Z0B">
-                                                <rect key="frame" x="0.0" y="723" width="190" height="29"/>
+                                                <rect key="frame" x="0.0" y="773" width="190" height="29"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of slots:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gu1-O9-KfQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="76" height="29"/>
@@ -1000,9 +1023,11 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="bdd-eB-rQ8" secondAttribute="trailing" id="2QM-GT-3gH"/>
+                                            <constraint firstAttribute="trailing" secondItem="I2n-Hn-YRo" secondAttribute="trailing" id="6oc-1b-KOR"/>
                                             <constraint firstItem="Hca-4o-wMh" firstAttribute="leading" secondItem="P84-ua-0sW" secondAttribute="leading" id="Zd0-fZ-kQy"/>
                                             <constraint firstItem="bdd-eB-rQ8" firstAttribute="leading" secondItem="P84-ua-0sW" secondAttribute="leading" id="eXq-YP-wtj"/>
                                             <constraint firstAttribute="trailing" secondItem="Hca-4o-wMh" secondAttribute="trailing" id="hMB-EN-DlC"/>
+                                            <constraint firstItem="I2n-Hn-YRo" firstAttribute="leading" secondItem="P84-ua-0sW" secondAttribute="leading" id="pzM-cL-sDa"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -1045,6 +1070,7 @@
                         <outlet property="eventEnd" destination="9KG-Vq-j1J" id="0Jn-lM-3lB"/>
                         <outlet property="eventStart" destination="eaT-fi-5lG" id="bHU-Uy-N76"/>
                         <outlet property="eventTitle" destination="Mea-D0-JXn" id="dq5-Tp-JOs"/>
+                        <outlet property="location" destination="Y8u-cC-oIC" id="pRn-1c-hAs"/>
                         <outlet property="numSlots" destination="gXj-Le-7gz" id="WEJ-MM-dPH"/>
                         <outlet property="stepper" destination="VRd-gY-vGR" id="krS-IJ-icO"/>
                         <segue destination="cPm-lv-bsB" kind="show" identifier="backToCalendar" id="bWM-nk-CSg"/>

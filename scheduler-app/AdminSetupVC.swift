@@ -23,32 +23,45 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     
     @IBAction func saveBtnPress(sender: AnyObject) {
-        //save group to Groups
-        let newGroup = DataService.ds.REF_GROUPS.childByAutoId()
-        let groupid = newGroup.key
-        let groupNameInfo: Dictionary<String, AnyObject> = ["groupName": nameToPass, "highestNum": 0]
-        newGroup.updateChildValues(groupNameInfo)
-        //add members
-        let groupRef = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupid)/members")
-        var groupMemberInfo = Dictionary<String, Bool>()
-        //add all member uids to groupid/members
-        for (_, uid) in members {
-            groupMemberInfo[uid] = adminStatus[uid]
+        //make sure there is at least 1 admin
+        var adminFlag = false
+        for (_,value) in adminStatus {
+            if (value == true) {
+                adminFlag = true
+                break
+            }
         }
-        
-        //add group id to user's DB
-        for (_, uid) in members {
-            let ref = Firebase(url:"https://scheduler-base.firebaseio.com/users/\(uid)/groups")
-            //TODO: check that uid exists
-            //insert group id and admin status to user's groups
-            let groupsInfo: Dictionary<String, Bool> = [groupid: adminStatus[uid]!]
-            ref.updateChildValues(groupsInfo)
+        if(adminFlag == false){
+            showErrorAlert("Admin Required", msg: "At least one admin is required per group. Please select a member to serve as admin of this group.")
+        }
+        else {
+            //save group to Groups
+            let newGroup = DataService.ds.REF_GROUPS.childByAutoId()
+            let groupid = newGroup.key
+            let groupNameInfo: Dictionary<String, AnyObject> = ["groupName": nameToPass, "highestNum": 0]
+            newGroup.updateChildValues(groupNameInfo)
+            //add members
+            let groupRef = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupid)/members")
+            var groupMemberInfo = Dictionary<String, Bool>()
+            //add all member uids to groupid/members
+            for (_, uid) in members {
+                groupMemberInfo[uid] = adminStatus[uid]
+            }
             
+            //add group id to user's DB
+            for (_, uid) in members {
+                let ref = Firebase(url:"https://scheduler-base.firebaseio.com/users/\(uid)/groups")
+                //TODO: check that uid exists
+                //insert group id and admin status to user's groups
+                let groupsInfo: Dictionary<String, Bool> = [groupid: adminStatus[uid]!]
+                ref.updateChildValues(groupsInfo)
+                
+            }
+            
+            groupRef.updateChildValues(groupMemberInfo)
+            
+            self.performSegueWithIdentifier("backToGroups", sender: nil)
         }
-        
-        groupRef.updateChildValues(groupMemberInfo)
-        
-        self.performSegueWithIdentifier("backToGroups", sender: nil)
     }
     
     override func viewDidLoad() {
@@ -69,7 +82,7 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 self.currentPhoneNum = snapshot.value as! String
                 self.members[self.currentPhoneNum] = self.currentUID
                 self.memberPhoneNumbers.append(self.currentPhoneNum)
-                self.adminStatus[self.currentUID]=true
+                self.adminStatus[self.currentUID]=false
                 self.tableView.reloadData()
             }
         })
@@ -108,6 +121,29 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 //    
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         var cellToDeSelect:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+        let phoneNum = cellToDeSelect.textLabel?.text
+        //fudge it's making me get the uid ok that makes sense
+        let aString: String = phoneNum!
+        let newString = aString.stringByReplacingOccurrencesOfString("+", withString: "%2B")
+        let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(newString)")
+        ref.observeEventType(.Value, withBlock: { snapshot in
+            if !snapshot.exists() {
+                print("Error, this phone number does not exist")
+            } else {
+                //get user's uid
+                if let addUID = snapshot.value["uid"] {
+                    let addUID = addUID as! String
+                    self.adminStatus[addUID] = false
+                }
+                else {
+                    print("Internal error. UID does not exist for this phone number")
+                }
+            }
+            }, withCancelBlock: { error in
+                print(error.description)
+        })
+
+        
         print("Deselecting: \(cellToDeSelect.textLabel!.text)")
     }
     
@@ -131,20 +167,8 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 //get user's uid
                 if let addUID = snapshot.value["uid"] {
                     let addUID = addUID as! String
-                    if (self.adminStatus[addUID] == true) {
-                        self.adminStatus[addUID] = false
-                        //let cellBGView = UIView()
-                        //cellBGView.backgroundColor = UIColor.clearColor()
-                        //currentCell.selectedBackgroundView = cellBGView
-                        //view.backgroundColor = UIColor.clearColor()
-                    }
-                    else{
-                        self.adminStatus[addUID] = true
-                        //let cellBGView = UIView()
-                       // cellBGView.backgroundColor = UIColor.lightGrayColor()
-                        //currentCell.selectedBackgroundView = cellBGView
-                        //view.backgroundColor = UIColor.blueColor()
-                    }
+
+                    self.adminStatus[addUID] = true
                     
                 }
                 else {
@@ -167,6 +191,12 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         } else {
             // No user is signed in
         }
+    }
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated:true, completion: nil)
     }
     
 }

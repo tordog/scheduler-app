@@ -65,6 +65,9 @@ class EventDetailsVC: UIViewController {
                 self.eventDescription.text = desc as? String
                 self.eDescription = desc as! String
             }
+            if let loc = snapshot.value["location"] {
+                self.location.text = loc as? String
+            }
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a z"
             //dateFormatter.timeZone = NSTimeZone(name: "UTC")
@@ -72,13 +75,8 @@ class EventDetailsVC: UIViewController {
             
             if let startDate = snapshot.value["startDate"] {
                 let dateConcat = ("\(startDate!) \(self.sTime) \(timeZone!)")
-                print("String given: \(dateConcat)")
-                //self.eventStart = dateFormatter.dateFromString(dateConcat)!
                 let date = dateFormatter.dateFromString(dateConcat)!
-                print("Date outputted: \(date)")
-                
                 self.eventStart = date
-                
 
             }
 
@@ -97,6 +95,7 @@ class EventDetailsVC: UIViewController {
     @IBOutlet weak var whenLabel: UILabel!
     @IBOutlet weak var numSlots: UILabel!
     @IBOutlet weak var eventDescription: UILabel!
+    @IBOutlet weak var location: UILabel!
 
     @IBAction func backBtnpress(sender: AnyObject) {
         //accept position, which means we need even more nested things. but to easily display, it should be associated with user id.
