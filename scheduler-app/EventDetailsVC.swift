@@ -70,14 +70,6 @@ class EventDetailsVC: UIViewController {
             //dateFormatter.timeZone = NSTimeZone(name: "UTC")
             let timeZone = NSTimeZone.localTimeZone().abbreviation
             
-//            let formatter = NSDateFormatter()
-//            formatter.dateFormat = "yyyy-MM-dd hh:mm:ss z"
-//            //formatter.timeZone = NSTimeZone(abbreviation: "UTC");
-//            
-//            let formatter2 = NSDateFormatter()
-//            formatter2.dateFormat = "yyyy-MM-dd hh:mm a"
-//            formatter2.timeZone = NSTimeZone.localTimeZone()
-            
             if let startDate = snapshot.value["startDate"] {
                 let dateConcat = ("\(startDate!) \(self.sTime) \(timeZone!)")
                 print("String given: \(dateConcat)")
@@ -87,24 +79,6 @@ class EventDetailsVC: UIViewController {
                 
                 self.eventStart = date
                 
-//                
-//                
-//                let timeStamp = formatter.stringFromDate(date)
-//                print("To UTC string: \(timeStamp)")
-//                
-//                
-//                //convert this UTC time string to local time zone.
-//                let date2 = formatter2.dateFromString(timeStamp)
-//                print("To Local Date: \(date2)")
-//                
-//                self.eventStart = date2!
-              
-                
-                
-                
-                
-                
-               // print(self.eventStart)
 
             }
 

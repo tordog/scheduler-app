@@ -18,6 +18,17 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var groupName: UITextField!
     @IBOutlet weak var phoneNumberToAdd: UISearchBar!
     
+    @IBAction func removeBtnPress(sender: AnyObject) {
+        if let button = sender as? UIButton {
+            if let superview = button.superview {
+                if let cell = superview.superview as? AddMemberCell {                    members.removeValueForKey(cell.textLabel!.text!)
+                    tableView.reloadData()
+                }
+            }
+        }
+        print("removing this user..")
+    }
+    
     @IBAction func cancelBtnPress(sender: AnyObject) {
         self.performSegueWithIdentifier("cancelGroupCreate", sender: nil)
     }
@@ -84,6 +95,8 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         var keys = Array(members.keys)
         let cell = tableView.dequeueReusableCellWithIdentifier("AddMemberCell") as! AddMemberCell
         cell.textLabel?.text = keys[indexPath.row]
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.contentView.bringSubviewToFront(cell.removeBtn)
         return cell
     }
 

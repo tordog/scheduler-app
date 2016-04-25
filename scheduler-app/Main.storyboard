@@ -1309,22 +1309,21 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n20-7c-fOu">
                                                     <rect key="frame" x="0.0" y="8" width="560" height="41"/>
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NJk-CM-gGF">
-                                                            <rect key="frame" x="477" y="5" width="55" height="31"/>
-                                                            <state key="normal" title="Remove"/>
-                                                        </button>
-                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="NJk-CM-gGF" secondAttribute="trailing" constant="50" id="KgV-pg-wJH"/>
-                                                        <constraint firstItem="NJk-CM-gGF" firstAttribute="centerY" secondItem="n20-7c-fOu" secondAttribute="centerY" id="SNP-eP-1Lw"/>
-                                                    </constraints>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NJk-CM-gGF">
+                                                    <rect key="frame" x="448" y="13" width="55" height="31"/>
+                                                    <state key="normal" title="Remove"/>
+                                                    <connections>
+                                                        <action selector="removeBtnPress:" destination="eOE-7P-uz3" eventType="touchUpInside" id="Hun-6J-bSI"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="NJk-CM-gGF" secondAttribute="trailing" constant="49" id="3yq-sk-efR"/>
                                                 <constraint firstItem="n20-7c-fOu" firstAttribute="centerY" secondItem="d9k-Yj-FPT" secondAttribute="centerY" id="NaT-mK-0jw"/>
                                                 <constraint firstItem="n20-7c-fOu" firstAttribute="centerX" secondItem="d9k-Yj-FPT" secondAttribute="centerX" id="wj9-wa-6Ac"/>
+                                                <constraint firstItem="NJk-CM-gGF" firstAttribute="centerY" secondItem="d9k-Yj-FPT" secondAttribute="centerY" id="yoY-Fd-yc1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1527,7 +1526,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="REu-PL-06J"/>
         <segue reference="2pg-V7-Flc"/>
-        <segue reference="9zr-gn-Tcy"/>
+        <segue reference="X67-Yh-pw6"/>
         <segue reference="Vlv-Qq-qbb"/>
     </inferredMetricsTieBreakers>
 </document>

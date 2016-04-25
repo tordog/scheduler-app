@@ -58,7 +58,6 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         memberPhoneNumbers = Array(members.keys)
         tableView.delegate = self
         tableView.dataSource = self
-        print("Initializing adminStatus")
         for(_, uid) in members {
             adminStatus[uid] = false
         }
@@ -74,6 +73,7 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 self.tableView.reloadData()
             }
         })
+        self.tableView.allowsMultipleSelection = true
 
     }
     
@@ -89,8 +89,28 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         //return UITableViewCell()
         let cell = tableView.dequeueReusableCellWithIdentifier("selectAdmin") as! listMembersSelectAdmin
         cell.textLabel?.text = memberPhoneNumbers[indexPath.row]
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.redColor()
+        cell.selectedBackgroundView = backgroundView
         return cell
     }
+    
+    
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        var selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+//        selectedCell.contentView.backgroundColor = UIColor.redColor()
+//    }
+//    
+//    // if tableView is set in attribute inspector with selection to multiple Selection it should work.
+//    
+//    // Just set it back in deselect
+//    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        var cellToDeSelect:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+        print("Deselecting: \(cellToDeSelect.textLabel!.text)")
+    }
+    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow!
@@ -98,6 +118,8 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
         
         let phoneNum = currentCell.textLabel!.text!
+        
+        print("Selecting: \(phoneNum)")
         
         let aString: String = phoneNum
         let newString = aString.stringByReplacingOccurrencesOfString("+", withString: "%2B")
@@ -111,16 +133,16 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                     let addUID = addUID as! String
                     if (self.adminStatus[addUID] == true) {
                         self.adminStatus[addUID] = false
-                        let cellBGView = UIView()
-                        cellBGView.backgroundColor = UIColor.clearColor()
-                        currentCell.selectedBackgroundView = cellBGView
+                        //let cellBGView = UIView()
+                        //cellBGView.backgroundColor = UIColor.clearColor()
+                        //currentCell.selectedBackgroundView = cellBGView
                         //view.backgroundColor = UIColor.clearColor()
                     }
                     else{
                         self.adminStatus[addUID] = true
-                        let cellBGView = UIView()
-                        cellBGView.backgroundColor = UIColor.lightGrayColor()
-                        currentCell.selectedBackgroundView = cellBGView
+                        //let cellBGView = UIView()
+                       // cellBGView.backgroundColor = UIColor.lightGrayColor()
+                        //currentCell.selectedBackgroundView = cellBGView
                         //view.backgroundColor = UIColor.blueColor()
                     }
                     
@@ -134,7 +156,7 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         })
 
         
-            }
+    }
     
     func getCurrUid() {
         let homeRef = Firebase(url: "https://scheduler-base.firebaseio.com")
