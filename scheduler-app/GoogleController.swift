@@ -37,6 +37,8 @@ class GoogleController: UIViewController {
             kKeychainItemName,
             clientID: kClientID,
             clientSecret: nil) {
+//                auth.accessToken = nil;
+//                auth.refreshToken = nil;
                 service.authorizer = auth
         }
         
@@ -57,6 +59,80 @@ class GoogleController: UIViewController {
         }
     }
     
+    func addEvent() {
+        //POST https://www.googleapis.com/calendar/v3/calendars/primary/events
+        
+
+        
+        let event1: [String: AnyObject] = [
+            "summary": "Title",
+            "description": "description",
+            "start": [
+                "dateTime": "2016-04-28T09:00:00-07:00",
+                "timeZone": "America/Los_Angeles",
+            ],
+            "end": [
+                "dateTime": "2016-04-28T17:00:00-07:00",
+                "timeZone": "America/Los_Angeles",
+            ]
+        ]
+        
+        //updateAuthService()
+        
+        //var event = GTLObject();
+        let event = GTLCalendarEvent()
+        event.summary = "Test title"
+        event.descriptionProperty = "Description"
+        let date = NSDate()
+        let date1 = date.dateByAddingTimeInterval(1*60*60);
+        let date2 = date1.dateByAddingTimeInterval(1*60*60);
+        let uh = GTLCalendarEventDateTime()
+        
+        let startDateTime: GTLDateTime = GTLDateTime(date: date1, timeZone: NSTimeZone.localTimeZone())
+        let endDateTime: GTLDateTime = GTLDateTime(date: date2, timeZone: NSTimeZone.localTimeZone())
+        
+        event.start = uh
+        event.start.dateTime = startDateTime
+        event.end = uh
+        event.end.dateTime = endDateTime
+        
+        print(event)
+        
+        let query = GTLQueryCalendar.queryForEventsInsertWithObject(event, calendarId: "primary")
+        service.executeQuery(query, completionHandler: nil)
+        
+        
+        
+        
+//        // prepare json data
+//        if let jsonData = try? NSJSONSerialization.dataWithJSONObject(event, options: .PrettyPrinted) {
+//            print("hi")
+//            // create post request
+//            let url = NSURL(string: "https://www.googleapis.com/calendar/v3/calendars/primary/events")!
+//            let request = NSMutableURLRequest(URL: url)
+//            request.HTTPMethod = "POST"
+//            
+//            // insert json data to the request
+//            request.HTTPBody = jsonData
+//            
+//            
+//            let task = NSURLSession.sharedSession().dataTaskWithRequest(request){ data,response,error in
+//                if error != nil{
+//                    print("Error occured")
+//                    print(error!.localizedDescription)
+//                    return
+//                }
+//                if let responseJSON = try? NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String:AnyObject]{
+//                    print("HI...")
+//                    print(responseJSON)
+//                }
+//            }
+//            
+//            task.resume()
+//        }
+
+    }
+    
     // Construct a query and get a list of upcoming events from the user calendar
     func fetchEvents() {
         let query = GTLQueryCalendar.queryForEventsListWithCalendarId("primary")
@@ -69,7 +145,26 @@ class GoogleController: UIViewController {
             delegate: self,
             didFinishSelector: "displayResultWithTicket:finishedWithObject:error:"
         )
+        
+        addEvent()
     }
+    
+    
+    
+    func updateAuthService() -> GTLServiceCalendar {
+        let service2 = GTLServiceCalendar()
+        let auth2 = GTMOAuth2Authentication()
+        auth2.clientID = kClientID
+        auth2.clientSecret = nil
+        service2.authorizer = auth2
+
+        return service2
+        
+    }
+    
+    
+    
+    
     
     // Display the start dates and event summaries in the UITextView
     func displayResultWithTicket(

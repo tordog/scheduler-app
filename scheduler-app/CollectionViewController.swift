@@ -28,12 +28,10 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     
     @IBAction func addEvent(sender: AnyObject) {
         //check that person is administrator
-        
-        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
-            let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID)
+        let uid = getUID()
+        if uid != nil {
             let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(uid!)/groups/\(groupID)")
             ref.observeEventType(.Value, withBlock: { snapshot in
-                print(snapshot.value)
                 if let adminStatus = snapshot.value {
                     if(adminStatus as! NSObject == true){
                         self.performSegueWithIdentifier("addEvent", sender: nil)
@@ -48,10 +46,8 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
             })
         }
         else {
-            showErrorAlert("You are no logged in!", msg: "Please log out and log back in.")
+            showErrorAlert("You are not logged in!", msg: "Please log out and log back in.")
         }
-        
-        
         
     }
     
@@ -67,7 +63,6 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         super.viewDidLoad()
         groupID = groupIDToPass
         nSec = numSectionsToPass
-        print("Sections passed: \(nSec)")
         self.collectionView.backgroundColor = UIColor.whiteColor()
         
         var dateStrDict = Dictionary<String, Int>()
@@ -185,43 +180,6 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                 date=nextDay
                 
             }
-
-        /* If other plan doesn't work...
-        
-        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
-            let uid = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID)
-            print("https://scheduler-base.firebaseio.com/signups/\(uid!)/\(self.groupID)/events")
-            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(uid!)/\(self.groupID)/events")
-            ref.observeEventType(.ChildAdded, withBlock: { snapshot in
-                if snapshot.value is NSNull {
-                    print("snapshot doesn't exist; so none there?")
-                }
-                else {
-                    print("snapshot exists. eventID: \(snapshot.key)")
-                    //look for snapshot.key in sampleData? 
-                    var found = false
-                    for (var i=0; i<self.sampleData.count; i++){
-                        for (var j=0; j<self.sampleData[i].count; j++){
-                            if self.sampleData[i][j][0] == snapshot.key {
-                                self.sampleData[i][j][4] = "You are signed up for this slot"
-                                found = true
-                                break
-                            }
-                        }
-                        if (found == true) {
-                            break
-                        }
-                    }
-                }
-                //print(snapshot.key)
-                self.collectionView!.reloadData()
-                
-                }, withCancelBlock: { error in
-                    print(error.description)
-            })
-            
-        }
-        */
 
         
         collectionView.delegate = self
@@ -362,12 +320,6 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         }
         
    }
-    func showErrorAlert(title: String, msg: String) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alert.addAction(action)
-        presentViewController(alert, animated:true, completion: nil)
-    }
 
 }
 

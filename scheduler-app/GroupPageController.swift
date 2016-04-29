@@ -38,12 +38,12 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let homeRef = Firebase(url: "https://scheduler-base.firebaseio.com")
-        if homeRef.authData != nil {
-            // user authenticated
-            let currUid = homeRef.authData.uid
+        let uid = getUID()
+        
+        if uid != nil {
+
             //print(homeRef.authData.uid)
-            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(currUid)/groups")
+            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(uid)/groups")
             ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 if(snapshot.childrenCount == 0){
                     self.noGroupsText.text = "No groups yet! Create a group to get started."
@@ -81,11 +81,7 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
             let svc = segue.destinationViewController as! CollectionViewController;
             svc.groupIDToPass = groupID
             svc.numSectionsToPass = self.maxCount
-            print("passing \(self.maxCount)")
         }
-
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
     }
 
     
@@ -126,10 +122,7 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.performSegueWithIdentifier("toGroupCalendar", sender: nil)
             }
         })
-      
-        //perform segue & load data for this group's calendar!
-        //self.performSegueWithIdentifier("toGroupCalendar", sender: nil)
-        //print(currentCell.textLabel!.text)
+
     }
 
 }

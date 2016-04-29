@@ -15,12 +15,13 @@ import Firebase
 class EventKitController: UIViewController {
     
     let eventStore = EKEventStore()
-    var userID: String = ""
+    var userID: String? = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil) {
-            userID = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+        userID = getUID()
+        if(userID == nil){
+            showErrorAlert("User not logged in", msg: "Please log in to continue")
         }
         
     }
@@ -30,7 +31,6 @@ class EventKitController: UIViewController {
             ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 if let iCal = snapshot.value["iCal"] as? Bool {
                     if(iCal == true){
-                        print("iCal Btn is True")
                         self.checkCalendarAuthorizationStatus()
                     }
                 }
@@ -108,11 +108,6 @@ class EventKitController: UIViewController {
         }
         
     }
-    func showErrorAlert(title: String, msg: String) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alert.addAction(action)
-        presentViewController(alert, animated:true, completion: nil)
-    }
+
     
 }

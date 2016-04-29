@@ -17,14 +17,16 @@ class SyncOptionsController: UIViewController {
     
     @IBOutlet weak var outlookSwitch: UISwitch!
     
-    var userID: String = ""
+    var uid: String? = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil){
-            userID = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+        uid = getUID()
+        if uid == nil{
+            showErrorAlert("No user logged in", msg: "Please log in to continue")
         }
+        
     }
     
     @IBAction func iCalSwitch(sender: AnyObject) {
@@ -49,7 +51,7 @@ class SyncOptionsController: UIViewController {
     
     @IBAction func continueBtnPress(sender: AnyObject) {
         //set users/userID/iCal: true
-        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(userID)/calendars")
+        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(uid)/calendars")
         let iCalRef = ref.childByAppendingPath("iCal")
         
         if(iCalSwitch.on){
@@ -65,10 +67,4 @@ class SyncOptionsController: UIViewController {
         //self.performSegueWithIdentifier("toHome", sender: nil)
     }
     
-    func showErrorAlert(title: String, msg: String) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alert.addAction(action)
-        presentViewController(alert, animated:true, completion: nil)
-    }
 }

@@ -87,15 +87,6 @@ class SignUpPageController: UIViewController {
             showErrorAlert("Email and password required", msg: "You must enter an email and a password.")
         }
     }
-    
-    func showErrorAlert(title: String, msg: String) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alert.addAction(action)
-        presentViewController(alert, animated:true, completion: nil)
-    }
-    
-    
-    
+  
     
 }

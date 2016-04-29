@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var phoneNumberField: UITextField!
     @IBOutlet weak var signUpBtn: UIButton!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var countryCode: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
+        if(getUID() != nil){
             self.performSegueWithIdentifier("loggedIn", sender: nil)
         }
     }
@@ -43,8 +44,9 @@ class ViewController: UIViewController {
     
     
     @IBAction func logInBtnPress(sender: AnyObject) {
-        if let pNum = phoneNumberField.text where pNum != "", let pwd = passwordField.text where pwd != "" {
-            let tempphoneNumber = pNum.substringFromIndex((pNum).startIndex.advancedBy(1))
+        if let pNum = phoneNumberField.text where pNum != "", let cc = countryCode.text where cc != "", let pwd = passwordField.text where pwd != "" {
+            let phonenumber = "\(cc)\(pNum)"
+            let tempphoneNumber = phonenumber.substringFromIndex((phonenumber).startIndex.advancedBy(1))
             let email = "\(tempphoneNumber)@random.com"
             
             DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { error, authData in
@@ -76,12 +78,12 @@ class ViewController: UIViewController {
         
     }
     
-    func showErrorAlert(title: String, msg: String) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alert.addAction(action)
-        presentViewController(alert, animated:true, completion: nil)
-    }
+//    func showErrorAlert(title: String, msg: String) {
+//        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+//        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+//        alert.addAction(action)
+//        presentViewController(alert, animated:true, completion: nil)
+//    }
     
     
 //    func didTapButton(sender: AnyObject) {
@@ -107,4 +109,25 @@ class ViewController: UIViewController {
 //    }
 
 }
+
+extension UIViewController {
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated:true, completion: nil)
+    }
+    
+    func getUID() -> String? {
+        if(NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil) {
+            var userID = NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) as! String
+            return userID
+        }
+        else{
+            return nil
+        }
+    }
+}
+
+
 

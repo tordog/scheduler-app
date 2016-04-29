@@ -17,11 +17,13 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var groupName: UITextField!
     @IBOutlet weak var phoneNumberToAdd: UISearchBar!
+    @IBOutlet weak var countryCode: UITextField!
     
     @IBAction func removeBtnPress(sender: AnyObject) {
         if let button = sender as? UIButton {
             if let superview = button.superview {
-                if let cell = superview.superview as? AddMemberCell {                    members.removeValueForKey(cell.textLabel!.text!)
+                if let cell = superview.superview as? AddMemberCell {
+                    members.removeValueForKey(cell.textLabel!.text!)
                     tableView.reloadData()
                 }
             }
@@ -36,25 +38,28 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBAction func addMember(sender: AnyObject) {
         //check that phone number exists in REF_PNUMBERS
         if let phoneNum = self.phoneNumberToAdd.text {
-            let aString: String = phoneNum
-            let newString = aString.stringByReplacingOccurrencesOfString("+", withString: "%2B")
-            let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(newString)")
-            ref.observeEventType(.Value, withBlock: { snapshot in
-                if !snapshot.exists() {
-                    self.showErrorAlert("Phone number not recognized", msg: "Please ensure that the information entered is correct. The phone number entered is either incorrect, or the user is not registered with TimeSlots.")
-                } else {
-                    //get user's uid
-                    if let addUID = snapshot.value["uid"] {
-                        self.members[phoneNum]=addUID as? String
-                        self.tableView.reloadData()
+            if let cc = self.countryCode.text {
+                let phonenumber = "\(cc)\(phoneNum)"
+                let aString: String = phonenumber
+                let newString = aString.stringByReplacingOccurrencesOfString("+", withString: "%2B")
+                let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(newString)")
+                ref.observeEventType(.Value, withBlock: { snapshot in
+                    if !snapshot.exists() {
+                        self.showErrorAlert("Phone number not recognized", msg: "Please ensure that the information entered is correct. The phone number entered is either incorrect, or the user is not registered with TimeSlots.")
+                    } else {
+                        //get user's uid
+                        if let addUID = snapshot.value["uid"] {
+                            self.members[phonenumber]=addUID as? String
+                            self.tableView.reloadData()
+                        }
+                        else {
+                            self.showErrorAlert("Internal error occurred", msg: "There is an error with this user's account. Please try again later.")
+                        }
                     }
-                    else {
-                        self.showErrorAlert("Internal error occurred", msg: "There is an error with this user's account. Please try again later.")
-                    }
-                }
-                }, withCancelBlock: { error in
-                    print(error.description)
-            })
+                    }, withCancelBlock: { error in
+                        print(error.description)
+                })
+            }
 
         }
         else {
@@ -98,13 +103,6 @@ class CreateGroupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.contentView.bringSubviewToFront(cell.removeBtn)
         return cell
-    }
-
-    func showErrorAlert(title: String, msg: String) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alert.addAction(action)
-        presentViewController(alert, animated:true, completion: nil)
     }
 
 }

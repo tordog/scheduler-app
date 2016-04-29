@@ -18,7 +18,7 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     var adminStatus = [String: Bool]()
     
-    var currentUID: String = ""
+    var currentUID: String? = ""
     var currentPhoneNum: String = ""
     
     
@@ -66,27 +66,32 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getCurrUid()
-        members = membersToPass
-        memberPhoneNumbers = Array(members.keys)
-        tableView.delegate = self
-        tableView.dataSource = self
-        for(_, uid) in members {
-            adminStatus[uid] = false
-        }
-        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(self.currentUID)/phone%20number")
-        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            if !snapshot.exists() {
-                print("Error")
-            } else {
-                self.currentPhoneNum = snapshot.value as! String
-                self.members[self.currentPhoneNum] = self.currentUID
-                self.memberPhoneNumbers.append(self.currentPhoneNum)
-                self.adminStatus[self.currentUID]=false
-                self.tableView.reloadData()
+        self.currentUID = getUID()!
+        if(self.currentUID != nil){
+            members = membersToPass
+            memberPhoneNumbers = Array(members.keys)
+            tableView.delegate = self
+            tableView.dataSource = self
+            for(_, uid) in members {
+                adminStatus[uid] = false
             }
-        })
-        self.tableView.allowsMultipleSelection = true
+            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(self.currentUID)/phone%20number")
+            ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                if !snapshot.exists() {
+                    print("Error")
+                } else {
+                    self.currentPhoneNum = snapshot.value as! String
+                    self.members[self.currentPhoneNum] = self.currentUID
+                    self.memberPhoneNumbers.append(self.currentPhoneNum)
+                    self.adminStatus[self.currentUID!]=false
+                    self.tableView.reloadData()
+                }
+            })
+            self.tableView.allowsMultipleSelection = true
+        }
+        else {
+            showErrorAlert("User not logged in", msg: "Please log in to continue")
+        }
 
     }
     
@@ -181,22 +186,6 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 
         
     }
-    
-    func getCurrUid() {
-        let homeRef = Firebase(url: "https://scheduler-base.firebaseio.com")
-        if homeRef.authData != nil {
-            // user authenticated
-            let currUid = homeRef.authData.uid
-            self.currentUID = currUid
-        } else {
-            // No user is signed in
-        }
-    }
-    func showErrorAlert(title: String, msg: String) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alert.addAction(action)
-        presentViewController(alert, animated:true, completion: nil)
-    }
+
     
 }

@@ -306,9 +306,9 @@ class EventDetailsVC: UIViewController {
             try store.saveEvent(event, span: .ThisEvent)
             print("Event has saved succesfully into calendar")
         } catch let specError as NSError {
-            print("A specific error occurred: \(specError)")
+            showErrorAlert("Error", msg: "A specific error occurred: \(specError)")
         } catch {
-            print("An error occurred")
+            showErrorAlert("Error", msg: "An error occurred")
         }
         
     }
@@ -317,12 +317,7 @@ class EventDetailsVC: UIViewController {
         
     }
     
-    func showErrorAlert(title: String, msg: String) {
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alert.addAction(action)
-        presentViewController(alert, animated:true, completion: nil)
-    }
+
     /*
     // MARK: - Navigation
 
