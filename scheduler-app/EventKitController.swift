@@ -14,8 +14,9 @@ import Firebase
 
 class EventKitController: UIViewController {
     
+    
     let eventStore = EKEventStore()
-    var userID: String? = ""
+    var userID: String! = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,15 +24,28 @@ class EventKitController: UIViewController {
         if(userID == nil){
             showErrorAlert("User not logged in", msg: "Please log in to continue")
         }
+       
         
     }
 
     override func viewWillAppear(animated: Bool) {
-            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(userID)/calendars")
+            print(userID!)
+        let tempUid: String! = userID!
+            print(tempUid)
+            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(tempUid!)/calendars")
             ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 if let iCal = snapshot.value["iCal"] as? Bool {
                     if(iCal == true){
                         self.checkCalendarAuthorizationStatus()
+                    }
+                }
+                if let google = snapshot.value["googleSync"] as? Bool {
+                    print("Snapshot value for googleSync exists")
+                    if(google == true) {
+                        //go to google sign-in -- segue
+                        //this should be last so ok if we segue away ?
+                        print("Going to google")
+                        self.performSegueWithIdentifier("toGoogle", sender: nil)
                     }
                 }
             })

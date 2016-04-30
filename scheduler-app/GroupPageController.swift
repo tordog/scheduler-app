@@ -43,7 +43,7 @@ class GroupPageController: UIViewController, UITableViewDelegate, UITableViewDat
         if uid != nil {
 
             //print(homeRef.authData.uid)
-            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(uid)/groups")
+            let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(uid!)/groups")
             ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 if(snapshot.childrenCount == 0){
                     self.noGroupsText.text = "No groups yet! Create a group to get started."

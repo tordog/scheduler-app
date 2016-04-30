@@ -15,6 +15,8 @@ class EventDetailsVC: UIViewController {
     @IBOutlet weak var btnOutlet: UIButton!
     let eventStore = EKEventStore()
     
+    private let service = GTLServiceCalendar()
+    
     var eventIDToPass: String = ""
     var eventID: String = ""
     var dateToPass: String = ""
@@ -178,6 +180,12 @@ class EventDetailsVC: UIViewController {
                                     
                                 }
                             }
+                            if let google = snapshot.value["googleSync"] as? Bool {
+                                print("Google is true")
+                                if(google == true) {
+                                    self.addEvent()
+                                }
+                            }
                         })
                         
                     
@@ -237,6 +245,7 @@ class EventDetailsVC: UIViewController {
                                     }
                                 }
                             }
+                            
                         })
                     
                         
@@ -256,6 +265,31 @@ class EventDetailsVC: UIViewController {
         })
 
 
+        
+    }
+    
+    func addEvent() {
+        
+        print("Adding event to google calendar")
+        
+        let event = GTLCalendarEvent()
+        event.summary = "Test title"
+        event.descriptionProperty = "Description"
+        let date = NSDate()
+        let date1 = date.dateByAddingTimeInterval(1*60*60);
+        let date2 = date1.dateByAddingTimeInterval(1*60*60);
+        let cal = GTLCalendarEventDateTime()
+        
+        let startDateTime: GTLDateTime = GTLDateTime(date: date1, timeZone: NSTimeZone.localTimeZone())
+        let endDateTime: GTLDateTime = GTLDateTime(date: date2, timeZone: NSTimeZone.localTimeZone())
+        
+        event.start = cal
+        event.start.dateTime = startDateTime
+        event.end = cal
+        event.end.dateTime = endDateTime
+        
+        let query = GTLQueryCalendar.queryForEventsInsertWithObject(event, calendarId: "primary")
+        service.executeQuery(query, completionHandler: nil)
         
     }
     

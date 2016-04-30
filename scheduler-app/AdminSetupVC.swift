@@ -18,7 +18,7 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     var adminStatus = [String: Bool]()
     
-    var currentUID: String? = ""
+    var currentUID: String! = ""
     var currentPhoneNum: String = ""
     
     
@@ -80,6 +80,7 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 if !snapshot.exists() {
                     print("Error")
                 } else {
+                    print(snapshot.value)
                     self.currentPhoneNum = snapshot.value as! String
                     self.members[self.currentPhoneNum] = self.currentUID
                     self.memberPhoneNumbers.append(self.currentPhoneNum)

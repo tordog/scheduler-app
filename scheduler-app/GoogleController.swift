@@ -25,6 +25,7 @@ class GoogleController: UIViewController {
     // and initialize the Google Calendar API service
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("In Google view controller!")
         
         output.frame = view.bounds
         output.editable = false
@@ -49,7 +50,9 @@ class GoogleController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         if let authorizer = service.authorizer,
             canAuth = authorizer.canAuthorize where canAuth {
-                fetchEvents()
+                //perform segue to calendar, do not fetch events
+                //fetchEvents()
+                self.performSegueWithIdentifier("toHome", sender: nil)
         } else {
             presentViewController(
                 createAuthController(),
@@ -60,141 +63,73 @@ class GoogleController: UIViewController {
     }
     
     func addEvent() {
-        //POST https://www.googleapis.com/calendar/v3/calendars/primary/events
         
-
-        
-        let event1: [String: AnyObject] = [
-            "summary": "Title",
-            "description": "description",
-            "start": [
-                "dateTime": "2016-04-28T09:00:00-07:00",
-                "timeZone": "America/Los_Angeles",
-            ],
-            "end": [
-                "dateTime": "2016-04-28T17:00:00-07:00",
-                "timeZone": "America/Los_Angeles",
-            ]
-        ]
-        
-        //updateAuthService()
-        
-        //var event = GTLObject();
         let event = GTLCalendarEvent()
         event.summary = "Test title"
         event.descriptionProperty = "Description"
         let date = NSDate()
         let date1 = date.dateByAddingTimeInterval(1*60*60);
         let date2 = date1.dateByAddingTimeInterval(1*60*60);
-        let uh = GTLCalendarEventDateTime()
+        let cal = GTLCalendarEventDateTime()
         
         let startDateTime: GTLDateTime = GTLDateTime(date: date1, timeZone: NSTimeZone.localTimeZone())
         let endDateTime: GTLDateTime = GTLDateTime(date: date2, timeZone: NSTimeZone.localTimeZone())
         
-        event.start = uh
+        event.start = cal
         event.start.dateTime = startDateTime
-        event.end = uh
+        event.end = cal
         event.end.dateTime = endDateTime
-        
-        print(event)
         
         let query = GTLQueryCalendar.queryForEventsInsertWithObject(event, calendarId: "primary")
         service.executeQuery(query, completionHandler: nil)
-        
-        
-        
-        
-//        // prepare json data
-//        if let jsonData = try? NSJSONSerialization.dataWithJSONObject(event, options: .PrettyPrinted) {
-//            print("hi")
-//            // create post request
-//            let url = NSURL(string: "https://www.googleapis.com/calendar/v3/calendars/primary/events")!
-//            let request = NSMutableURLRequest(URL: url)
-//            request.HTTPMethod = "POST"
-//            
-//            // insert json data to the request
-//            request.HTTPBody = jsonData
-//            
-//            
-//            let task = NSURLSession.sharedSession().dataTaskWithRequest(request){ data,response,error in
-//                if error != nil{
-//                    print("Error occured")
-//                    print(error!.localizedDescription)
-//                    return
-//                }
-//                if let responseJSON = try? NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String:AnyObject]{
-//                    print("HI...")
-//                    print(responseJSON)
-//                }
-//            }
-//            
-//            task.resume()
-//        }
 
     }
     
     // Construct a query and get a list of upcoming events from the user calendar
-    func fetchEvents() {
-        let query = GTLQueryCalendar.queryForEventsListWithCalendarId("primary")
-        query.maxResults = 10
-        query.timeMin = GTLDateTime(date: NSDate(), timeZone: NSTimeZone.localTimeZone())
-        query.singleEvents = true
-        query.orderBy = kGTLCalendarOrderByStartTime
-        service.executeQuery(
-            query,
-            delegate: self,
-            didFinishSelector: "displayResultWithTicket:finishedWithObject:error:"
-        )
-        
-        addEvent()
-    }
-    
-    
-    
-    func updateAuthService() -> GTLServiceCalendar {
-        let service2 = GTLServiceCalendar()
-        let auth2 = GTMOAuth2Authentication()
-        auth2.clientID = kClientID
-        auth2.clientSecret = nil
-        service2.authorizer = auth2
-
-        return service2
-        
-    }
-    
-    
-    
-    
+//    func fetchEvents() {
+//        let query = GTLQueryCalendar.queryForEventsListWithCalendarId("primary")
+//        query.maxResults = 10
+//        query.timeMin = GTLDateTime(date: NSDate(), timeZone: NSTimeZone.localTimeZone())
+//        query.singleEvents = true
+//        query.orderBy = kGTLCalendarOrderByStartTime
+//        service.executeQuery(
+//            query,
+//            delegate: self,
+//            didFinishSelector: "displayResultWithTicket:finishedWithObject:error:"
+//        )
+//        
+//        addEvent()
+//    }
     
     // Display the start dates and event summaries in the UITextView
-    func displayResultWithTicket(
-        ticket: GTLServiceTicket,
-        finishedWithObject response : GTLCalendarEvents,
-        error : NSError?) {
-            
-            if let error = error {
-                showAlert("Error", message: error.localizedDescription)
-                return
-            }
-            
-            var eventString = ""
-            
-            if let events = response.items() where !events.isEmpty {
-                for event in events as! [GTLCalendarEvent] {
-                    var start : GTLDateTime! = event.start.dateTime ?? event.start.date
-                    var startString = NSDateFormatter.localizedStringFromDate(
-                        start.date,
-                        dateStyle: .ShortStyle,
-                        timeStyle: .ShortStyle
-                    )
-                    eventString += "\(startString) - \(event.summary)\n"
-                }
-            } else {
-                eventString = "No upcoming events found."
-            }
-            
-            output.text = eventString
-    }
+//    func displayResultWithTicket(
+//        ticket: GTLServiceTicket,
+//        finishedWithObject response : GTLCalendarEvents,
+//        error : NSError?) {
+//            
+//            if let error = error {
+//                showAlert("Error", message: error.localizedDescription)
+//                return
+//            }
+//            
+//            var eventString = ""
+//            
+//            if let events = response.items() where !events.isEmpty {
+//                for event in events as! [GTLCalendarEvent] {
+//                    var start : GTLDateTime! = event.start.dateTime ?? event.start.date
+//                    var startString = NSDateFormatter.localizedStringFromDate(
+//                        start.date,
+//                        dateStyle: .ShortStyle,
+//                        timeStyle: .ShortStyle
+//                    )
+//                    eventString += "\(startString) - \(event.summary)\n"
+//                }
+//            } else {
+//                eventString = "No upcoming events found."
+//            }
+//            
+//            output.text = eventString
+//    }
     
     
     // Creates the auth controller for authorizing access to Google Calendar API
@@ -223,6 +158,8 @@ class GoogleController: UIViewController {
             
             service.authorizer = authResult
             dismissViewControllerAnimated(true, completion: nil)
+            //segue to home
+            self.performSegueWithIdentifier("toHome", sender: nil)
     }
     
     // Helper for showing an alert
