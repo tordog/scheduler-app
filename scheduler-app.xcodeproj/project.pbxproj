@@ -664,6 +664,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -709,6 +710,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -757,6 +759,7 @@
 		};
 		F3328E091C8399C100E5AFE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B67E7E8979E029ED94E7BBCF /* Pods-scheduler-app.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "scheduler-appTests/Info.plist";
@@ -769,6 +772,7 @@
 		};
 		F3328E0A1C8399C100E5AFE5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41327A2D1D6E7DB8CC206553 /* Pods-scheduler-app.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "scheduler-appTests/Info.plist";
@@ -781,6 +785,7 @@
 		};
 		F3328E0C1C8399C100E5AFE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B67E7E8979E029ED94E7BBCF /* Pods-scheduler-app.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "scheduler-appUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -793,6 +798,7 @@
 		};
 		F3328E0D1C8399C100E5AFE5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41327A2D1D6E7DB8CC206553 /* Pods-scheduler-app.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "scheduler-appUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
