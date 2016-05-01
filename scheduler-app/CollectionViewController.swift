@@ -152,13 +152,11 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
                         }
                         
                         if(n==0){
-                            print("removing...")
                             count=0
                             ref.removeObserverWithHandle(handle)
                         }
                     })
                     if(n==0){
-                        print("removing.")
                         count=0
                         ref.removeObserverWithHandle(handle)
                     }

@@ -38,6 +38,13 @@ class EventDetailsVC: UIViewController {
     private let scopes = [kGTLAuthScopeCalendar]
     private let service = GTLServiceCalendar()
     let output = UITextView()
+    
+    override func viewDidAppear(animated: Bool) {
+        if(status == "true"){
+            btnOutlet.setTitle("Cancel", forState: UIControlState.Normal)
+            btnOutlet.backgroundColor = UIColor(red: 0.9, green: 0.2, blue: 0.2, alpha: 1.0)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,6 +136,8 @@ class EventDetailsVC: UIViewController {
 
     @IBAction func confirmBtnPress(sender: AnyObject) {
         
+        
+        
         let homeRef = Firebase(url: "https://scheduler-base.firebaseio.com")
         var userID = ""
         if homeRef.authData != nil {
@@ -139,7 +148,6 @@ class EventDetailsVC: UIViewController {
             // No user is signed in
         }
         
-        //update Num Slots!
         let ref2 = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(groupID)/\(date)/events/\(eventID)")
         ref2.observeSingleEventOfType(.Value, withBlock: { snapshot in
             if let numSlots = snapshot.value["numSlots"] {
@@ -160,6 +168,8 @@ class EventDetailsVC: UIViewController {
                     ref2.childByAppendingPath("numSlots").setValue(numToStr)
                     
                     if(self.status == "false"){
+                        
+                        self.status = "true"
                         
                         let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(userID)/calendars")
                         ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
@@ -190,15 +200,29 @@ class EventDetailsVC: UIViewController {
                                         self.kKeychainItemName,
                                         clientID: self.kClientID,
                                         clientSecret: nil) {
-                                            //                auth.accessToken = nil;
-                                            //                auth.refreshToken = nil;
+                                            auth.accessToken = nil;
+                                            auth.refreshToken = nil;
                                             self.service.authorizer = auth
                                     }
                                     if let authorizer = self.service.authorizer,
                                         canAuth = authorizer.canAuthorize where canAuth {
-                                            //perform segue to calendar, do not fetch events
-                                            //fetchEvents()
-                                            self.addEvent()
+                                            //create Event
+                                            
+                                            let event = GTLCalendarEvent()
+                                            event.summary = self.eTitle
+                                            event.descriptionProperty = self.eDescription
+                                            let cal = GTLCalendarEventDateTime()
+                                            let cal2 = GTLCalendarEventDateTime()
+                                            
+                                            let startDateTime: GTLDateTime = GTLDateTime(date: self.eventStart, timeZone: NSTimeZone.localTimeZone())
+                                            let endDateTime: GTLDateTime = GTLDateTime(date: self.eventEnd, timeZone: NSTimeZone.localTimeZone())
+                                            
+                                            event.start = cal
+                                            event.start.dateTime = startDateTime
+                                            event.end = cal2
+                                            event.end.dateTime = endDateTime
+
+                                            self.addEvent(event)
                                     } else {
                                         self.presentViewController(
                                             self.createAuthController(),
@@ -243,17 +267,9 @@ class EventDetailsVC: UIViewController {
                                     if(self.checkCalendarAuthorizationStatus()) {
                                         let predicate2 = self.eventStore.predicateForEventsWithStartDate(self.eventStart, endDate: self.eventEnd, calendars: nil)
                                         let eV = self.eventStore.eventsMatchingPredicate(predicate2) as [EKEvent]!
-                                        print("Finding events with eventStart: \(self.eventStart) & eventEnd: \(self.eventEnd)")
                                         if eV != nil {
-                                            print("eV doesn't equal nil")
-                                            print(eV)
                                             for i in eV {
-                                                print("Title  \(i.title)" )
-                                                print("stareDate: \(i.startDate)" )
-                                                print("endDate: \(i.endDate)" )
-                
                                                 if i.title == self.eTitle {
-                                                    print("YES" )
                                                     // Uncomment if you want to delete
                                                     do {
                                                         try self.eventStore.removeEvent(i, span: .ThisEvent)
@@ -274,7 +290,7 @@ class EventDetailsVC: UIViewController {
                     
                         
                         let ref3 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events/\(self.eventID)")
-                        //DELETE ROW!!!!
+                        //Delete row
                         ref3.removeAllObservers()
                         ref3.removeValue()
                         let ref = Firebase(url: "https://scheduler-base.firebaseio.com/groups/\(self.groupID)/\(self.date)/events/\(self.eventID)/signups/\(userID)")
@@ -292,25 +308,25 @@ class EventDetailsVC: UIViewController {
         
     }
     
-    func addEvent() {
+    func addEvent(event: GTLCalendarEvent) {
         
         print("Adding event to google calendar")
         
-        let event = GTLCalendarEvent()
-        event.summary = "Test title"
-        event.descriptionProperty = "Description"
-        let date = NSDate()
-        let date1 = date.dateByAddingTimeInterval(1*60*60);
-        let date2 = date1.dateByAddingTimeInterval(1*60*60);
-        let cal = GTLCalendarEventDateTime()
-        
-        let startDateTime: GTLDateTime = GTLDateTime(date: date1, timeZone: NSTimeZone.localTimeZone())
-        let endDateTime: GTLDateTime = GTLDateTime(date: date2, timeZone: NSTimeZone.localTimeZone())
-        
-        event.start = cal
-        event.start.dateTime = startDateTime
-        event.end = cal
-        event.end.dateTime = endDateTime
+//        let event = GTLCalendarEvent()
+//        event.summary = "Test title"
+//        event.descriptionProperty = "Description"
+//        let date = NSDate()
+//        let date1 = date.dateByAddingTimeInterval(1*60*60);
+//        let date2 = date1.dateByAddingTimeInterval(1*60*60);
+//        let cal = GTLCalendarEventDateTime()
+//        
+//        let startDateTime: GTLDateTime = GTLDateTime(date: date1, timeZone: NSTimeZone.localTimeZone())
+//        let endDateTime: GTLDateTime = GTLDateTime(date: date2, timeZone: NSTimeZone.localTimeZone())
+//        
+//        event.start = cal
+//        event.start.dateTime = startDateTime
+//        event.end = cal
+//        event.end.dateTime = endDateTime
         
         let query = GTLQueryCalendar.queryForEventsInsertWithObject(event, calendarId: "primary")
         service.executeQuery(query, completionHandler: nil)
@@ -342,7 +358,21 @@ class EventDetailsVC: UIViewController {
             
             service.authorizer = authResult
             dismissViewControllerAnimated(true, completion: nil)
-            addEvent()
+            let event = GTLCalendarEvent()
+            event.summary = self.eTitle
+            event.descriptionProperty = self.eDescription
+            let cal = GTLCalendarEventDateTime()
+            let cal2 = GTLCalendarEventDateTime()
+            
+            let startDateTime: GTLDateTime = GTLDateTime(date: self.eventStart, timeZone: NSTimeZone.localTimeZone())
+            let endDateTime: GTLDateTime = GTLDateTime(date: self.eventEnd, timeZone: NSTimeZone.localTimeZone())
+            
+            event.start = cal
+            event.start.dateTime = startDateTime
+            event.end = cal2
+            event.end.dateTime = endDateTime
+            
+            addEvent(event)
             //segue to home
     }
     
