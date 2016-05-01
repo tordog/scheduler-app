@@ -15,8 +15,6 @@ class EventDetailsVC: UIViewController {
     @IBOutlet weak var btnOutlet: UIButton!
     let eventStore = EKEventStore()
     
-    private let service = GTLServiceCalendar()
-    
     var eventIDToPass: String = ""
     var eventID: String = ""
     var dateToPass: String = ""
@@ -33,6 +31,13 @@ class EventDetailsVC: UIViewController {
     var edTime: String = ""
     var eventStart = NSDate()
     var eventEnd = NSDate()
+    
+    //google calendar variables
+    private let kKeychainItemName = "Google Calendar API"
+    private let kClientID = "4167539657-0ekgk3lflbtq9ok5g4d7g9m7tauvi0vu.apps.googleusercontent.com"
+    private let scopes = [kGTLAuthScopeCalendar]
+    private let service = GTLServiceCalendar()
+    let output = UITextView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,7 +144,6 @@ class EventDetailsVC: UIViewController {
         ref2.observeSingleEventOfType(.Value, withBlock: { snapshot in
             if let numSlots = snapshot.value["numSlots"] {
                 let str = numSlots as! String
-                print(str)
                 var newNum = Int(str)!
                 if(self.status == "false"){
                     newNum = newNum - 1
@@ -151,11 +155,9 @@ class EventDetailsVC: UIViewController {
                     self.showErrorAlert("No slots available", msg: "All the slots for this event are already filled!")
                 }
                 else {
-                    
-                    
+ 
                     let numToStr = String(newNum)
                     ref2.childByAppendingPath("numSlots").setValue(numToStr)
-                    
                     
                     if(self.status == "false"){
                         
@@ -181,9 +183,31 @@ class EventDetailsVC: UIViewController {
                                 }
                             }
                             if let google = snapshot.value["googleSync"] as? Bool {
-                                print("Google is true")
                                 if(google == true) {
-                                    self.addEvent()
+                                    print("Google is true")
+                                    //Check that user is logged into her google acct
+                                    if let auth = GTMOAuth2ViewControllerTouch.authForGoogleFromKeychainForName(
+                                        self.kKeychainItemName,
+                                        clientID: self.kClientID,
+                                        clientSecret: nil) {
+                                            //                auth.accessToken = nil;
+                                            //                auth.refreshToken = nil;
+                                            self.service.authorizer = auth
+                                    }
+                                    if let authorizer = self.service.authorizer,
+                                        canAuth = authorizer.canAuthorize where canAuth {
+                                            //perform segue to calendar, do not fetch events
+                                            //fetchEvents()
+                                            self.addEvent()
+                                    } else {
+                                        self.presentViewController(
+                                            self.createAuthController(),
+                                            animated: true,
+                                            completion: nil
+                                        )
+                                    }
+                                    
+                                    
                                 }
                             }
                         })
@@ -291,6 +315,35 @@ class EventDetailsVC: UIViewController {
         let query = GTLQueryCalendar.queryForEventsInsertWithObject(event, calendarId: "primary")
         service.executeQuery(query, completionHandler: nil)
         
+    }
+    
+    private func createAuthController() -> GTMOAuth2ViewControllerTouch {
+        let scopeString = scopes.joinWithSeparator(" ")
+        return GTMOAuth2ViewControllerTouch(
+            scope: scopeString,
+            clientID: kClientID,
+            clientSecret: nil,
+            keychainItemName: kKeychainItemName,
+            delegate: self,
+            finishedSelector: "viewController:finishedWithAuth:error:"
+        )
+    }
+    
+    // Handle completion of the authorization process, and update the Google Calendar API
+    // with the new credentials.
+    func viewController(vc : UIViewController,
+        finishedWithAuth authResult : GTMOAuth2Authentication, error : NSError?) {
+            
+            if let error = error {
+                service.authorizer = nil
+                showErrorAlert("Authentication Error", msg: error.localizedDescription)
+                return
+            }
+            
+            service.authorizer = authResult
+            dismissViewControllerAnimated(true, completion: nil)
+            addEvent()
+            //segue to home
     }
     
     func checkCalendarAuthorizationStatus() -> Bool {
