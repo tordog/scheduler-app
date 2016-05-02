@@ -21,6 +21,9 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var currentUID: String! = ""
     var currentPhoneNum: String = ""
     
+    @IBAction func infoBtnPress(sender: AnyObject) {
+        showErrorAlert("Set Group Administrators", msg: "Select which users will have the ability to create events within this group.")
+    }
     
     @IBAction func saveBtnPress(sender: AnyObject) {
         //make sure there is at least 1 admin

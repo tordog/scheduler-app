@@ -83,7 +83,7 @@ class SignUpPageController: UIViewController {
                     }
                         
                     else {
-                        self.showErrorAlert("Could not log in.", msg: "Please enter valid email / password.")
+                        self.showErrorAlert("This account already exists!", msg: "Please login to continue with this phone number.")
                     }
                     
                 }
