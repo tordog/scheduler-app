@@ -129,6 +129,7 @@ class AddEventVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         groupID = groupIDToPass
         nSec = numSectionsToPass
         let today = NSDate()

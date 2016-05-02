@@ -14,6 +14,8 @@
 		F30A16831C8D677200A7CCFD /* listMembersSelectAdmin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30A16821C8D677200A7CCFD /* listMembersSelectAdmin.swift */; };
 		F30A16851C8D688400A7CCFD /* AdminSetupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30A16841C8D688400A7CCFD /* AdminSetupVC.swift */; };
 		F30A16871C8D70D600A7CCFD /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30A16861C8D70D600A7CCFD /* GroupCell.swift */; };
+		F30FD9721CD6FC85004AE2EC /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36670391CC739D300A0E64A /* GTL.framework */; };
+		F30FD9731CD6FC85004AE2EC /* GTL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F36670391CC739D300A0E64A /* GTL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F3328DE11C8399C100E5AFE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328DE01C8399C100E5AFE5 /* AppDelegate.swift */; };
 		F3328DE31C8399C100E5AFE5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328DE21C8399C100E5AFE5 /* ViewController.swift */; };
 		F3328DE81C8399C100E5AFE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3328DE71C8399C100E5AFE5 /* Assets.xcassets */; };
@@ -43,6 +45,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F30FD9741CD6FC85004AE2EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F366702E1CC739D300A0E64A /* GTLCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F4469D791C40229D00BCFAA1;
+			remoteInfo = GTLiOSCore;
+		};
 		F3328DF21C8399C100E5AFE5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F3328DD51C8399C000E5AFE5 /* Project object */;
@@ -93,6 +102,20 @@
 			remoteInfo = OSXDevTool;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F30FD9761CD6FC85004AE2EC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F30FD9731CD6FC85004AE2EC /* GTL.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		41327A2D1D6E7DB8CC206553 /* Pods-scheduler-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scheduler-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-scheduler-app/Pods-scheduler-app.release.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36670401CC73A3400A0E64A /* GTL.framework in Frameworks */,
+				F30FD9721CD6FC85004AE2EC /* GTL.framework in Frameworks */,
 				C4DE0DE76184BD72D4F8F935 /* Pods_scheduler_app.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,10 +370,12 @@
 				0FB23B541A65CC226B768DD8 /* Embed Pods Frameworks */,
 				749D616DFAD496FCD24ABAC8 /* Copy Pods Resources */,
 				F35C94AF1C83BDCF00D820D9 /* ShellScript */,
+				F30FD9761CD6FC85004AE2EC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F30FD9751CD6FC85004AE2EC /* PBXTargetDependency */,
 			);
 			name = "scheduler-app";
 			productName = "scheduler-app";
@@ -404,6 +430,7 @@
 				TargetAttributes = {
 					F3328DDC1C8399C000E5AFE5 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 626BKQTV5W;
 					};
 					F3328DF01C8399C100E5AFE5 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -620,6 +647,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F30FD9751CD6FC85004AE2EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GTLiOSCore;
+			targetProxy = F30FD9741CD6FC85004AE2EC /* PBXContainerItemProxy */;
+		};
 		F3328DF31C8399C100E5AFE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F3328DDC1C8399C000E5AFE5 /* scheduler-app */;
@@ -681,7 +713,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -721,7 +753,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -734,8 +766,11 @@
 			baseConfigurationReference = B67E7E8979E029ED94E7BBCF /* Pods-scheduler-app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: torie.nielsen@gmail.com (5NA3S7F58G)";
+				ENABLE_BITCODE = NO;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "GTL_BUILT_AS_FRAMEWORK=1";
 				INFOPLIST_FILE = "scheduler-app/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Victoria.scheduler-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -748,8 +783,11 @@
 			baseConfigurationReference = 41327A2D1D6E7DB8CC206553 /* Pods-scheduler-app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: torie.nielsen@gmail.com (5NA3S7F58G)";
+				ENABLE_BITCODE = NO;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "GTL_BUILT_AS_FRAMEWORK=1";
 				INFOPLIST_FILE = "scheduler-app/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Victoria.scheduler-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -762,6 +800,7 @@
 			baseConfigurationReference = B67E7E8979E029ED94E7BBCF /* Pods-scheduler-app.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: torie.nielsen@gmail.com (5NA3S7F58G)";
 				INFOPLIST_FILE = "scheduler-appTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Victoria.scheduler-appTests";
@@ -775,6 +814,7 @@
 			baseConfigurationReference = 41327A2D1D6E7DB8CC206553 /* Pods-scheduler-app.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: torie.nielsen@gmail.com (5NA3S7F58G)";
 				INFOPLIST_FILE = "scheduler-appTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Victoria.scheduler-appTests";

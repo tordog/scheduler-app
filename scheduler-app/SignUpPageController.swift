@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DigitsKit
+//import DigitsKit
 
 class SignUpPageController: UIViewController {
     
@@ -20,6 +20,17 @@ class SignUpPageController: UIViewController {
     
     override func viewDidLoad() {
         phoneNumber.text=toPass
+        self.hideKeyboardWhenTappedAround() 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
+    }
+    
+    func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y = -150
+    }
+    
+    func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y = 0
     }
     
     

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'EC6982866E13F65F6C37FFA5'
+               BlueprintIdentifier = '05F3864DEFC771198AC13533'
                BlueprintName = 'Pods-scheduler-app'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_scheduler_app.framework'>
