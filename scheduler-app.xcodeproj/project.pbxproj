@@ -16,6 +16,7 @@
 		F30A16871C8D70D600A7CCFD /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30A16861C8D70D600A7CCFD /* GroupCell.swift */; };
 		F30FD9721CD6FC85004AE2EC /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36670391CC739D300A0E64A /* GTL.framework */; };
 		F30FD9731CD6FC85004AE2EC /* GTL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F36670391CC739D300A0E64A /* GTL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F30FD9781CD7C082004AE2EC /* emailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30FD9771CD7C082004AE2EC /* emailVC.swift */; };
 		F3328DE11C8399C100E5AFE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328DE01C8399C100E5AFE5 /* AppDelegate.swift */; };
 		F3328DE31C8399C100E5AFE5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3328DE21C8399C100E5AFE5 /* ViewController.swift */; };
 		F3328DE81C8399C100E5AFE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3328DE71C8399C100E5AFE5 /* Assets.xcassets */; };
@@ -127,6 +128,7 @@
 		F30A16821C8D677200A7CCFD /* listMembersSelectAdmin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = listMembersSelectAdmin.swift; sourceTree = "<group>"; };
 		F30A16841C8D688400A7CCFD /* AdminSetupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminSetupVC.swift; sourceTree = "<group>"; };
 		F30A16861C8D70D600A7CCFD /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
+		F30FD9771CD7C082004AE2EC /* emailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = emailVC.swift; sourceTree = "<group>"; };
 		F3328DDD1C8399C100E5AFE5 /* scheduler-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "scheduler-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3328DE01C8399C100E5AFE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3328DE21C8399C100E5AFE5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				F36670051CC7313800A0E64A /* GoogleController.swift */,
 				F36670411CC7EBF400A0E64A /* EventKitController.swift */,
 				F3387E881CC983E80080FF09 /* DigitsVC.swift */,
+				F30FD9771CD7C082004AE2EC /* emailVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F348F4CD1CA9F3A6007BE41F /* ProfileSettingsVC.swift in Sources */,
+				F30FD9781CD7C082004AE2EC /* emailVC.swift in Sources */,
 				F348F4E21CAB3D9E007BE41F /* ContentCollectionViewCell.swift in Sources */,
 				F3387E891CC983E80080FF09 /* DigitsVC.swift in Sources */,
 				F35C94B61C84107D00D820D9 /* SyncOptionsController.swift in Sources */,

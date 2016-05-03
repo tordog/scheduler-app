@@ -19,6 +19,29 @@ class ProfileSettingsVC: UIViewController {
         self.performSegueWithIdentifier("backToHome", sender: nil)
     }
 
+    @IBAction func deleteAcctBtnPress(sender: AnyObject) {
+        
+        // Create the alert controller
+        var alertController = UIAlertController(title: "Are you sure?", message: "Deleting your account is permanent. Are you sure you wish to proceed?", preferredStyle: .Alert)
+        
+        // Create the actions
+        var okAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {
+            UIAlertAction in
+            print("Delete acct")
+        }
+        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+            UIAlertAction in
+            print("Cancel Pressed")
+        }
+        
+        // Add the actions
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the controller
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+    }
     @IBOutlet weak var firstName: UILabel!
     @IBOutlet weak var lastName: UILabel!
     @IBOutlet weak var phoneNum: UILabel!

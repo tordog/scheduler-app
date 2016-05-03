@@ -127,6 +127,37 @@ class EventDetailsVC: UIViewController {
             svc.numSectionsToPass = nSec
             
         }
+        if(segue.identifier == "toEmail"){
+            let svc = segue.destinationViewController as! emailVC;
+//            var event = EKEvent(eventStore: self.eventStore)
+//            event.title = self.eTitle
+//            event.startDate = self.eventStart
+//            event.endDate = self.eventEnd
+//            //get default calendar: http://stackoverflow.com/questions/28379603/how-to-add-an-event-in-the-device-calendar-using-swift
+//            event.calendar = self.eventStore.defaultCalendarForNewEvents
+//            svc.eventToPass = event
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd'T'HHmmss"
+            let date = dateFormatter.stringFromDate(self.eventStart)
+            let date2 = dateFormatter.stringFromDate(self.eventEnd)
+            
+            //let temp = "VERSION:2.0\r\nBEGIN:VCALENDAR\r\nMETHOD:REQUEST\r\nBEGIN:VEVENT\r\nORGANIZER;CN=Foo:mailto:foo@bar.com\r\nDTSTART;TZID=\(NSTimeZone.localTimeZone()):\(date)\r\nDTEND;TZID=\(NSTimeZone.localTimeZone()):\(date2)\r\nDTSTAMP:20140129T144300Z\r\nSUMMARY:\(self.eTitle)\r\nDESCRIPTION:\r\nEND:VEVENT\r\nEND:VCALENDAR"'
+            
+            
+            
+            
+            //let temp = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Microsoft Corporation//Outlook 14.0 MIMEDIR//EN\r\nMETHOD:REQUEST\r\nBEGIN:VEVENT\r\nDTSTART;TZID=\(NSTimeZone.localTimeZone()):\(date)\r\nDTEND;TZID=\(NSTimeZone.localTimeZone()):\(date2)\r\nORGANIZER;CN=Foo:mailto:foo@bar.com\r\nATTENDEE;RSVP=YES\r\nSUMMARY:\(self.eTitle)\r\nEND:VEVENT\r\nEND:VCALENDAR"
+                
+            let temp = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Google Inc//Google Calendar 70.9054//EN\r\nMETHOD:PUBLISH\r\nBEGIN:VEVENT\r\nDTSTART;TZID=\(NSTimeZone.localTimeZone()):\(date)\r\nDTEND;TZID=\(NSTimeZone.localTimeZone()):\(date2)\r\nORGANIZER;CN=Foo:mailto:foo@bar.com\r\nSTATUS:CONFIRMED\r\nSUMMARY:\(self.eTitle)\r\nEND:VEVENT\r\nEND:VCALENDAR"
+            
+            svc.tryingToPass = temp
+            
+            
+        }
+        
+
+        
 
         
         // Get the new view controller using segue.destinationViewController.
@@ -171,70 +202,70 @@ class EventDetailsVC: UIViewController {
                         
                         self.status = "true"
                         
-                        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(userID)/calendars")
-                        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                            if let iCal = snapshot.value["iCal"] as? Bool {
-                                if(iCal == true){
-                                    if(self.checkCalendarAuthorizationStatus()) {
-                                        // Create Event
-                                        
-                                        var event = EKEvent(eventStore: self.eventStore)
-                                        
-                                        event.title = self.eTitle
-                                        event.startDate = self.eventStart
-                                        event.endDate = self.eventEnd
-                                        //get default calendar: http://stackoverflow.com/questions/28379603/how-to-add-an-event-in-the-device-calendar-using-swift
-                                        event.calendar = self.eventStore.defaultCalendarForNewEvents
-                                        
-                                        self.insertEvent(self.eventStore, event: event)
-                                        
-                                    }
-                                    
-                                }
-                            }
-                            if let google = snapshot.value["googleSync"] as? Bool {
-                                if(google == true) {
-                                    print("Google is true")
-                                    //Check that user is logged into her google acct
-                                    if let auth = GTMOAuth2ViewControllerTouch.authForGoogleFromKeychainForName(
-                                        self.kKeychainItemName,
-                                        clientID: self.kClientID,
-                                        clientSecret: nil) {
-                                            auth.accessToken = nil;
-                                            auth.refreshToken = nil;
-                                            self.service.authorizer = auth
-                                    }
-                                    if let authorizer = self.service.authorizer,
-                                        canAuth = authorizer.canAuthorize where canAuth {
-                                            //create Event
-                                            
-                                            let event = GTLCalendarEvent()
-                                            event.summary = self.eTitle
-                                            event.descriptionProperty = self.eDescription
-                                            let cal = GTLCalendarEventDateTime()
-                                            let cal2 = GTLCalendarEventDateTime()
-                                            
-                                            let startDateTime: GTLDateTime = GTLDateTime(date: self.eventStart, timeZone: NSTimeZone.localTimeZone())
-                                            let endDateTime: GTLDateTime = GTLDateTime(date: self.eventEnd, timeZone: NSTimeZone.localTimeZone())
-                                            
-                                            event.start = cal
-                                            event.start.dateTime = startDateTime
-                                            event.end = cal2
-                                            event.end.dateTime = endDateTime
-
-                                            self.addEvent(event)
-                                    } else {
-                                        self.presentViewController(
-                                            self.createAuthController(),
-                                            animated: true,
-                                            completion: nil
-                                        )
-                                    }
-                                    
-                                    
-                                }
-                            }
-                        })
+//                        let ref = Firebase(url: "https://scheduler-base.firebaseio.com/users/\(userID)/calendars")
+//                        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
+//                            if let iCal = snapshot.value["iCal"] as? Bool {
+//                                if(iCal == true){
+//                                    if(self.checkCalendarAuthorizationStatus()) {
+//                                        // Create Event
+//                                        
+//                                        var event = EKEvent(eventStore: self.eventStore)
+//                                        
+//                                        event.title = self.eTitle
+//                                        event.startDate = self.eventStart
+//                                        event.endDate = self.eventEnd
+//                                        //get default calendar: http://stackoverflow.com/questions/28379603/how-to-add-an-event-in-the-device-calendar-using-swift
+//                                        event.calendar = self.eventStore.defaultCalendarForNewEvents
+//                                        
+//                                        self.insertEvent(self.eventStore, event: event)
+//                                        
+//                                    }
+//                                    
+//                                }
+//                            }
+//                            if let google = snapshot.value["googleSync"] as? Bool {
+//                                if(google == true) {
+//                                    print("Google is true")
+//                                    //Check that user is logged into her google acct
+//                                    if let auth = GTMOAuth2ViewControllerTouch.authForGoogleFromKeychainForName(
+//                                        self.kKeychainItemName,
+//                                        clientID: self.kClientID,
+//                                        clientSecret: nil) {
+//                                            auth.accessToken = nil;
+//                                            auth.refreshToken = nil;
+//                                            self.service.authorizer = auth
+//                                    }
+//                                    if let authorizer = self.service.authorizer,
+//                                        canAuth = authorizer.canAuthorize where canAuth {
+//                                            //create Event
+//                                            
+//                                            let event = GTLCalendarEvent()
+//                                            event.summary = self.eTitle
+//                                            event.descriptionProperty = self.eDescription
+//                                            let cal = GTLCalendarEventDateTime()
+//                                            let cal2 = GTLCalendarEventDateTime()
+//                                            
+//                                            let startDateTime: GTLDateTime = GTLDateTime(date: self.eventStart, timeZone: NSTimeZone.localTimeZone())
+//                                            let endDateTime: GTLDateTime = GTLDateTime(date: self.eventEnd, timeZone: NSTimeZone.localTimeZone())
+//                                            
+//                                            event.start = cal
+//                                            event.start.dateTime = startDateTime
+//                                            event.end = cal2
+//                                            event.end.dateTime = endDateTime
+//
+//                                            self.addEvent(event)
+//                                    } else {
+//                                        self.presentViewController(
+//                                            self.createAuthController(),
+//                                            animated: true,
+//                                            completion: nil
+//                                        )
+//                                    }
+//                                    
+//                                    
+//                                }
+//                            }
+//                        })
                         
                     
                         let ref3 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events/\(self.eventID)")
@@ -249,7 +280,8 @@ class EventDetailsVC: UIViewController {
                                 //add eventID: true
                                 var infoToAdd = [self.eventID: true]
                                 ref4.updateChildValues(infoToAdd)
-                                self.performSegueWithIdentifier("backToCalendar", sender: nil)
+                                //self.performSegueWithIdentifier("backToCalendar", sender: nil)
+                                self.performSegueWithIdentifier("toEmail", sender: nil)
                             } else {
                                 self.showErrorAlert("Alert", msg: "You have already signed up for this time slot!")
                             }
@@ -434,15 +466,7 @@ class EventDetailsVC: UIViewController {
         
     }
     
+    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
