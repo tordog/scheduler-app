@@ -38,8 +38,8 @@ class GoogleController: UIViewController {
             kKeychainItemName,
             clientID: kClientID,
             clientSecret: nil) {
-//                auth.accessToken = nil;
-//                auth.refreshToken = nil;
+                auth.accessToken = nil;
+                auth.refreshToken = nil;
                 service.authorizer = auth
         }
         

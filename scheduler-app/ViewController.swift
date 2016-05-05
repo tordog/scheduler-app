@@ -87,36 +87,6 @@ class ViewController: UIViewController {
 
         
     }
-    
-//    func showErrorAlert(title: String, msg: String) {
-//        let alert = UIAlertController(title: title, message: msg, preferredStyle: .Alert)
-//        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-//        alert.addAction(action)
-//        presentViewController(alert, animated:true, completion: nil)
-//    }
-    
-    
-//    func didTapButton(sender: AnyObject) {
-//        let digits = Digits.sharedInstance()
-//        let configuration = DGTAuthenticationConfiguration(accountFields: .DefaultOptionMask)
-//        configuration.phoneNumber = "+1"
-//        digits.authenticateWithViewController(nil, configuration: configuration) { session, error in
-//            // Country selector will be set to US
-//            if(session != nil){
-//                self.phoneNum = session.phoneNumber
-//                self.signUpBtn.setTitle("Continue", forState: .Normal)
-//                self.performSegueWithIdentifier("beginSignUp", sender: nil)
-//                print("successful number verification")
-//                print("number: \(session.phoneNumber)")
-//            }
-//            else {
-//                print("Error verifying phone number")
-//            }
-//            
-//        }
-//        
-//
-//    }
 
 }
 

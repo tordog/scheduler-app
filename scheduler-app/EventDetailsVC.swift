@@ -129,39 +129,26 @@ class EventDetailsVC: UIViewController {
         }
         if(segue.identifier == "toEmail"){
             let svc = segue.destinationViewController as! emailVC;
-//            var event = EKEvent(eventStore: self.eventStore)
-//            event.title = self.eTitle
-//            event.startDate = self.eventStart
-//            event.endDate = self.eventEnd
-//            //get default calendar: http://stackoverflow.com/questions/28379603/how-to-add-an-event-in-the-device-calendar-using-swift
-//            event.calendar = self.eventStore.defaultCalendarForNewEvents
-//            svc.eventToPass = event
+            
+            svc.groupIDToPass = groupID
+            svc.numSectionsToPass = nSec
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyyMMdd'T'HHmmss"
             let date = dateFormatter.stringFromDate(self.eventStart)
             let date2 = dateFormatter.stringFromDate(self.eventEnd)
             
-            //let temp = "VERSION:2.0\r\nBEGIN:VCALENDAR\r\nMETHOD:REQUEST\r\nBEGIN:VEVENT\r\nORGANIZER;CN=Foo:mailto:foo@bar.com\r\nDTSTART;TZID=\(NSTimeZone.localTimeZone()):\(date)\r\nDTEND;TZID=\(NSTimeZone.localTimeZone()):\(date2)\r\nDTSTAMP:20140129T144300Z\r\nSUMMARY:\(self.eTitle)\r\nDESCRIPTION:\r\nEND:VEVENT\r\nEND:VCALENDAR"'
-            
-            
-            
-            
-            //let temp = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Microsoft Corporation//Outlook 14.0 MIMEDIR//EN\r\nMETHOD:REQUEST\r\nBEGIN:VEVENT\r\nDTSTART;TZID=\(NSTimeZone.localTimeZone()):\(date)\r\nDTEND;TZID=\(NSTimeZone.localTimeZone()):\(date2)\r\nORGANIZER;CN=Foo:mailto:foo@bar.com\r\nATTENDEE;RSVP=YES\r\nSUMMARY:\(self.eTitle)\r\nEND:VEVENT\r\nEND:VCALENDAR"
                 
-            let temp = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Google Inc//Google Calendar 70.9054//EN\r\nMETHOD:PUBLISH\r\nBEGIN:VEVENT\r\nDTSTART;TZID=\(NSTimeZone.localTimeZone()):\(date)\r\nDTEND;TZID=\(NSTimeZone.localTimeZone()):\(date2)\r\nORGANIZER;CN=Foo:mailto:foo@bar.com\r\nSTATUS:CONFIRMED\r\nSUMMARY:\(self.eTitle)\r\nEND:VEVENT\r\nEND:VCALENDAR"
+            let temp = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Google Inc//Google Calendar 70.9054//EN\r\nMETHOD:PUBLISH\r\nBEGIN:VEVENT\r\nDTSTART;TZID=\(NSTimeZone.localTimeZone()):\(date)\r\nDTEND;TZID=\(NSTimeZone.localTimeZone()):\(date2)\r\nORGANIZER;CN=TimeSlots:mailto:app@timeslots.com\r\nSTATUS:CONFIRMED\r\nSUMMARY:\(self.eTitle)\r\nEND:VEVENT\r\nEND:VCALENDAR"
+    
             
             svc.tryingToPass = temp
+            
+            svc.subjectToPass = self.eTitle
             
             
         }
         
-
-        
-
-        
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
     
 
@@ -269,9 +256,13 @@ class EventDetailsVC: UIViewController {
                         
                     
                         let ref3 = Firebase(url: "https://scheduler-base.firebaseio.com/signups/\(userID)/\(self.groupID)/events/\(self.eventID)")
-                        ref3.observeEventType(.Value, withBlock: { snapshot in
+                        ref3.observeSingleEventOfType(.Value, withBlock: {snapshot in
+                        
+                        //ref3.observeEventType(.Value, withBlock: { snapshot in
                         
                             if snapshot.value is NSNull {
+                                print("TORDOG: ")
+                                print(snapshot.value)
                                 var updateSignUps = ref2.childByAppendingPath("signups")
                                 updateSignUps.updateChildValues([userID: true])
                                 
@@ -282,8 +273,10 @@ class EventDetailsVC: UIViewController {
                                 ref4.updateChildValues(infoToAdd)
                                 //self.performSegueWithIdentifier("backToCalendar", sender: nil)
                                 self.performSegueWithIdentifier("toEmail", sender: nil)
+                                //ref3.removeAllObservers()
                             } else {
                                 self.showErrorAlert("Alert", msg: "You have already signed up for this time slot!")
+                                //ref3.removeAllObservers()
                             }
                         
                         })

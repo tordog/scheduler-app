@@ -48,14 +48,14 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             var groupMemberInfo = Dictionary<String, Bool>()
             //add all member uids to groupid/members
             for (_, uid) in members {
+                print("\(uid) = \(adminStatus[uid])")
                 groupMemberInfo[uid] = adminStatus[uid]
             }
             
             //add group id to user's DB
             for (_, uid) in members {
                 let ref = Firebase(url:"https://scheduler-base.firebaseio.com/users/\(uid)/groups")
-                //TODO: check that uid exists
-                //insert group id and admin status to user's groups
+                print("\(uid) = \(adminStatus[uid])")
                 let groupsInfo: Dictionary<String, Bool> = [groupid: adminStatus[uid]!]
                 ref.updateChildValues(groupsInfo)
                 
@@ -82,6 +82,7 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 if !snapshot.exists() {
                     print("Error")
+                    ref.removeAllObservers()
                 } else {
                     print(snapshot.value)
                     self.currentPhoneNum = snapshot.value as! String
@@ -89,7 +90,9 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                     self.memberPhoneNumbers.append(self.currentPhoneNum)
                     self.adminStatus[self.currentUID!]=false
                     self.tableView.reloadData()
+                    ref.removeAllObservers()
                 }
+                
             })
             self.tableView.allowsMultipleSelection = true
         }
@@ -117,66 +120,57 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         cell.selectedBackgroundView = backgroundView
         return cell
     }
-    
-    
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        var selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
-//        selectedCell.contentView.backgroundColor = UIColor.redColor()
-//    }
-//    
-//    // if tableView is set in attribute inspector with selection to multiple Selection it should work.
-//    
-//    // Just set it back in deselect
-//    
+   
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         var cellToDeSelect:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
         let phoneNum = cellToDeSelect.textLabel?.text
-        //fudge it's making me get the uid ok that makes sense
         let aString: String = phoneNum!
         let newString = aString.stringByReplacingOccurrencesOfString("+", withString: "%2B")
         let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(newString)")
-        ref.observeEventType(.Value, withBlock: { snapshot in
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             if !snapshot.exists() {
-                print("Error, this phone number does not exist")
+                self.showErrorAlert("Error", msg: "Error, this phone number does not exist")
             } else {
                 //get user's uid
                 if let addUID = snapshot.value["uid"] {
                     let addUID = addUID as! String
+                    print("\(addUID) = False")
                     self.adminStatus[addUID] = false
                 }
                 else {
-                    print("Internal error. UID does not exist for this phone number")
+                    self.showErrorAlert("Error", msg: "Internal error. UID does not exist for this phone number")
                 }
             }
-            }, withCancelBlock: { error in
+            ref.removeAllObservers()
+        }, withCancelBlock: { error in
                 print(error.description)
         })
-
         
-        print("Deselecting: \(cellToDeSelect.textLabel!.text)")
+
     }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let indexPath = tableView.indexPathForSelectedRow!
+        //let indexPath = tableView.indexPathForSelectedRow!
         
-        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        var cellToSelect:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
         
-        let phoneNum = currentCell.textLabel!.text!
+        //let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
         
-        print("Selecting: \(phoneNum)")
+        let phoneNum = cellToSelect.textLabel!.text!
+        print("phoneNum of selected = \(phoneNum)")
         
         let aString: String = phoneNum
         let newString = aString.stringByReplacingOccurrencesOfString("+", withString: "%2B")
         let ref = Firebase(url:"https://scheduler-base.firebaseio.com/phonenumbers/\(newString)")
-        ref.observeEventType(.Value, withBlock: { snapshot in
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             if !snapshot.exists() {
                 print("Error, this phone number does not exist")
             } else {
                 //get user's uid
                 if let addUID = snapshot.value["uid"] {
                     let addUID = addUID as! String
-
+                    print("Admin \(addUID) = true")
                     self.adminStatus[addUID] = true
                     
                 }
@@ -184,6 +178,7 @@ class AdminSetupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                     print("Internal error. UID does not exist for this phone number")
                 }
             }
+            ref.removeAllObservers()
             }, withCancelBlock: { error in
                 print(error.description)
         })
